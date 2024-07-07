@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is a one-page application built using React.js, styled with CSS-in-JS (styled-components). The theme of the application is Star Wars, and it includes various reusable components styled professionally. The project adheres to best practices and conventions discussed in the course.
+This project is a one-page application built using React.js, styled with CSS-in-JS (styled-components). The theme of the application is Star Wars, and it includes various reusable components styled professionally. The project adheres to best practices and conventions.
 
 ## Features
 
@@ -58,7 +58,6 @@ This project is a one-page application built using React.js, styled with CSS-in-
     - Master branch contains only a `README.md` file.
     - Development done on the `dev` branch.
     - Final submission on the `01_Components` branch.
-3. **GitHub**: Add the instructor to the GitHub repository and provide a link for submission.
 
 ## How to Run the Project
 
