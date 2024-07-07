@@ -2,45 +2,50 @@ import React from 'react';
 import styled from 'styled-components';
 import { FaSearch, FaUser, FaCog } from 'react-icons/fa';
 
-const HeaderWrapper = styled.header({
-  background: 'linear-gradient(to right, #3498db, #2ecc71)',
-  padding: '1rem 2rem',
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center'
-});
+const HeaderWrapper = styled.header`
+  background: linear-gradient(to right, #1E90FF, #FFD700); // Star Wars blue and gold
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'helvetica neue', helvetica, arial, sans-serif;
+`;
 
-const Logo = styled.h1({
-  color: 'white',
-  fontSize: '1.5rem',
-  fontWeight: 'bold'
-});
+const Logo = styled.h1`
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+`;
 
-const SearchContainer = styled.div({
-  display: 'flex',
-  alignItems: 'center',
-  backgroundColor: 'rgba(255, 255, 255, 0.2)',
-  borderRadius: '20px',
-  padding: '0.5rem 1rem'
-});
+const SearchContainer = styled.div`
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+`;
 
-const SearchInput = styled.input({
-  background: 'transparent',
-  border: 'none',
-  color: 'white',
-  marginLeft: '0.5rem'
-});
+const SearchInput = styled.input`
+  background: transparent;
+  border: none;
+  color: white;
+  margin-left: 0.5rem;
 
-const IconContainer = styled.div({
-  display: 'flex',
-  gap: '1rem'
-});
+  &:focus {
+    outline: none;
+  }
+`;
 
-const IconWrapper = styled.div({
-  color: 'white',
-  fontSize: '1.2rem',
-  cursor: 'pointer'
-});
+const IconContainer = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+
+const IconWrapper = styled.div`
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+`;
 
 const Header = ({ title }) => (
   <HeaderWrapper>

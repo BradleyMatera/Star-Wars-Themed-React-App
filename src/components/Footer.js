@@ -1,97 +1,114 @@
 import React from 'react';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
+import styled from 'styled-components';
+
+const FooterContainer = styled.footer`
+  background: linear-gradient(135deg, #2980b9, #2c3e50);
+  color: #fff;
+  padding: 40px 20px 20px;
+  font-family: 'helvetica neue', helvetica, arial, sans-serif;
+`;
+
+const Content = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+`;
+
+const Section = styled.div`
+  flex-basis: 22%;
+  margin-bottom: 20px;
+`;
+
+const SectionTitle = styled.h3`
+  font-size: 18px;
+  margin-bottom: 15px;
+`;
+
+const SectionText = styled.p`
+  font-size: 14px;
+  line-height: 1.5;
+`;
+
+const LinkList = styled.ul`
+  list-style: none;
+  padding: 0;
+`;
+
+const LinkItem = styled.li`
+  margin-bottom: 10px;
+`;
+
+const Link = styled.a`
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 1.8;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const SocialIcons = styled.div`
+  display: flex;
+`;
+
+const IconWrapper = styled.div`
+  font-size: 20px;
+  margin-right: 15px;
+  cursor: pointer;
+`;
+
+const BottomBar = styled.div`
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 20px;
+  padding-top: 20px;
+  text-align: center;
+`;
+
+const Copyright = styled.p`
+  font-size: 14px;
+`;
 
 const Footer = () => {
   return (
-    <footer style={styles.footer}>
-      <div style={styles.content}>
-        <div style={styles.section}>
-          <h3 style={styles.sectionTitle}>About Us</h3>
-          <p style={styles.sectionText}>We are dedicated to providing innovative solutions for your business needs.</p>
-        </div>
-        <div style={styles.section}>
-          <h3 style={styles.sectionTitle}>Quick Links</h3>
-          <ul style={styles.linkList}>
-            <li><a href="/terms" style={styles.link}>Terms of Service</a></li>
-            <li><a href="/privacy" style={styles.link}>Privacy Policy</a></li>
-            <li><a href="/faq" style={styles.link}>FAQ</a></li>
-          </ul>
-        </div>
-        <div style={styles.section}>
-          <h3 style={styles.sectionTitle}>Contact Us</h3>
-          <p style={styles.sectionText}>Email: info@example.com</p>
-          <p style={styles.sectionText}>Phone: (123) 456-7890</p>
-        </div>
-        <div style={styles.section}>
-          <h3 style={styles.sectionTitle}>Follow Us</h3>
-          <div style={styles.socialIcons}>
-            <FaFacebookF style={styles.icon} />
-            <FaTwitter style={styles.icon} />
-            <FaLinkedinIn style={styles.icon} />
-            <FaInstagram style={styles.icon} />
-          </div>
-        </div>
-      </div>
-      <div style={styles.bottomBar}>
-        <p style={styles.copyright}>&copy; 2024 Your Company Name. All rights reserved.</p>
-      </div>
-    </footer>
+    <FooterContainer>
+      <Content>
+        <Section>
+          <SectionTitle>About Us</SectionTitle>
+          <SectionText>TempleChat in located in a galaxy far far away.</SectionText>
+        </Section>
+        <Section>
+          <SectionTitle>Quick Links</SectionTitle>
+          <LinkList>
+            <LinkItem><Link href="/terms">Terms of Service</Link></LinkItem>
+            <LinkItem><Link href="/privacy">Privacy Policy</Link></LinkItem>
+            <LinkItem><Link href="/faq">FAQ</Link></LinkItem>
+          </LinkList>
+        </Section>
+        <Section>
+          <SectionTitle>Contact Us</SectionTitle>
+          <SectionText>Email: info@example.com</SectionText>
+          <SectionText>Phone: (123) 456-7890</SectionText>
+        </Section>
+        <Section>
+          <SectionTitle>Follow Us</SectionTitle>
+          <SocialIcons>
+            <IconWrapper><FaFacebookF /></IconWrapper>
+            <IconWrapper><FaTwitter /></IconWrapper>
+            <IconWrapper><FaLinkedinIn /></IconWrapper>
+            <IconWrapper><FaInstagram /></IconWrapper>
+          </SocialIcons>
+        </Section>
+      </Content>
+      <BottomBar>
+        <Copyright>&copy; 2024 Your Company Name. All rights reserved.</Copyright>
+      </BottomBar>
+    </FooterContainer>
   );
-};
-
-const styles = {
-  footer: {
-    background: 'linear-gradient(135deg, #2980b9, #2c3e50)',
-    color: '#fff',
-    padding: '40px 20px 20px',
-    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-  },
-  content: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    maxWidth: '1200px',
-    margin: '0 auto',
-  },
-  section: {
-    flexBasis: '22%',
-    marginBottom: '20px',
-  },
-  sectionTitle: {
-    fontSize: '18px',
-    marginBottom: '15px',
-  },
-  sectionText: {
-    fontSize: '14px',
-    lineHeight: '1.5',
-  },
-  linkList: {
-    listStyle: 'none',
-    padding: 0,
-  },
-  link: {
-    color: '#fff',
-    textDecoration: 'none',
-    fontSize: '14px',
-    lineHeight: '1.8',
-  },
-  socialIcons: {
-    display: 'flex',
-  },
-  icon: {
-    fontSize: '20px',
-    marginRight: '15px',
-    cursor: 'pointer',
-  },
-  bottomBar: {
-    borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-    marginTop: '20px',
-    paddingTop: '20px',
-    textAlign: 'center',
-  },
-  copyright: {
-    fontSize: '14px',
-  },
 };
 
 export default Footer;

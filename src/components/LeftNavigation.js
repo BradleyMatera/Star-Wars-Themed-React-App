@@ -8,44 +8,49 @@ const NavWrapper = styled.nav`
   left: ${props => props.$isOpen ? '0' : '-240px'};
   width: 240px;
   height: calc(100vh - 60px);
-  background-color: #f6f8fa;
+  background-color: #2c3e50;
   transition: left 0.3s ease-in-out;
   z-index: 1000;
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
 `;
 
-const NavList = styled.ul({
-  listStyleType: 'none',
-  padding: '20px 0',
-  margin: 0
-});
+const NavList = styled.ul`
+  list-style-type: none;
+  padding: 20px 0;
+  margin: 0;
+`;
 
-const NavItem = styled.li({
-  padding: '10px 20px'
-});
+const NavItem = styled.li`
+  padding: 10px 20px;
+`;
 
-const NavLink = styled.a({
-  display: 'flex',
-  alignItems: 'center',
-  color: '#333',
-  textDecoration: 'none',
-  fontSize: '16px'
-});
+const NavLink = styled.a`
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 16px;
 
-const IconWrapper = styled.span({
-  marginRight: '10px'
-});
+  &:hover {
+    color: #FFD700; // Gold hover effect
+  }
+`;
 
-const HamburgerButton = styled.button({
-  position: 'fixed',
-  top: '70px',
-  left: '10px',
-  zIndex: 1001,
-  background: 'none',
-  border: 'none',
-  fontSize: '24px',
-  cursor: 'pointer'
-});
+const IconWrapper = styled.span`
+  margin-right: 10px;
+`;
+
+const HamburgerButton = styled.button`
+  position: fixed;
+  top: 70px;
+  left: 10px;
+  z-index: 1001;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #ffffff;
+`;
 
 const LeftNavigation = ({ isOpen, toggleMenu }) => (
   <>

@@ -5,7 +5,6 @@ export const API_KEYS = {
     UNSPLASH_SECRET_KEY: 'M1YMY3QqTTmlfgLHd15oXiQRlf4yKPsDG4YW8HmHqvw',
 };
 
-
 export const fetchGif = (searchTerm) => {
     const url = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEYS.GIPHY_API_KEY}&q=${searchTerm}&limit=1`;
     return fetch(url)
@@ -54,4 +53,37 @@ export const translateText = (text, targetLanguage) => {
             target: targetLanguage
         })
     }).then(response => response.json());
+};
+
+// Fetch Star Wars characters from SWAPI
+export const fetchStarWarsCharacters = () => {
+    const url = 'https://swapi.dev/api/people/';
+    return fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => data.results)
+        .catch(error => {
+            console.error('Error fetching Star Wars characters:', error);
+            return [];
+        });
+};
+
+// Fetch Star Wars images from the Star Wars Images API
+export const fetchStarWarsImages = () => {
+    const url = 'https://akabab.github.io/starwars-api/api/all.json';
+    return fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .catch(error => {
+            console.error('Error fetching Star Wars images:', error);
+            return [];
+        });
 };
