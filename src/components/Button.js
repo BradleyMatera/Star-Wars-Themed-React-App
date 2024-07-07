@@ -1,27 +1,39 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledButton = styled.button`
-  background-color: ${props => props.$primary ? '#1E90FF' : '#FFD700'};
-  color: ${props => props.$primary ? '#fff' : '#000'};
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+const PrimaryButton = styled.button({
+  backgroundColor: '#1E90FF',
+  color: '#fff',
+  border: 'none',
+  padding: '10px 20px',
+  borderRadius: '5px',
+  fontSize: '16px',
+  cursor: 'pointer',
+  transition: 'background-color 0.3s',
+  '&:hover': {
+    backgroundColor: '#104E8B',
+  },
+});
 
-  &:hover {
-    background-color: ${props => props.$primary ? '#104E8B' : '#DAA520'};
-  }
-`;
+const SecondaryButton = styled.button({
+  backgroundColor: '#FFD700',
+  color: '#000',
+  border: 'none',
+  padding: '10px 20px',
+  borderRadius: '5px',
+  fontSize: '16px',
+  cursor: 'pointer',
+  transition: 'background-color 0.3s',
+  '&:hover': {
+    backgroundColor: '#DAA520',
+  },
+});
 
 const Button = ({ children, primary, onClick }) => {
-  return (
-    <StyledButton $primary={primary} onClick={onClick}>
-      {children}
-    </StyledButton>
-  );
+  if (primary) {
+    return <PrimaryButton onClick={onClick}>{children}</PrimaryButton>;
+  }
+  return <SecondaryButton onClick={onClick}>{children}</SecondaryButton>;
 };
 
 export default Button;
