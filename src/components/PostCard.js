@@ -31,7 +31,7 @@ const UserInfo = styled.div({
 
 const UserName = styled.span({
   fontWeight: 'bold',
-  color: '000066',
+  color: '#FFD700', // Gold for username
 });
 
 const Timestamp = styled.span({
@@ -46,13 +46,13 @@ const Content = styled.p({
 const ActionButton = styled.button({
   background: 'none',
   border: 'none',
-  color: '#1E90FF',
+  color: '#1E90FF', // Blue for action buttons
   cursor: 'pointer',
   marginRight: '1rem',
   fontWeight: '500',
 
   '&:hover': {
-    color: '#FF0000',
+    color: '#FF0000', // Red on hover
   },
 });
 
@@ -66,10 +66,6 @@ const CommentInput = styled.input({
   border: '1px solid #ddd',
   borderRadius: '4px',
   marginBottom: '0.5rem',
-  color: '#495057',
-  '&:focus': {
-    outline: 'none',
-  },
 });
 
 const Comment = styled.div({
@@ -77,20 +73,26 @@ const Comment = styled.div({
   borderRadius: '4px',
   padding: '0.5rem',
   marginBottom: '0.5rem',
-  color: '#495057',
-  display: 'flex',
-  alignItems: 'center',
 });
 
-const PostCard = ({ avatar, username, timestamp, content, comments, onAddComment }) => {
+const PostCard = ({ avatar, username, timestamp, content, comments, onAddComment, onDelete, onEdit }) => {
   const [newComment, setNewComment] = useState('');
   const [showComments, setShowComments] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedContent, setEditedContent] = useState(content);
 
   const handleAddComment = () => {
     if (newComment.trim()) {
       onAddComment(newComment);
       setNewComment('');
     }
+  };
+
+  const handleEdit = () => {
+    if (isEditing) {
+      onEdit(editedContent);
+    }
+    setIsEditing(!isEditing);
   };
 
   return (
@@ -102,12 +104,20 @@ const PostCard = ({ avatar, username, timestamp, content, comments, onAddComment
           <Timestamp>{timestamp}</Timestamp>
         </UserInfo>
       </PostHeader>
-      <Content>{content}</Content>
+      {isEditing ? (
+        <textarea
+          value={editedContent}
+          onChange={(e) => setEditedContent(e.target.value)}
+          style={{ width: '100%', padding: '0.5rem', borderRadius: '4px' }}
+        />
+      ) : (
+        <Content>{content}</Content>
+      )}
       <div>
-        <ActionButton>
+        <ActionButton onClick={handleEdit}>
           <FaEdit />
         </ActionButton>
-        <ActionButton>
+        <ActionButton onClick={onDelete}>
           <FaTrashAlt />
         </ActionButton>
       </div>

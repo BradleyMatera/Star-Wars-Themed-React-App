@@ -96,6 +96,18 @@ const App = () => {
     );
   };
 
+  const handleDeletePost = (postId) => {
+    setPosts(posts.filter((post) => post.id !== postId));
+  };
+
+  const handleEditPost = (postId, newContent) => {
+    setPosts(
+      posts.map((post) =>
+        post.id === postId ? { ...post, content: newContent } : post
+      )
+    );
+  };
+
   return (
     <AppContainer>
       <Header />
@@ -112,6 +124,8 @@ const App = () => {
               content={post.content}
               comments={post.comments}
               onAddComment={(comment) => handleAddComment(post.id, comment)}
+              onDelete={() => handleDeletePost(post.id)}
+              onEdit={(newContent) => handleEditPost(post.id, newContent)}
             />
           ))}
           <Button primary onClick={() => alert('Primary Button Clicked')}>
