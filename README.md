@@ -66,6 +66,47 @@ This project is a one-page application built using React.js, styled with CSS-in-
 3. Start the development server using `npm start`.
 4. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+
+## Development and Production
+
+### Running the Development Server
+
+To run the development server, use the following command:
+
+
+npm start
+
+
+This will start the development server and open [http://localhost:3000](http://localhost:3000) in your default web browser. The development server automatically reloads the page whenever you make changes to the source files.
+
+### Building for Production
+
+To create a production build of the project, use the following command:
+
+
+npm run build
+
+
+This will generate an optimized and minified build of the project in the `build` directory. The production build is ready to be deployed to a web server.
+
+### Serving the Production Build
+
+To serve the production build locally, you can use the `serve` package. First, install `serve` globally if you haven't already:
+
+
+npm install -g serve
+
+
+Then, use the following command to serve the production build:
+
+
+serve -s build
+
+
+This will serve the production build at [http://localhost:5000](http://localhost:5000).
+
+
+
 ## Contact
 
 For any queries or issues, contact:
