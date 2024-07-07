@@ -31,7 +31,7 @@ const UserInfo = styled.div({
 
 const UserName = styled.span({
   fontWeight: 'bold',
-  color: '#FFD700', // Gold for username
+  color: '#3333ff', // Gold for username
 });
 
 const Timestamp = styled.span({
@@ -73,6 +73,7 @@ const Comment = styled.div({
   borderRadius: '4px',
   padding: '0.5rem',
   marginBottom: '0.5rem',
+  color: '#333',
 });
 
 const PostCard = ({ avatar, username, timestamp, content, comments, onAddComment, onDelete, onEdit }) => {
