@@ -11,29 +11,29 @@ import { fetchStarWarsCharacters, fetchStarWarsImages } from './apis';
 import LukeSkywalker from './img/LukeSkywalker.jpeg';
 import C3PO from './img/c3PO.jpeg';
 
-const AppContainer = styled.div({
-  backgroundColor: '#1c1c1c', // Dark background for a Star Wars feel
-  color: '#ffffff', // White text for contrast
-  minHeight: '100vh',
-  fontFamily: 'Arial, sans-serif',
-});
+const AppContainer = styled.div`
+  background-color: #1c1c1c; /* Dark background for a Star Wars feel */
+  color: #ffffff; /* White text for contrast */
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+`;
 
-const MainContent = styled.main({
-  display: 'flex',
-  maxWidth: '1200px',
-  margin: '0 auto',
-  padding: '1rem',
-  paddingTop: '70px',
-});
+const MainContent = styled.main`
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  padding-top: 70px;
+`;
 
-const Feed = styled.div({
-  flex: 2,
-  marginRight: '1rem',
-});
+const Feed = styled.div`
+  flex: 2;
+  margin-right: 1rem;
+`;
 
-const Sidebar = styled.aside({
-  flex: 1,
-});
+const Sidebar = styled.aside`
+  flex: 1;
+`;
 
 const App = () => {
   const [posts, setPosts] = useState([]);
