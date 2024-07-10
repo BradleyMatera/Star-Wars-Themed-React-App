@@ -3,6 +3,7 @@ export const API_KEYS = {
     GOOGLE_CLOUD_API_KEY: 'AIzaSyAPo20Rijvv5kgT-edUrYcoz3PWHLKPfxA',
     UNSPLASH_ACCESS_KEY: 'BZ5mhRDKBrlWaG25mxdGH160W57wJAfgEcDAm1LF7z8',
     UNSPLASH_SECRET_KEY: 'M1YMY3QqTTmlfgLHd15oXiQRlf4yKPsDG4YW8HmHqvw',
+    OPENAI_API_KEY: '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',
 };
 
 export const fetchGif = (searchTerm) => {
@@ -86,4 +87,32 @@ export const fetchStarWarsImages = () => {
             console.error('Error fetching Star Wars images:', error);
             return [];
         });
+};
+
+// Fetch content from OpenAI
+export const fetchOpenAIContent = (prompt) => {
+    const url = 'https://api.openai.com/v1/engines/davinci/completions';  // Correcting the endpoint
+    return fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${API_KEYS.OPENAI_API_KEY}`
+        },
+        body: JSON.stringify({
+            prompt: prompt,
+            max_tokens: 100,
+            temperature: 0.7
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => data.choices[0].text)
+    .catch(error => {
+        console.error('Error fetching OpenAI content:', error);
+        return 'Failed to fetch content from OpenAI';
+    });
 };

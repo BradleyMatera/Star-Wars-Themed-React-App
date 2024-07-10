@@ -11,29 +11,95 @@ import { fetchStarWarsCharacters, fetchStarWarsImages } from './apis';
 import LukeSkywalker from './img/LukeSkywalker.jpeg';
 import C3PO from './img/c3PO.jpeg';
 
-const AppContainer = styled.div`
-  background-color: #1c1c1c; /* Dark background for a Star Wars feel */
-  color: #ffffff; /* White text for contrast */
-  min-height: 100vh;
-  font-family: Arial, sans-serif;
+const AppContainer = styled.div({
+  backgroundColor: '#1c1c1c', // Dark background for a Star Wars feel
+  color: '#ffffff', // White text for contrast
+  minHeight: '100vh',
+  fontFamily: 'Arial, sans-serif',
+});
+
+const MainContent = styled.main({
+  display: 'flex',
+  maxWidth: '1200px',
+  margin: '0 auto',
+  padding: '1rem',
+  paddingTop: '70px',
+});
+
+const Feed = styled.div({
+  flex: 2,
+  marginRight: '1rem',
+});
+
+const Sidebar = styled.aside({
+  flex: 1,
+});
+
+// Commented out AI posts generation functionality
+/*
+const AIGeneratedPostsContainer = styled.div`
+  margin: 20px 0;
 `;
 
-const MainContent = styled.main`
-  display: flex;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1rem;
-  padding-top: 70px;
-`;
+const AIGeneratedPosts = () => {
+  const [posts, setPosts] = useState([]);
 
-const Feed = styled.div`
-  flex: 2;
-  margin-right: 1rem;
-`;
+  useEffect(() => {
+    const generatePosts = async () => {
+      try {
+        const prompt1 = 'Generate a Star Wars themed social media post.';
+        const prompt2 = 'Generate another Star Wars themed social media post.';
 
-const Sidebar = styled.aside`
-  flex: 1;
-`;
+        const post1 = await fetchOpenAIContent(prompt1);
+        const post2 = await fetchOpenAIContent(prompt2);
+
+        const generatedPosts = [
+          {
+            id: 1,
+            avatar: 'https://via.placeholder.com/40', // Replace with Star Wars themed avatar
+            username: 'AI Generated User 1',
+            timestamp: 'Just now',
+            content: post1,
+            comments: [],
+          },
+          {
+            id: 2,
+            avatar: 'https://via.placeholder.com/40', // Replace with Star Wars themed avatar
+            username: 'AI Generated User 2',
+            timestamp: 'Just now',
+            content: post2,
+            comments: [],
+          },
+        ];
+
+        setPosts(generatedPosts);
+      } catch (error) {
+        console.error('Error generating AI posts:', error);
+      }
+    };
+
+    generatePosts();
+  }, []);
+
+  return (
+    <AIGeneratedPostsContainer>
+      {posts.map(post => (
+        <PostCard
+          key={post.id}
+          avatar={post.avatar}
+          username={post.username}
+          timestamp={post.timestamp}
+          content={post.content}
+          comments={post.comments}
+          onAddComment={() => {}} // Implement if needed
+          onDelete={() => {}} // Implement if needed
+          onEdit={() => {}} // Implement if needed
+        />
+      ))}
+    </AIGeneratedPostsContainer>
+  );
+};
+*/
 
 const App = () => {
   const [posts, setPosts] = useState([]);
@@ -115,6 +181,7 @@ const App = () => {
       <MainContent>
         <Feed>
           <Form onSubmit={handleAddPost} />
+          {/* <AIGeneratedPosts /> */}
           {posts.map((post) => (
             <PostCard
               key={post.id}
