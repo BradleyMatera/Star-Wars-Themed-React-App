@@ -2,80 +2,80 @@ import React from 'react';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
 import styled from 'styled-components';
 
-const FooterContainer = styled.footer({
-   background: 'linear-gradient(to right, #FF0000, #0000FF)',
-  color: '#fff',
-  padding: '40px 20px 20px',
-  fontFamily: "'helvetica neue', helvetica, arial, sans-serif",
-});
+const FooterContainer = styled.footer`
+  background: ${props => props.background || 'linear-gradient(to right, #FF0000, #0000FF)'};
+  color: ${props => props.color || '#fff'};
+  padding: 40px 20px 20px;
+  font-family: 'helvetica neue', helvetica, arial, sans-serif;
+`;
 
-const Content = styled.div({
-  display: 'flex',
-  flexWrap: 'wrap',
-  justifyContent: 'space-between',
-  maxWidth: '1200px',
-  margin: '0 auto',
-});
+const Content = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+`;
 
-const Section = styled.div({
-  flexBasis: '22%',
-  marginBottom: '20px',
-});
+const Section = styled.div`
+  flex-basis: 22%;
+  margin-bottom: 20px;
+`;
 
-const SectionTitle = styled.h3({
-  fontSize: '18px',
-  marginBottom: '15px',
-});
+const SectionTitle = styled.h3`
+  font-size: 18px;
+  margin-bottom: 15px;
+`;
 
-const SectionText = styled.p({
-  fontSize: '14px',
-  lineHeight: '1.5',
-});
+const SectionText = styled.p`
+  font-size: 14px;
+  line-height: 1.5;
+`;
 
-const LinkList = styled.ul({
-  listStyle: 'none',
-  padding: 0,
-});
+const LinkList = styled.ul`
+  list-style: none;
+  padding: 0;
+`;
 
-const LinkItem = styled.li({
-  marginBottom: '10px',
-});
+const LinkItem = styled.li`
+  margin-bottom: 10px;
+`;
 
-const Link = styled.a({
-  color: '#fff',
-  textDecoration: 'none',
-  fontSize: '14px',
-  lineHeight: '1.8',
+const Link = styled.a`
+  color: ${props => props.linkColor || '#fff'};
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 1.8;
 
-  '&:hover': {
-    textDecoration: 'underline',
-  },
-});
+  &:hover {
+    text-decoration: underline;
+  }
+`;
 
-const SocialIcons = styled.div({
-  display: 'flex',
-});
+const SocialIcons = styled.div`
+  display: flex;
+`;
 
-const IconWrapper = styled.div({
-  fontSize: '20px',
-  marginRight: '15px',
-  cursor: 'pointer',
-});
+const IconWrapper = styled.div`
+  font-size: 20px;
+  margin-right: 15px;
+  cursor: pointer;
+`;
 
-const BottomBar = styled.div({
-  borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-  marginTop: '20px',
-  paddingTop: '20px',
-  textAlign: 'center',
-});
+const BottomBar = styled.div`
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 20px;
+  padding-top: 20px;
+  text-align: center;
+`;
 
-const Copyright = styled.p({
-  fontSize: '14px',
-});
+const Copyright = styled.p`
+  font-size: 14px;
+`;
 
-const Footer = () => {
+const Footer = ({ background, color, linkColor }) => {
   return (
-    <FooterContainer>
+    <FooterContainer background={background} color={color}>
       <Content>
         <Section>
           <SectionTitle>About Us</SectionTitle>
@@ -84,9 +84,9 @@ const Footer = () => {
         <Section>
           <SectionTitle>Quick Links</SectionTitle>
           <LinkList>
-            <LinkItem><Link href="/terms">Terms of the Dark Side</Link></LinkItem>
-            <LinkItem><Link href="/privacy">Privacy Policy (We See Everything)</Link></LinkItem>
-            <LinkItem><Link href="/faq">Imperial FAQ</Link></LinkItem>
+            <LinkItem><Link href="/terms" linkColor={linkColor}>Terms of the Dark Side</Link></LinkItem>
+            <LinkItem><Link href="/privacy" linkColor={linkColor}>Privacy Policy (We See Everything)</Link></LinkItem>
+            <LinkItem><Link href="/faq" linkColor={linkColor}>Imperial FAQ</Link></LinkItem>
           </LinkList>
         </Section>
         <Section>

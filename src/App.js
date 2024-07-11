@@ -35,6 +35,72 @@ const Sidebar = styled.aside({
   flex: 1,
 });
 
+// Commented out AI posts generation functionality
+/*
+const AIGeneratedPostsContainer = styled.div`
+  margin: 20px 0;
+`;
+
+const AIGeneratedPosts = () => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const generatePosts = async () => {
+      try {
+        const prompt1 = 'Generate a Star Wars themed social media post.';
+        const prompt2 = 'Generate another Star Wars themed social media post.';
+
+        const post1 = await fetchOpenAIContent(prompt1);
+        const post2 = await fetchOpenAIContent(prompt2);
+
+        const generatedPosts = [
+          {
+            id: 1,
+            avatar: 'https://via.placeholder.com/40', // Replace with Star Wars themed avatar
+            username: 'AI Generated User 1',
+            timestamp: 'Just now',
+            content: post1,
+            comments: [],
+          },
+          {
+            id: 2,
+            avatar: 'https://via.placeholder.com/40', // Replace with Star Wars themed avatar
+            username: 'AI Generated User 2',
+            timestamp: 'Just now',
+            content: post2,
+            comments: [],
+          },
+        ];
+
+        setPosts(generatedPosts);
+      } catch (error) {
+        console.error('Error generating AI posts:', error);
+      }
+    };
+
+    generatePosts();
+  }, []);
+
+  return (
+    <AIGeneratedPostsContainer>
+      {posts.map(post => (
+        <PostCard
+          key={post.id}
+          avatar={post.avatar}
+          username={post.username}
+          timestamp={post.timestamp}
+          content={post.content}
+          comments={post.comments}
+          onAddComment={() => {}} // Implement if needed
+          onDelete={() => {}} // Implement if needed
+          onEdit={() => {}} // Implement if needed
+        />
+      ))}
+    </AIGeneratedPostsContainer>
+  );
+};
+*/
+
 const App = () => {
   const [posts, setPosts] = useState([]);
   const [adImages, setAdImages] = useState([]);
@@ -115,6 +181,7 @@ const App = () => {
       <MainContent>
         <Feed>
           <Form onSubmit={handleAddPost} />
+          {/* <AIGeneratedPosts /> */}
           {posts.map((post) => (
             <PostCard
               key={post.id}

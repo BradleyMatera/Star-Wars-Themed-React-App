@@ -2,81 +2,81 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 
-const Card = styled.div({
-  backgroundColor: '#2c3e50', // Darker background for posts
-  borderRadius: '8px',
-  padding: '1rem',
-  marginBottom: '1rem',
-  boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-  color: '#ffffff', // White text
-});
+const Card = styled.div`
+  background-color: ${props => props.backgroundColor || '#2c3e50'}; // Darker background for posts
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: ${props => props.textColor || '#ffffff'}; // White text
+`;
 
-const PostHeader = styled.div({
-  display: 'flex',
-  alignItems: 'center',
-  marginBottom: '1rem',
-});
+const PostHeader = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+`;
 
-const Avatar = styled.img({
-  width: '40px',
-  height: '40px',
-  borderRadius: '50%',
-  marginRight: '1rem',
-});
+const Avatar = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 1rem;
+`;
 
-const UserInfo = styled.div({
-  display: 'flex',
-  flexDirection: 'column',
-});
+const UserInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
-const UserName = styled.span({
-  fontWeight: 'bold',
-  color: '#3333ff', // Gold for username
-});
+const UserName = styled.span`
+  font-weight: bold;
+  color: ${props => props.usernameColor || '#3333ff'}; // Blue for username
+`;
 
-const Timestamp = styled.span({
-  fontSize: '0.8rem',
-  color: '#777',
-});
+const Timestamp = styled.span`
+  font-size: 0.8rem;
+  color: ${props => props.timestampColor || '#777'};
+`;
 
-const Content = styled.p({
-  marginBottom: '1rem',
-});
+const Content = styled.p`
+  margin-bottom: 1rem;
+`;
 
-const ActionButton = styled.button({
-  background: 'none',
-  border: 'none',
-  color: '#1E90FF', // Blue for action buttons
-  cursor: 'pointer',
-  marginRight: '1rem',
-  fontWeight: '500',
+const ActionButton = styled.button`
+  background: none;
+  border: none;
+  color: ${props => props.buttonColor || '#1E90FF'}; // Blue for action buttons
+  cursor: pointer;
+  margin-right: 1rem;
+  font-weight: 500;
 
-  '&:hover': {
-    color: '#FF0000', // Red on hover
-  },
-});
+  &:hover {
+    color: ${props => props.hoverColor || '#FF0000'}; // Red on hover
+  }
+`;
 
-const CommentSection = styled.div({
-  marginTop: '1rem',
-});
+const CommentSection = styled.div`
+  margin-top: 1rem;
+`;
 
-const CommentInput = styled.input({
-  width: '100%',
-  padding: '0.5rem',
-  border: '1px solid #ddd',
-  borderRadius: '4px',
-  marginBottom: '0.5rem',
-});
+const CommentInput = styled.input`
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+`;
 
-const Comment = styled.div({
-  backgroundColor: '#f8f9fa',
-  borderRadius: '4px',
-  padding: '0.5rem',
-  marginBottom: '0.5rem',
-  color: '#333',
-});
+const Comment = styled.div`
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+`;
 
-const PostCard = ({ avatar, username, timestamp, content, comments, onAddComment, onDelete, onEdit }) => {
+const PostCard = ({ avatar, username, timestamp, content, comments, onAddComment, onDelete, onEdit, backgroundColor, textColor, usernameColor, timestampColor, buttonColor, hoverColor }) => {
   const [newComment, setNewComment] = useState('');
   const [showComments, setShowComments] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -97,12 +97,12 @@ const PostCard = ({ avatar, username, timestamp, content, comments, onAddComment
   };
 
   return (
-    <Card>
+    <Card backgroundColor={backgroundColor} textColor={textColor}>
       <PostHeader>
         <Avatar src={avatar} alt={username} />
         <UserInfo>
-          <UserName>{username}</UserName>
-          <Timestamp>{timestamp}</Timestamp>
+          <UserName usernameColor={usernameColor}>{username}</UserName>
+          <Timestamp timestampColor={timestampColor}>{timestamp}</Timestamp>
         </UserInfo>
       </PostHeader>
       {isEditing ? (
@@ -115,21 +115,21 @@ const PostCard = ({ avatar, username, timestamp, content, comments, onAddComment
         <Content>{content}</Content>
       )}
       <div>
-        <ActionButton onClick={handleEdit}>
+        <ActionButton buttonColor={buttonColor} hoverColor={hoverColor} onClick={handleEdit}>
           <FaEdit />
         </ActionButton>
-        <ActionButton onClick={onDelete}>
+        <ActionButton buttonColor={buttonColor} hoverColor={hoverColor} onClick={onDelete}>
           <FaTrashAlt />
         </ActionButton>
       </div>
-      <ActionButton onClick={() => setShowComments(!showComments)}>
+      <ActionButton buttonColor={buttonColor} hoverColor={hoverColor} onClick={() => setShowComments(!showComments)}>
         {showComments ? 'Hide Comments' : 'Show Comments'}
       </ActionButton>
       {showComments && (
         <CommentSection>
           {comments.map((comment, index) => (
             <Comment key={index}>
-              <UserName>{comment.username}</UserName>: {comment.content}
+              <UserName usernameColor={usernameColor}>{comment.username}</UserName>: {comment.content}
             </Comment>
           ))}
           <CommentInput
@@ -138,7 +138,7 @@ const PostCard = ({ avatar, username, timestamp, content, comments, onAddComment
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
           />
-          <ActionButton onClick={handleAddComment}>Post Comment</ActionButton>
+          <ActionButton buttonColor={buttonColor} hoverColor={hoverColor} onClick={handleAddComment}>Post Comment</ActionButton>
         </CommentSection>
       )}
     </Card>
