@@ -8,27 +8,28 @@ This project is a one-page application built using React.js, styled with CSS-in-
 
 - **Button Component**: A reusable button component with primary and secondary styles.
 - **Form Component**: A form component for adding posts, including input fields for post title and description.
-- **Header Component**: A header component featuring a logo, search bar, and user/settings icons.
+- **Header Component**: A header component featuring a logo, search bar, user/settings icons, and a header image.
 - **Left-side Navigation Component**: A navigation component with links to Newsfeed, Messages, and Watch sections.
 - **AdCard Component**: An advertisement card component displaying ads with images, titles, and subtitles.
 - **PostCard Component**: A post card component for displaying user posts, including avatars, titles, descriptions, and comments.
+- **UserStats Component**: A user statistics component displaying the number of posts, comments, and likes.
 
 ## Components
 
 ### Button Component
 
-- Dynamic using props (initially) and later refactored to remove props for styling.
-- Styled professionally using CSS-in-JS.
+- Dynamic using props to apply primary and secondary styles.
+- Styled using CSS-in-JS.
 
 ### Form Component
 
 - Includes input fields for post title and description.
-- Styled with CSS-in-JS and ensures proper functionality.
+- Styled with CSS-in-JS for professional appearance.
 
 ### Header Component
 
-- Includes a logo, search feature with an icon, and avatar and settings icons (using React Icons).
-- Gradient background with responsive and professional styling.
+- Includes a logo, search feature with an icon, avatar and settings icons (using React Icons), and a header image.
+- Gradient background with responsive styling.
 
 ### Left-side Navigation Component
 
@@ -38,12 +39,17 @@ This project is a one-page application built using React.js, styled with CSS-in-
 ### AdCard Component
 
 - Displays ads with images, titles, and subtitles.
-- Styled professionally using CSS-in-JS.
+- Styled using CSS-in-JS for a professional look.
 
 ### PostCard Component
 
-- Includes an avatar, title, description, edit and delete buttons (using React Icons), and the ability to view and add comments.
-- Styled professionally using CSS-in-JS.
+- Displays avatar, title, description, edit and delete buttons (using React Icons), and the ability to view and add comments.
+- Styled using CSS-in-JS.
+
+### UserStats Component
+
+- Displays user statistics including the number of posts, comments, and likes.
+- Styled using CSS-in-JS.
 
 ## Styling and Craftsmanship
 
@@ -58,6 +64,7 @@ This project is a one-page application built using React.js, styled with CSS-in-
     - Master branch contains only a `README.md` file.
     - Development done on the `dev` branch.
     - Final submission on the `01_Components` branch.
+    - Further updates and new features on the `02_Application` branch.
 
 ## How to Run the Project
 
@@ -72,7 +79,7 @@ This project is a one-page application built using React.js, styled with CSS-in-
 
 To run the development server, use the following command:
 
-```
+```bash
 npm start
 ```
 
@@ -82,7 +89,7 @@ This will start the development server and open [http://localhost:3000](http://l
 
 To create a production build of the project, use the following command:
 
-```
+```bash
 npm run build
 ```
 
@@ -92,13 +99,13 @@ This will generate an optimized and minified build of the project in the `build`
 
 To serve the production build locally, you can use the `serve` package. First, install `serve` globally if you haven't already:
 
-```
+```bash
 npm install -g serve
 ```
 
 Then, use the following command to serve the production build:
 
-```
+```bash
 serve -s build
 ```
 
@@ -113,6 +120,37 @@ For any queries or issues, contact:
 ---
 
 &copy; 2024 Sith Enterprises. All rights reserved.
+
+## Changes Implemented in 02_Application Branch
+
+1. **Header Image**:
+    - Added a header image to the Header component for a more immersive Star Wars theme.
+
+2. **UserStats Component**:
+    - Created a new UserStats component to display user statistics (posts, comments, and likes).
+    - Included buttons to increment the stats.
+
+3. **PostCard Component**:
+    - Redesigned to include avatars, titles, descriptions, edit and delete buttons, and comments.
+    - Ensured proper handling of images and state updates.
+
+4. **AdCard Component**:
+    - Ensured proper handling of images and dynamic content.
+    - Styled for a consistent look and feel.
+
+5. **Button Component**:
+    - Enhanced to include primary and secondary styles with dynamic props.
+    - Styled using CSS-in-JS for a professional appearance.
+
+6. **Dynamic Color Change**:
+    - Implemented in App.js using componentDidMount lifecycle method and setTimeout.
+    - Background color changes dynamically after initial render.
+
+7. **State Management in App.js**:
+    - Managed state to hold post objects, including avatars, post titles, and descriptions.
+    - Implemented add and delete post functionalities using state and methods.
+    - Displayed posts from the state using the PostCard component.
+    - Updated user statistics based on posts and comments.
 
 ## Relevant Articles and Resources
 
