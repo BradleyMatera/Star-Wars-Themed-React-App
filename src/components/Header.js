@@ -1,3 +1,4 @@
+// Importing necessary libraries and components
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { FaSearch, FaUser, FaCog } from 'react-icons/fa';
@@ -47,6 +48,7 @@ const IconWrapper = styled.div`
   cursor: pointer;
 `;
 
+// Creating a Header component as a class
 class Header extends Component {
   render() {
     const { background, color, inputColor, iconColor } = this.props; // Destructuring props for use within the component
