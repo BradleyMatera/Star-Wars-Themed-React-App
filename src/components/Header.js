@@ -31,9 +31,11 @@ const SearchInput = styled.input`
   border: none;
   color: ${props => props.inputColor || 'white'};
   margin-left: 0.5rem;
-
   &:focus {
     outline: none;
+  }
+  &::placeholder {
+    color: ${props => props.placeholderColor || 'white'};
   }
 `;
 
@@ -48,10 +50,9 @@ const IconWrapper = styled.div`
   cursor: pointer;
 `;
 
-// Creating a Header component as a class
 class Header extends Component {
   render() {
-    const { background, color, inputColor, iconColor } = this.props; // Destructuring props for use within the component
+    const { background, color, inputColor, placeholderColor, iconColor } = this.props; // Destructuring props for use within the component
 
     return (
       // The main wrapper for the header, using styled-components for styling
@@ -62,7 +63,14 @@ class Header extends Component {
         {/* Search bar section */}
         <SearchContainer>
           <FaSearch color={inputColor || 'white'} />
-          <SearchInput placeholder="Search the galaxy..." inputColor={inputColor} />
+          <SearchInput 
+            type="text" 
+            placeholder="Search the galaxy..." 
+            inputColor={inputColor} 
+            placeholderColor={placeholderColor} 
+            id="search" // Adding an id attribute
+            name="search" // Adding a name attribute
+          />
         </SearchContainer>
         
         {/* Icons section */}

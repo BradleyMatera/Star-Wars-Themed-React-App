@@ -103,17 +103,23 @@ class Form extends Component {
         <StyledForm onSubmit={this.handleSubmit}>
           <Input
             type="text"
+            id="avatar"
+            name="avatar"
             placeholder="Avatar URL"
             value={avatar}
             onChange={this.handleAvatarChange}
           />
           <Input
             type="text"
+            id="title"
+            name="title"
             placeholder="Post Title"
             value={title}
             onChange={this.handleTitleChange}
           />
           <TextArea
+            id="description"
+            name="description"
             placeholder="Post Description"
             value={description}
             onChange={this.handleDescriptionChange}
