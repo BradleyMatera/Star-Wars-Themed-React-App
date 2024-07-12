@@ -1,16 +1,16 @@
-// Importing necessary modules from React and styled-components
+// PostCard.js
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { FaEdit, FaTrashAlt } from 'react-icons/fa'; // Importing icons for edit and delete actions
+import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 
 // Styled components for the post card
 const Card = styled.div`
-  background-color: ${props => props.backgroundColor || '#2c3e50'}; // Darker background for posts
+  background-color: ${props => props.backgroundColor || '#2c3e50'};
   border-radius: 8px;
   padding: 1rem;
   margin-bottom: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  color: ${props => props.textColor || '#ffffff'}; // White text
+  color: ${props => props.textColor || '#ffffff'};
 `;
 
 const PostHeader = styled.div`
@@ -33,7 +33,7 @@ const UserInfo = styled.div`
 
 const UserName = styled.span`
   font-weight: bold;
-  color: ${props => props.usernameColor || '#3333ff'}; // Blue for username
+  color: ${props => props.usernameColor || '#3333ff'};
 `;
 
 const Timestamp = styled.span`
@@ -48,13 +48,13 @@ const Content = styled.p`
 const ActionButton = styled.button`
   background: none;
   border: none;
-  color: ${props => props.buttonColor || '#1E90FF'}; // Blue for action buttons
+  color: ${props => props.buttonColor || '#1E90FF'};
   cursor: pointer;
   margin-right: 1rem;
   font-weight: 500;
 
   &:hover {
-    color: ${props => props.hoverColor || '#FF0000'}; // Red on hover
+    color: ${props => props.hoverColor || '#FF0000'};
   }
 `;
 
@@ -81,59 +81,46 @@ const Comment = styled.div`
 class PostCard extends Component {
   constructor(props) {
     super(props);
-    // Initializing state to manage comments, editing mode, and edited content
     this.state = {
       newComment: '',
       showComments: false,
       isEditing: false,
-      editedContent: props.content
+      editedContent: props.description
     };
-
-    // Binding event handler methods to the component instance
-    this.handleAddComment = this.handleAddComment.bind(this);
-    this.handleEdit = this.handleEdit.bind(this);
-    this.handleCommentChange = this.handleCommentChange.bind(this);
-    this.handleContentChange = this.handleContentChange.bind(this);
-    this.toggleComments = this.toggleComments.bind(this);
   }
 
-  // Handle adding a new comment
-  handleAddComment() {
+  handleAddComment = () => {
     if (this.state.newComment.trim()) {
-      this.props.onAddComment(this.state.newComment);
+      this.props.onAddComment(this.props.id, this.state.newComment);
       this.setState({ newComment: '' });
     }
-  }
+  };
 
-  // Handle editing the post content
-  handleEdit() {
+  handleEdit = () => {
     if (this.state.isEditing) {
-      this.props.onEdit(this.state.editedContent);
+      this.props.onEdit(this.props.id, this.state.editedContent);
     }
     this.setState(prevState => ({
       isEditing: !prevState.isEditing
     }));
-  }
+  };
 
-  // Handle comment input change
-  handleCommentChange(e) {
-    this.setState({ newComment: e.target.value });
-  }
-
-  // Handle content change during edit
-  handleContentChange(e) {
-    this.setState({ editedContent: e.target.value });
-  }
-
-  // Toggle the visibility of the comments section
-  toggleComments() {
+  toggleComments = () => {
     this.setState(prevState => ({
       showComments: !prevState.showComments
     }));
-  }
+  };
+
+  handleCommentChange = (e) => {
+    this.setState({ newComment: e.target.value });
+  };
+
+  handleContentChange = (e) => {
+    this.setState({ editedContent: e.target.value });
+  };
 
   render() {
-    const { avatar, username, timestamp, content, comments, onDelete, backgroundColor, textColor, usernameColor, timestampColor, buttonColor, hoverColor } = this.props;
+    const { avatar, username, title, description, timestamp, comments, onDelete, backgroundColor, textColor, usernameColor, timestampColor, buttonColor, hoverColor } = this.props;
     const { newComment, showComments, isEditing, editedContent } = this.state;
 
     return (
@@ -145,6 +132,7 @@ class PostCard extends Component {
             <Timestamp timestampColor={timestampColor}>{timestamp}</Timestamp>
           </UserInfo>
         </PostHeader>
+        <h3>{title}</h3>
         {isEditing ? (
           <textarea
             value={editedContent}
@@ -152,13 +140,13 @@ class PostCard extends Component {
             style={{ width: '100%', padding: '0.5rem', borderRadius: '4px' }}
           />
         ) : (
-          <Content>{content}</Content>
+          <Content>{description}</Content>
         )}
         <div>
           <ActionButton buttonColor={buttonColor} hoverColor={hoverColor} onClick={this.handleEdit}>
             <FaEdit />
           </ActionButton>
-          <ActionButton buttonColor={buttonColor} hoverColor={hoverColor} onClick={onDelete}>
+          <ActionButton buttonColor={buttonColor} hoverColor={hoverColor} onClick={() => onDelete(this.props.id)}>
             <FaTrashAlt />
           </ActionButton>
         </div>
