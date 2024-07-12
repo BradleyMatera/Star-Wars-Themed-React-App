@@ -66,16 +66,15 @@ This project is a one-page application built using React.js, styled with CSS-in-
 3. Start the development server using `npm start`.
 4. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-
 ## Development and Production
 
 ### Running the Development Server
 
 To run the development server, use the following command:
 
-
+```
 npm start
-
+```
 
 This will start the development server and open [http://localhost:3000](http://localhost:3000) in your default web browser. The development server automatically reloads the page whenever you make changes to the source files.
 
@@ -83,9 +82,9 @@ This will start the development server and open [http://localhost:3000](http://l
 
 To create a production build of the project, use the following command:
 
-
+```
 npm run build
-
+```
 
 This will generate an optimized and minified build of the project in the `build` directory. The production build is ready to be deployed to a web server.
 
@@ -93,19 +92,17 @@ This will generate an optimized and minified build of the project in the `build`
 
 To serve the production build locally, you can use the `serve` package. First, install `serve` globally if you haven't already:
 
-
+```
 npm install -g serve
-
+```
 
 Then, use the following command to serve the production build:
 
-
+```
 serve -s build
-
+```
 
 This will serve the production build at [http://localhost:5000](http://localhost:5000).
-
-
 
 ## Contact
 
@@ -116,3 +113,27 @@ For any queries or issues, contact:
 ---
 
 &copy; 2024 Sith Enterprises. All rights reserved.
+
+## Relevant Articles and Resources
+
+### React Documentation
+
+- [Writing Markup with JSX](https://react.dev/learn/writing-markup-with-jsx)
+- [JavaScript in JSX with Curly Braces](https://react.dev/learn/javascript-in-jsx-with-curly-braces)
+- [Your First Component](https://react.dev/learn/your-first-component)
+- [Passing Props to a Component](https://react.dev/learn/passing-props-to-a-component)
+- [Rules of Hooks](https://react.dev/reference/rules/rules-of-hooks)
+- [React useEffect](https://react.dev/reference/react/useEffect)
+
+### FreeCodeCamp Articles
+
+- [React Class Components](https://www.freecodecamp.org/news/react-class-components/)
+- [React Lifecycle Methods](https://www.freecodecamp.org/news/react-lifecycle-methods/)
+- [Using Hooks in React](https://www.freecodecamp.org/news/an-introduction-to-react-hooks/)
+- [React State Management](https://www.freecodecamp.org/news/react-state-management/)
+
+### CodePen
+
+- [React Component Lifecycle](https://codepen.io/gaearon/pen/oWWQNa)
+- [Getting Started with React on CodePen](https://forum.freecodecamp.org/t/getting-started-with-react-on-codepen/262689)
+- [React State Management](https://codepen.io/lbain/pen/ENpzBZ)
