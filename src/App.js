@@ -204,8 +204,8 @@ const App = () => {
           {adImages.length > 0 && (
             <>
               <AdCard
-                title="Join the Jedi Order"
-                subtitle="Train with the best and become a Jedi Master"
+                title="Wanted Dead or Alive"
+                subtitle="Consider this man 1 handed and dangerous!"
                 imageUrl={adImages[0]?.image}
               />
               <AdCard
