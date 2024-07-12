@@ -52,9 +52,10 @@ class App extends Component {
     super(props);
     // Initializing state variables
     this.state = {
-      posts: [],
-      adImages: [],
-      characters: [],
+      posts: [], // State to hold post objects
+      adImages: [], // State to hold advertisement images
+      characters: [], // State to hold Star Wars characters
+      color: '#1c1c1c', // Initial color for dynamic color change
     };
   }
 
@@ -93,14 +94,19 @@ class App extends Component {
     fetchStarWarsImages().then((data) => {
       this.setState({ adImages: data }); // Set fetched images to state
     });
+
+    // Change the color of an element after mounting
+    setTimeout(() => {
+      this.setState({ color: '#3498db' }); // Change color to a new value
+    }, 2000);
   }
 
   // Handler to add a new post
-  handleAddPost = ({ title, description }) => {
+  handleAddPost = ({ avatar, title, description }) => {
     const newPost = {
       id: this.state.posts.length + 1,
-      avatar: this.state.characters[2]?.image || 'https://via.placeholder.com/40', // Use third character image or fallback
-      username: this.state.characters[2]?.name || 'Current User', // Use third character name or fallback
+      avatar: avatar || 'https://via.placeholder.com/40', // Use provided avatar or fallback
+      username: 'Current User', // Use current user as username
       timestamp: 'Just now',
       content: `${title} - ${description}`, // Combine title and description
       comments: [],
@@ -135,7 +141,7 @@ class App extends Component {
 
   render() {
     return (
-      <AppContainer>
+      <AppContainer style={{ backgroundColor: this.state.color }}>
         <Header />
         <LeftNavigation />
         <MainContent>

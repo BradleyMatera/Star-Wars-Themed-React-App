@@ -1,6 +1,7 @@
+// Importing necessary modules from React and styled-components
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { FaEdit, FaTrashAlt } from 'react-icons/fa';
+import { FaEdit, FaTrashAlt } from 'react-icons/fa'; // Importing icons for edit and delete actions
 
 // Styled components for the post card
 const Card = styled.div`
@@ -80,48 +81,56 @@ const Comment = styled.div`
 class PostCard extends Component {
   constructor(props) {
     super(props);
+    // Initializing state to manage comments, editing mode, and edited content
     this.state = {
-      newComment: '', // State to hold the new comment input
-      showComments: false, // State to toggle comments section visibility
-      isEditing: false, // State to toggle editing mode
-      editedContent: props.content // State to hold the edited content
+      newComment: '',
+      showComments: false,
+      isEditing: false,
+      editedContent: props.content
     };
+
+    // Binding event handler methods to the component instance
+    this.handleAddComment = this.handleAddComment.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+    this.handleCommentChange = this.handleCommentChange.bind(this);
+    this.handleContentChange = this.handleContentChange.bind(this);
+    this.toggleComments = this.toggleComments.bind(this);
   }
 
   // Handle adding a new comment
-  handleAddComment = () => {
+  handleAddComment() {
     if (this.state.newComment.trim()) {
       this.props.onAddComment(this.state.newComment);
       this.setState({ newComment: '' });
     }
-  };
+  }
 
   // Handle editing the post content
-  handleEdit = () => {
+  handleEdit() {
     if (this.state.isEditing) {
       this.props.onEdit(this.state.editedContent);
     }
     this.setState(prevState => ({
       isEditing: !prevState.isEditing
     }));
-  };
+  }
 
   // Handle comment input change
-  handleCommentChange = (e) => {
+  handleCommentChange(e) {
     this.setState({ newComment: e.target.value });
-  };
+  }
 
   // Handle content change during edit
-  handleContentChange = (e) => {
+  handleContentChange(e) {
     this.setState({ editedContent: e.target.value });
-  };
+  }
 
   // Toggle the visibility of the comments section
-  toggleComments = () => {
+  toggleComments() {
     this.setState(prevState => ({
       showComments: !prevState.showComments
     }));
-  };
+  }
 
   render() {
     const { avatar, username, timestamp, content, comments, onDelete, backgroundColor, textColor, usernameColor, timestampColor, buttonColor, hoverColor } = this.props;

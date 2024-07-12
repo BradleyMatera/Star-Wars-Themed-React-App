@@ -1,3 +1,4 @@
+// Importing necessary libraries and components
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { FaNewspaper, FaEnvelope, FaPlay, FaBars } from 'react-icons/fa';
@@ -55,9 +56,11 @@ const HamburgerButton = styled.button`
   color: ${props => props.buttonColor || '#ffffff'};
 `;
 
+// Creating a LeftNavigation component as a class
 class LeftNavigation extends Component {
   constructor(props) {
     super(props);
+    // Initializing state to manage the menu's open/close status
     this.state = {
       isMenuOpen: false // Initial state of the menu
     };
@@ -66,7 +69,7 @@ class LeftNavigation extends Component {
   // Method to toggle the menu state
   toggleMenu = () => {
     this.setState(prevState => ({
-      isMenuOpen: !prevState.isMenuOpen
+      isMenuOpen: !prevState.isMenuOpen // Toggling the menu state
     }));
   };
 

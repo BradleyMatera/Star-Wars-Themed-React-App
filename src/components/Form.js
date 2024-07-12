@@ -56,14 +56,21 @@ class Form extends Component {
     super(props);
     // Initializing state to manage form inputs
     this.state = {
+      avatar: '', // State to hold avatar URL, try for yourself here https://vinicius73.github.io/gravatar-url-generator/#/
       title: '',
       description: ''
     };
 
     // Binding event handler methods to the component instance
+    this.handleAvatarChange = this.handleAvatarChange.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  // Event handler to update state when avatar input changes
+  handleAvatarChange(e) {
+    this.setState({ avatar: e.target.value });
   }
 
   // Event handler to update state when title input changes
@@ -79,21 +86,27 @@ class Form extends Component {
   // Event handler for form submission
   handleSubmit(e) {
     e.preventDefault();
-    const { title, description } = this.state;
-    if (title.trim() && description.trim()) {
-      this.props.onSubmit({ title, description });
-      this.setState({ title: '', description: '' });
+    const { avatar, title, description } = this.state;
+    if (avatar.trim() && title.trim() && description.trim()) {
+      this.props.onSubmit({ avatar, title, description });
+      this.setState({ avatar: '', title: '', description: '' });
     }
   }
 
   render() {
     const { buttonBgColor, buttonColor, buttonHoverBgColor } = this.props; // Destructuring props for use within the component
-    const { title, description } = this.state; // Destructuring state for use within the render method
+    const { avatar, title, description } = this.state; // Destructuring state for use within the render method
 
     return (
       // The main container for the form, using styled-components for styling
       <FormContainer>
         <StyledForm onSubmit={this.handleSubmit}>
+          <Input
+            type="text"
+            placeholder="Avatar URL"
+            value={avatar}
+            onChange={this.handleAvatarChange}
+          />
           <Input
             type="text"
             placeholder="Post Title"
