@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { FaSearch, FaUser, FaCog } from 'react-icons/fa';
 
+// Styled components for various parts of the header
 const HeaderWrapper = styled.header`
   background: ${props => props.background || 'linear-gradient(to right, #FF0000, #0000FF)'};
   padding: 1rem 2rem;
@@ -46,18 +47,30 @@ const IconWrapper = styled.div`
   cursor: pointer;
 `;
 
-const Header = ({ background, color, inputColor, iconColor }) => (
-  <HeaderWrapper background={background}>
-    <Logo color={color}>Imperial Network</Logo>
-    <SearchContainer>
-      <FaSearch color={inputColor || 'white'} />
-      <SearchInput placeholder="Search the galaxy..." inputColor={inputColor} />
-    </SearchContainer>
-    <IconContainer>
-      <IconWrapper iconColor={iconColor}><FaUser /></IconWrapper>
-      <IconWrapper iconColor={iconColor}><FaCog /></IconWrapper>
-    </IconContainer>
-  </HeaderWrapper>
-);
+class Header extends Component {
+  render() {
+    const { background, color, inputColor, iconColor } = this.props; // Destructuring props for use within the component
+
+    return (
+      // The main wrapper for the header, using styled-components for styling
+      <HeaderWrapper background={background}>
+        {/* Logo section */}
+        <Logo color={color}>Imperial Network</Logo>
+        
+        {/* Search bar section */}
+        <SearchContainer>
+          <FaSearch color={inputColor || 'white'} />
+          <SearchInput placeholder="Search the galaxy..." inputColor={inputColor} />
+        </SearchContainer>
+        
+        {/* Icons section */}
+        <IconContainer>
+          <IconWrapper iconColor={iconColor}><FaUser /></IconWrapper>
+          <IconWrapper iconColor={iconColor}><FaCog /></IconWrapper>
+        </IconContainer>
+      </HeaderWrapper>
+    );
+  }
+}
 
 export default Header;

@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+// Importing necessary libraries and components
+import React, { Component } from 'react';
 import styled from 'styled-components';
 
+// Defining styled components for form layout and styling
 const FormContainer = styled.div`
   font-family: 'Helvetica Neue';
   background-color: white;
@@ -48,44 +50,74 @@ const SubmitButton = styled.button`
   }
 `;
 
-const Form = ({ onSubmit, buttonBgColor, buttonColor, buttonHoverBgColor }) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+// Defining the Form class component
+class Form extends Component {
+  constructor(props) {
+    super(props);
+    // Initializing state to manage form inputs
+    this.state = {
+      title: '',
+      description: ''
+    };
 
-  const handleSubmit = (e) => {
+    // Binding event handler methods to the component instance
+    this.handleTitleChange = this.handleTitleChange.bind(this);
+    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  // Event handler to update state when title input changes
+  handleTitleChange(e) {
+    this.setState({ title: e.target.value });
+  }
+
+  // Event handler to update state when description input changes
+  handleDescriptionChange(e) {
+    this.setState({ description: e.target.value });
+  }
+
+  // Event handler for form submission
+  handleSubmit(e) {
     e.preventDefault();
+    const { title, description } = this.state;
     if (title.trim() && description.trim()) {
-      onSubmit({ title, description });
-      setTitle('');
-      setDescription('');
+      this.props.onSubmit({ title, description });
+      this.setState({ title: '', description: '' });
     }
-  };
+  }
 
-  return (
-    <FormContainer>
-      <StyledForm onSubmit={handleSubmit}>
-        <Input
-          type="text"
-          placeholder="Post Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <TextArea
-          placeholder="Post Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <SubmitButton
-          type="submit"
-          bgColor={buttonBgColor}
-          color={buttonColor}
-          hoverBgColor={buttonHoverBgColor}
-        >
-          Add Post
-        </SubmitButton>
-      </StyledForm>
-    </FormContainer>
-  );
-};
+  render() {
+    const { buttonBgColor, buttonColor, buttonHoverBgColor } = this.props; // Destructuring props for use within the component
+    const { title, description } = this.state; // Destructuring state for use within the render method
 
+    return (
+      // The main container for the form, using styled-components for styling
+      <FormContainer>
+        <StyledForm onSubmit={this.handleSubmit}>
+          <Input
+            type="text"
+            placeholder="Post Title"
+            value={title}
+            onChange={this.handleTitleChange}
+          />
+          <TextArea
+            placeholder="Post Description"
+            value={description}
+            onChange={this.handleDescriptionChange}
+          />
+          <SubmitButton
+            type="submit"
+            bgColor={buttonBgColor}
+            color={buttonColor}
+            hoverBgColor={buttonHoverBgColor}
+          >
+            Add Post
+          </SubmitButton>
+        </StyledForm>
+      </FormContainer>
+    );
+  }
+}
+
+// Exporting the Form component for use in other parts of the application
 export default Form;

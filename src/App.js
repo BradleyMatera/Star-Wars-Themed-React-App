@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+// Importing necessary modules from React and styled-components
+import React, { Component } from 'react';
+import styled from 'styled-components'; // Allows scoped CSS within components
+
+// Importing custom components
 import Header from './components/Header';
 import LeftNavigation from './components/LeftNavigation';
 import PostCard from './components/PostCard';
@@ -7,10 +10,15 @@ import Form from './components/Form';
 import AdCard from './components/AdCard';
 import Footer from './components/Footer';
 import Button from './components/Button';
+
+// Importing functions to fetch data from APIs
 import { fetchStarWarsCharacters, fetchStarWarsImages } from './apis';
+
+// Importing images
 import LukeSkywalker from './img/LukeSkywalker.jpeg';
 import C3PO from './img/c3PO.jpeg';
 
+// Styling for the main app container
 const AppContainer = styled.div({
   backgroundColor: '#1c1c1c', // Dark background for a Star Wars feel
   color: '#ffffff', // White text for contrast
@@ -18,6 +26,7 @@ const AppContainer = styled.div({
   fontFamily: 'Arial, sans-serif',
 });
 
+// Styling for the main content area
 const MainContent = styled.main({
   display: 'flex',
   maxWidth: '1200px',
@@ -26,205 +35,157 @@ const MainContent = styled.main({
   paddingTop: '70px',
 });
 
+// Styling for the feed area
 const Feed = styled.div({
   flex: 2,
   marginRight: '1rem',
 });
 
+// Styling for the sidebar
 const Sidebar = styled.aside({
   flex: 1,
 });
 
-// Commented out AI posts generation functionality
-/*
-const AIGeneratedPostsContainer = styled.div`
-  margin: 20px 0;
-`;
+// Main App component as a class component
+class App extends Component {
+  constructor(props) {
+    super(props);
+    // Initializing state variables
+    this.state = {
+      posts: [],
+      adImages: [],
+      characters: [],
+    };
+  }
 
-const AIGeneratedPosts = () => {
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    const generatePosts = async () => {
-      try {
-        const prompt1 = 'Generate a Star Wars themed social media post.';
-        const prompt2 = 'Generate another Star Wars themed social media post.';
-
-        const post1 = await fetchOpenAIContent(prompt1);
-        const post2 = await fetchOpenAIContent(prompt2);
-
-        const generatedPosts = [
+  // Lifecycle method to fetch data when the component mounts
+  componentDidMount() {
+    // Fetch Star Wars characters for avatars
+    fetchStarWarsCharacters().then((data) => {
+      this.setState({ characters: data }); // Set fetched characters to state
+      // Setting mock posts using fetched characters
+      this.setState({
+        posts: [
           {
             id: 1,
-            avatar: 'https://via.placeholder.com/40', // Replace with Star Wars themed avatar
-            username: 'AI Generated User 1',
-            timestamp: 'Just now',
-            content: post1,
-            comments: [],
+            avatar: data[0]?.image || LukeSkywalker, // Use fetched image or fallback
+            username: data[0]?.name || 'Luke Skywalker', // Use fetched name or fallback
+            timestamp: '2 hours ago',
+            content: 'Just finished training with Master Yoda!',
+            comments: [
+              { username: 'Leia Organa', content: 'Great job!' },
+              { username: 'Han Solo', content: 'May the Force be with you!' },
+            ],
           },
           {
             id: 2,
-            avatar: 'https://via.placeholder.com/40', // Replace with Star Wars themed avatar
-            username: 'AI Generated User 2',
-            timestamp: 'Just now',
-            content: post2,
-            comments: [],
+            avatar: data[1]?.image || C3PO, // Use fetched image or fallback
+            username: data[1]?.name || 'C-3PO', // Use fetched name or fallback
+            timestamp: '5 hours ago',
+            content: 'The Dark Side is strong within me.',
+            comments: [{ username: 'Emperor Palpatine', content: 'Good. Good.' }],
           },
-        ];
-
-        setPosts(generatedPosts);
-      } catch (error) {
-        console.error('Error generating AI posts:', error);
-      }
-    };
-
-    generatePosts();
-  }, []);
-
-  return (
-    <AIGeneratedPostsContainer>
-      {posts.map(post => (
-        <PostCard
-          key={post.id}
-          avatar={post.avatar}
-          username={post.username}
-          timestamp={post.timestamp}
-          content={post.content}
-          comments={post.comments}
-          onAddComment={() => {}} // Implement if needed
-          onDelete={() => {}} // Implement if needed
-          onEdit={() => {}} // Implement if needed
-        />
-      ))}
-    </AIGeneratedPostsContainer>
-  );
-};
-*/
-
-const App = () => {
-  const [posts, setPosts] = useState([]);
-  const [adImages, setAdImages] = useState([]);
-  const [characters, setCharacters] = useState([]);
-
-  useEffect(() => {
-    // Fetch Star Wars characters for avatars
-    fetchStarWarsCharacters().then((data) => {
-      setCharacters(data);
-      // Setting mock posts using fetched characters
-      setPosts([
-        {
-          id: 1,
-          avatar: data[0]?.image || LukeSkywalker,
-          username: data[0]?.name || 'Luke Skywalker',
-          timestamp: '2 hours ago',
-          content: 'Just finished training with Master Yoda!',
-          comments: [
-            { username: 'Leia Organa', content: 'Great job!' },
-            { username: 'Han Solo', content: 'May the Force be with you!' },
-          ],
-        },
-        {
-          id: 2,
-          avatar: data[1]?.image || C3PO,
-          username: data[1]?.name || 'C-3PO',
-          timestamp: '5 hours ago',
-          content: 'The Dark Side is strong within me.',
-          comments: [{ username: 'Emperor Palpatine', content: 'Good. Good.' }],
-        },
-      ]);
+        ],
+      });
     });
 
     // Fetch Star Wars images for ads
     fetchStarWarsImages().then((data) => {
-      setAdImages(data);
+      this.setState({ adImages: data }); // Set fetched images to state
     });
-  }, []);
+  }
 
-  const handleAddPost = ({ title, description }) => {
+  // Handler to add a new post
+  handleAddPost = ({ title, description }) => {
     const newPost = {
-      id: posts.length + 1,
-      avatar: characters[2]?.image || 'https://via.placeholder.com/40',
-      username: characters[2]?.name || 'Current User',
+      id: this.state.posts.length + 1,
+      avatar: this.state.characters[2]?.image || 'https://via.placeholder.com/40', // Use third character image or fallback
+      username: this.state.characters[2]?.name || 'Current User', // Use third character name or fallback
       timestamp: 'Just now',
-      content: `${title} - ${description}`,
+      content: `${title} - ${description}`, // Combine title and description
       comments: [],
     };
-    setPosts([newPost, ...posts]);
+    this.setState({ posts: [newPost, ...this.state.posts] }); // Add new post to the beginning of the posts array
   };
 
-  const handleAddComment = (postId, comment) => {
-    setPosts(
-      posts.map((post) =>
+  // Handler to add a comment to a post
+  handleAddComment = (postId, comment) => {
+    this.setState({
+      posts: this.state.posts.map((post) =>
         post.id === postId
           ? { ...post, comments: [...post.comments, { username: 'Current User', content: comment }] }
           : post
-      )
-    );
+      ),
+    });
   };
 
-  const handleDeletePost = (postId) => {
-    setPosts(posts.filter((post) => post.id !== postId));
+  // Handler to delete a post
+  handleDeletePost = (postId) => {
+    this.setState({ posts: this.state.posts.filter((post) => post.id !== postId) }); // Filter out the post with the given id
   };
 
-  const handleEditPost = (postId, newContent) => {
-    setPosts(
-      posts.map((post) =>
+  // Handler to edit a post
+  handleEditPost = (postId, newContent) => {
+    this.setState({
+      posts: this.state.posts.map((post) =>
         post.id === postId ? { ...post, content: newContent } : post
-      )
-    );
+      ),
+    });
   };
 
-  return (
-    <AppContainer>
-      <Header />
-      <LeftNavigation />
-      <MainContent>
-        <Feed>
-          <Form onSubmit={handleAddPost} />
-          {/* <AIGeneratedPosts /> */}
-          {posts.map((post) => (
-            <PostCard
-              key={post.id}
-              avatar={post.avatar}
-              username={post.username}
-              timestamp={post.timestamp}
-              content={post.content}
-              comments={post.comments}
-              onAddComment={(comment) => handleAddComment(post.id, comment)}
-              onDelete={() => handleDeletePost(post.id)}
-              onEdit={(newContent) => handleEditPost(post.id, newContent)}
-            />
-          ))}
-          <Button primary onClick={() => alert('Primary Button Clicked')}>
-            Primary Button
-          </Button>
-          <Button onClick={() => alert('Secondary Button Clicked')}>Secondary Button</Button>
-        </Feed>
-        <Sidebar>
-          {adImages.length > 0 && (
-            <>
-              <AdCard
-                title="Wanted Dead or Alive"
-                subtitle="Consider this man 1 handed and dangerous!"
-                imageUrl={adImages[0]?.image}
+  render() {
+    return (
+      <AppContainer>
+        <Header />
+        <LeftNavigation />
+        <MainContent>
+          <Feed>
+            <Form onSubmit={this.handleAddPost} />
+            {/* <AIGeneratedPosts /> */}
+            {this.state.posts.map((post) => (
+              <PostCard
+                key={post.id}
+                avatar={post.avatar}
+                username={post.username}
+                timestamp={post.timestamp}
+                content={post.content}
+                comments={post.comments}
+                onAddComment={(comment) => this.handleAddComment(post.id, comment)}
+                onDelete={() => this.handleDeletePost(post.id)}
+                onEdit={(newContent) => this.handleEditPost(post.id, newContent)}
               />
-              <AdCard
-                title="Embrace the Dark Side"
-                subtitle="Unleash your true power with the Sith"
-                imageUrl={adImages[1]?.image}
-              />
-              <AdCard
-                title="Explore the Outer Rim"
-                subtitle="Discover new worlds and adventures"
-                imageUrl={adImages[2]?.image}
-              />
-            </>
-          )}
-        </Sidebar>
-      </MainContent>
-      <Footer />
-    </AppContainer>
-  );
-};
+            ))}
+            <Button primary onClick={() => alert('Primary Button Clicked')}>
+              Primary Button
+            </Button>
+            <Button onClick={() => alert('Secondary Button Clicked')}>Secondary Button</Button>
+          </Feed>
+          <Sidebar>
+            {this.state.adImages.length > 0 && (
+              <>
+                <AdCard
+                  title="Wanted Dead or Alive"
+                  subtitle="Consider this man 1 handed and dangerous!"
+                  imageUrl={this.state.adImages[0]?.image}
+                />
+                <AdCard
+                  title="Embrace the Dark Side"
+                  subtitle="Unleash your true power with the Sith"
+                  imageUrl={this.state.adImages[1]?.image}
+                />
+                <AdCard
+                  title="Explore the Outer Rim"
+                  subtitle="Discover new worlds and adventures"
+                  imageUrl={this.state.adImages[2]?.image}
+                />
+              </>
+            )}
+          </Sidebar>
+        </MainContent>
+        <Footer />
+      </AppContainer>
+    );
+  }
+}
 
 export default App;
