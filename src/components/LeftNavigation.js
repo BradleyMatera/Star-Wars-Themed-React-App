@@ -1,19 +1,18 @@
-// Importing necessary libraries and components
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { FaNewspaper, FaEnvelope, FaPlay, FaBars } from 'react-icons/fa';
+import { FaHome, FaNewspaper, FaEnvelope, FaChartBar, FaCog, FaBars } from 'react-icons/fa';
+import { Link, useLocation } from 'react-router-dom';
 
-// Styled components for various parts of the navigation menu
 const NavWrapper = styled.nav`
   position: fixed;
   top: 60px;
-  left: ${props => (props.$isMenuOpen ? '0' : '-240px')}; // Position based on menu state
+  left: ${props => (props.$isMenuOpen ? '0' : '-240px')};
   width: 240px;
   height: calc(100vh - 60px);
-  background-color: ${props => props.backgroundColor || '#2c3e50'};
+  background-color: ${props => props.$backgroundColor || '#2c3e50'};
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
-  transition: left 0.3s ease-in-out; // Smooth transition effect for menu
+  transition: left 0.3s ease-in-out;
   z-index: 1000;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 `;
@@ -28,15 +27,14 @@ const NavItem = styled.li`
   padding: 10px 20px;
 `;
 
-const NavLink = styled.a`
+const NavLink = styled(Link)`
   display: flex;
   align-items: center;
-  color: ${props => props.linkColor || '#ffffff'};
+  color: ${props => props.$linkColor || '#ffffff'};
   text-decoration: none;
   font-size: 16px;
-
   &:hover {
-    color: ${props => props.hoverColor || '#FFD700'}; // Gold hover effect
+    color: ${props => props.$hoverColor || '#FFD700'};
   }
 `;
 
@@ -53,62 +51,58 @@ const HamburgerButton = styled.button`
   border: none;
   font-size: 24px;
   cursor: pointer;
-  color: ${props => props.buttonColor || '#ffffff'};
+  color: ${props => props.$buttonColor || '#ffffff'};
 `;
 
-// Creating a LeftNavigation component as a class
-class LeftNavigation extends Component {
-  constructor(props) {
-    super(props);
-    // Initializing state to manage the menu's open/close status
-    this.state = {
-      isMenuOpen: false // Initial state of the menu
-    };
-  }
+const LeftNavigation = ({ backgroundColor, linkColor, hoverColor, buttonColor }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
 
-  // Method to toggle the menu state
-  toggleMenu = () => {
-    this.setState(prevState => ({
-      isMenuOpen: !prevState.isMenuOpen // Toggling the menu state
-    }));
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
-  render() {
-    const { backgroundColor, linkColor, hoverColor, buttonColor } = this.props;
-    const { isMenuOpen } = this.state;
-
-    return (
-      <>
-        {/* Hamburger button to toggle the menu */}
-        <HamburgerButton onClick={this.toggleMenu} buttonColor={buttonColor}>
-          <FaBars />
-        </HamburgerButton>
-        {/* Navigation menu */}
-        <NavWrapper $isMenuOpen={isMenuOpen} backgroundColor={backgroundColor}>
-          <NavList>
-            <NavItem>
-              <NavLink href="#newsfeed" linkColor={linkColor} hoverColor={hoverColor}>
-                <IconWrapper><FaNewspaper /></IconWrapper>
-                Newsfeed
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="#messages" linkColor={linkColor} hoverColor={hoverColor}>
-                <IconWrapper><FaEnvelope /></IconWrapper>
-                Messages
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="#watch" linkColor={linkColor} hoverColor={hoverColor}>
-                <IconWrapper><FaPlay /></IconWrapper>
-                Watch
-              </NavLink>
-            </NavItem>
-          </NavList>
-        </NavWrapper>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <HamburgerButton onClick={toggleMenu} $buttonColor={buttonColor}>
+        <FaBars />
+      </HamburgerButton>
+      <NavWrapper $isMenuOpen={isMenuOpen} $backgroundColor={backgroundColor}>
+        <NavList>
+          <NavItem>
+            <NavLink to="/" $linkColor={linkColor} $hoverColor={hoverColor} className={location.pathname === "/" ? "active" : ""}>
+              <IconWrapper><FaHome /></IconWrapper>
+              Home
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink to="/newsfeed" $linkColor={linkColor} $hoverColor={hoverColor} className={location.pathname === "/newsfeed" ? "active" : ""}>
+              <IconWrapper><FaNewspaper /></IconWrapper>
+              Newsfeed
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink to="/messages" $linkColor={linkColor} $hoverColor={hoverColor} className={location.pathname === "/messages" ? "active" : ""}>
+              <IconWrapper><FaEnvelope /></IconWrapper>
+              Messages
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink to="/dashboard" $linkColor={linkColor} $hoverColor={hoverColor} className={location.pathname === "/dashboard" ? "active" : ""}>
+              <IconWrapper><FaChartBar /></IconWrapper>
+              Dashboard
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink to="/settings" $linkColor={linkColor} $hoverColor={hoverColor} className={location.pathname === "/settings" ? "active" : ""}>
+              <IconWrapper><FaCog /></IconWrapper>
+              Settings
+            </NavLink>
+          </NavItem>
+        </NavList>
+      </NavWrapper>
+    </>
+  );
+};
 
 export default LeftNavigation;

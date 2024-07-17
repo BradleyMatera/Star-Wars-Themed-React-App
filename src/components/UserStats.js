@@ -1,76 +1,82 @@
-// Import the necessary library for creating React components
 import React, { Component } from 'react';
+import styled from 'styled-components';
 
-// Define a class component named UserStats that extends the React Component class
+const StatsContainer = styled.div`
+  background-color: #000;
+  color: #ffd700;
+  padding: 20px;
+  border-radius: 10px;
+  font-family: 'Star Jedi', sans-serif;
+`;
+
+const Title = styled.h1`
+  text-align: center;
+`;
+
+const StatItem = styled.p`
+  font-size: 18px;
+`;
+
+const Button = styled.button`
+  background-color: #ffd700;
+  color: #000;
+  border: none;
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: 'Star Jedi', sans-serif;
+`;
+
 class UserStats extends Component {
-  // The constructor is called when the component is created
   constructor(props) {
     super(props);
-    // Initialize the state to track posts, comments, and likes
     this.state = {
-      posts: 0,    // State property to hold the number of posts
-      comments: 0, // State property to hold the number of comments
-      likes: 0     // State property to hold the number of likes
+      missions: 0,
+      forcePower: 0,
+      credits: 0
     };
-    // Bind the event handler methods to the current instance of the component
-    this.addPost = this.addPost.bind(this);
-    this.addComment = this.addComment.bind(this);
-    this.addLike = this.addLike.bind(this);
+    this.completeMission = this.completeMission.bind(this);
+    this.increaseForcePower = this.increaseForcePower.bind(this);
+    this.earnCredits = this.earnCredits.bind(this);
   }
 
-  // Lifecycle method that is called after the component is mounted to the DOM
   componentDidMount() {
-    // Simulate fetching initial data with a delay
     setTimeout(() => {
-      // Update the state with the fetched data (simulated)
-      this.setState({ posts: 5, comments: 10, likes: 20 });
-    }, 1000); // Delay of 1000 milliseconds (1 second)
+      this.setState({ missions: 5, forcePower: 50, credits: 1000 });
+    }, 1000);
   }
 
-  // Event handler method to add a post
-  addPost() {
-    // Update the state using the previous state to increment the posts count by 1
-    this.setState(prevState => ({ posts: prevState.posts + 1 }));
+  completeMission() {
+    this.setState(prevState => ({ 
+      missions: prevState.missions + 1,
+      credits: prevState.credits + 200
+    }));
   }
 
-  // Event handler method to add a comment
-  addComment() {
-    // Update the state using the previous state to increment the comments count by 1
-    this.setState(prevState => ({ comments: prevState.comments + 1 }));
+  increaseForcePower() {
+    this.setState(prevState => ({ forcePower: prevState.forcePower + 10 }));
   }
 
-  // Event handler method to add a like
-  addLike() {
-    // Update the state using the previous state to increment the likes count by 1
-    this.setState(prevState => ({ likes: prevState.likes + 1 }));
+  earnCredits() {
+    this.setState(prevState => ({ credits: prevState.credits + 100 }));
   }
 
-  // The render method returns the JSX that defines the component's UI
   render() {
-    // Destructure the state to extract posts, comments, and likes for easy use in the JSX
-    const { posts, comments, likes } = this.state;
-
-    // Return the JSX structure of the component
+    const { missions, forcePower, credits } = this.state;
     return (
-      <div>
-        {/* Display the component title */}
-        <h1>User Stats</h1>
-        {/* Display the current number of posts */}
-        <p>Posts: {posts}</p>
-        {/* Display the current number of comments */}
-        <p>Comments: {comments}</p>
-        {/* Display the current number of likes */}
-        <p>Likes: {likes}</p>
-        {/* Button to add a post, calls the addPost method when clicked */}
-        <button onClick={this.addPost}>Add Post</button>
-        {/* Button to add a comment, calls the addComment method when clicked */}
-        <button onClick={this.addComment}>Add Comment</button>
-        {/* Button to add a like, calls the addLike method when clicked */}
-        <button onClick={this.addLike}>Add Like</button>
-      </div>
+      <StatsContainer>
+        <Title>Galactic Hero Stats</Title>
+        <StatItem>Missions Completed: {missions}</StatItem>
+        <StatItem>Force Power: {forcePower}</StatItem>
+        <StatItem>Credits: {credits}</StatItem>
+        <Button onClick={this.completeMission}>Complete Mission</Button>
+        <Button onClick={this.increaseForcePower}>Train Force Power</Button>
+        <Button onClick={this.earnCredits}>Earn Credits</Button>
+      </StatsContainer>
     );
   }
 }
 
-// Export the UserStats component so it can be used in other parts of the application
 export default UserStats;
