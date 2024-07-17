@@ -26,9 +26,9 @@ const Dashboard = ({ characterData, planetData }) => {
     <DashboardContainer>
       <Title>Galactic Dashboard</Title>
       <SubTitle>Character Heights</SubTitle>
-      <BarChartComponent data={characterData} />
+      <LineChartComponent data={characterData} />
       <SubTitle>Planet Populations</SubTitle>
-      <LineChartComponent data={planetData} color="#ffd700" />
+      <BarChartComponent data={planetData} />
     </DashboardContainer>
   );
 };

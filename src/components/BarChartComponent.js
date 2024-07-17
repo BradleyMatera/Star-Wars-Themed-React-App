@@ -4,13 +4,25 @@ import styled from 'styled-components';
 
 const ChartContainer = styled.div`
   width: 100%;
-  height: 300px;
+  max-width: 600px;
+  height: 400px;
   margin-bottom: 20px;
+  background-color: #2c3e50;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+`;
+
+const NoData = styled.div`
+  color: #ffd700;
+  text-align: center;
+  padding: 20px;
+  font-family: 'Star Jedi', sans-serif;
 `;
 
 const BarChartComponent = ({ data }) => {
   if (!data || data.length === 0) {
-    return <div>No data provided</div>;
+    return <NoData>No data provided</NoData>;
   }
 
   const validData = data.filter(item => 
@@ -18,7 +30,7 @@ const BarChartComponent = ({ data }) => {
   );
 
   if (validData.length === 0) {
-    return <div>No valid data available</div>;
+    return <NoData>No valid data available</NoData>;
   }
 
   return (
@@ -26,7 +38,7 @@ const BarChartComponent = ({ data }) => {
       <BarChart
         dataset={validData}
         xAxis={[{ scaleType: 'band', dataKey: 'id' }]}
-        series={[{ dataKey: 'dataIndex', label: 'Value' }]}
+        series={[{ dataKey: 'dataIndex', label: 'Value', color: '#ffd700' }]}
         width={500}
         height={300}
       />

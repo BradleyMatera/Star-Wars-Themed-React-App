@@ -1,25 +1,40 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-const StatsContainer = styled.div`
-  background-color: #000;
+const DashboardContainer = styled.div`
+  background-color: #2d2d2d;
   color: #ffd700;
   padding: 20px;
   border-radius: 10px;
   font-family: 'Star Jedi', sans-serif;
+  width: 90%;
+  max-width: 600px;
+  margin: 40px auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
 `;
 
 const Title = styled.h1`
   text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
 `;
 
 const StatItem = styled.p`
   font-size: 18px;
+  margin: 10px 0;
+  text-align: center;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 `;
 
 const Button = styled.button`
   background-color: #ffd700;
-  color: #000;
+  color: #2d2d2d;
   border: none;
   padding: 10px 15px;
   margin: 5px;
@@ -27,56 +42,63 @@ const Button = styled.button`
   cursor: pointer;
   font-weight: bold;
   font-family: 'Star Jedi', sans-serif;
+  transition: background-color 0.3s;
+  &:hover {
+    background-color: #ffc700;
+  }
 `;
 
-class UserStats extends Component {
+class GalacticFleetDashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      missions: 0,
-      forcePower: 0,
-      credits: 0
+      fleetSize: 5,
+      missionsCompleted: 3,
+      resources: 1000
     };
-    this.completeMission = this.completeMission.bind(this);
-    this.increaseForcePower = this.increaseForcePower.bind(this);
-    this.earnCredits = this.earnCredits.bind(this);
   }
 
   componentDidMount() {
+    // Simulate fetching initial data
     setTimeout(() => {
-      this.setState({ missions: 5, forcePower: 50, credits: 1000 });
+      this.setState({ fleetSize: 10, missionsCompleted: 5, resources: 5000 });
     }, 1000);
   }
 
-  completeMission() {
-    this.setState(prevState => ({ 
-      missions: prevState.missions + 1,
-      credits: prevState.credits + 200
+  addShipToFleet = () => {
+    this.setState(prevState => ({
+      fleetSize: prevState.fleetSize + 1,
+      resources: prevState.resources - 100
     }));
   }
 
-  increaseForcePower() {
-    this.setState(prevState => ({ forcePower: prevState.forcePower + 10 }));
+  completeMission = () => {
+    this.setState(prevState => ({
+      missionsCompleted: prevState.missionsCompleted + 1,
+      resources: prevState.resources + 200
+    }));
   }
 
-  earnCredits() {
-    this.setState(prevState => ({ credits: prevState.credits + 100 }));
+  earnResources = () => {
+    this.setState(prevState => ({ resources: prevState.resources + 500 }));
   }
 
   render() {
-    const { missions, forcePower, credits } = this.state;
+    const { fleetSize, missionsCompleted, resources } = this.state;
     return (
-      <StatsContainer>
-        <Title>Galactic Hero Stats</Title>
-        <StatItem>Missions Completed: {missions}</StatItem>
-        <StatItem>Force Power: {forcePower}</StatItem>
-        <StatItem>Credits: {credits}</StatItem>
-        <Button onClick={this.completeMission}>Complete Mission</Button>
-        <Button onClick={this.increaseForcePower}>Train Force Power</Button>
-        <Button onClick={this.earnCredits}>Earn Credits</Button>
-      </StatsContainer>
+      <DashboardContainer>
+        <Title>Galactic Fleet Management</Title>
+        <StatItem>Fleet Size: {fleetSize}</StatItem>
+        <StatItem>Missions Completed: {missionsCompleted}</StatItem>
+        <StatItem>Resources: {resources}</StatItem>
+        <ButtonContainer>
+          <Button onClick={this.addShipToFleet}>Add Ship to Fleet</Button>
+          <Button onClick={this.completeMission}>Complete Mission</Button>
+          <Button onClick={this.earnResources}>Earn Resources</Button>
+        </ButtonContainer>
+      </DashboardContainer>
     );
   }
 }
 
-export default UserStats;
+export default GalacticFleetDashboard;

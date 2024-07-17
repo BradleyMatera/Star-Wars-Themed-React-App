@@ -11,11 +11,8 @@ import Settings from './pages/Settings';
 import Footer from './components/Footer';
 import { fetchStarWarsCharacters, fetchStarWarsImages } from './apis';
 import headerImage from './img/headerImage.png';
-import LukeSkywalker from './img/LukeSkywalker.jpeg';
-import C3PO from './img/c3PO.jpeg';
-import Vader from './img/Vader.jpeg';
 import './styles/tailwind.css';
-
+import { characterData, planetData } from './data'; // Correctly importing data
 
 const AppContainer = styled.div`
   background-color: #1c1c1c;
@@ -45,8 +42,6 @@ const App = () => {
     comments: 0,
     likes: 0,
   });
-  const [characterData, setCharacterData] = useState([]);
-  const [planetData, setPlanetData] = useState([]);
 
   const updateUserStats = useCallback(() => {
     const totalPosts = posts.length;
@@ -107,7 +102,7 @@ const App = () => {
       setPosts([
         {
           id: 1,
-          avatar: charactersData[0]?.image || LukeSkywalker,
+          avatar: charactersData[0]?.image || 'https://via.placeholder.com/40',
           username: charactersData[0]?.name || 'Luke Skywalker',
           title: 'Jedi Training',
           description: 'Just finished training with Master Yoda!',
@@ -119,7 +114,7 @@ const App = () => {
         },
         {
           id: 2,
-          avatar: charactersData[1]?.image || C3PO,
+          avatar: charactersData[1]?.image || 'https://via.placeholder.com/40',
           username: charactersData[1]?.name || 'C-3PO',
           title: 'Protocol Droid Musings',
           description: 'The odds of successfully navigating an asteroid field are approximately 3,720 to 1.',
@@ -128,25 +123,13 @@ const App = () => {
         },
         {
           id: 3,
-          avatar: charactersData[2]?.image || Vader,
+          avatar: charactersData[2]?.image || 'https://via.placeholder.com/40',
           username: charactersData[2]?.name || 'Darth Vader',
           title: 'The Dark Side',
           description: 'I find your lack of faith disturbing.',
           timestamp: '1 day ago',
           comments: [{ username: 'Emperor Palpatine', content: 'Good. Good.' }],
         },
-      ]);
-
-      setCharacterData([
-        { id: "Luke Skywalker", dataIndex: 172 },
-        { id: "Darth Vader", dataIndex: 202 },
-        { id: "Leia Organa", dataIndex: 150 },
-      ]);
-
-      setPlanetData([
-        { x: 1, y: 200000, name: "Tatooine" },
-        { x: 2, y: 2000000000, name: "Alderaan" },
-        { x: 3, y: 0, name: "Hoth" },
       ]);
 
       const imagesData = await fetchStarWarsImages();

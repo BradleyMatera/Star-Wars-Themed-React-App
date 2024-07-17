@@ -1,4 +1,3 @@
-// Importing necessary modules from React and styled-components
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
@@ -10,6 +9,9 @@ const Card = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Shadow for a slight 3D effect
   margin-bottom: 1rem; // Space below each card
   color: ${props => props.textColor || '#ffffff'}; // White text by default
+  width: 90%; // Ensure the card is 90% of the parent's width
+  max-width: 400px; // Max width for the card
+  margin: 20px auto; // Center the card horizontally
 `;
 
 // Styled component for the image container
