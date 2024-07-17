@@ -1,90 +1,76 @@
+// Import the necessary library for creating React components
 import React, { Component } from 'react';
-import styled from 'styled-components';
 
-// Styled components for layout and styling
-const StatsContainer = styled.div`
-  background-color: #222; // Dark background color for the stats container
-  color: #fff; // White text color
-  padding: 20px; // Padding inside the container
-  border-radius: 8px; // Rounded corners
-  text-align: center; // Center-aligned text
-  margin-top: 20px; // Top margin to separate from other elements
-`;
-
-const Stat = styled.div`
-  font-size: 1.5rem; // Larger font size for stats
-  margin: 10px 0; // Vertical margin to space out stats
-`;
-
-const Button = styled.button`
-  background-color: #1E90FF; // Blue background color for the button
-  color: #fff; // White text color
-  border: none; // No border
-  padding: 10px 20px; // Padding inside the button
-  border-radius: 5px; // Rounded corners for the button
-  cursor: pointer; // Pointer cursor on hover
-  margin: 5px; // Margin to space out buttons
-  &:hover {
-    background-color: #104E8B; // Darker blue background color on hover
-  }
-`;
-
+// Define a class component named UserStats that extends the React Component class
 class UserStats extends Component {
+  // The constructor is called when the component is created
   constructor(props) {
     super(props);
-    // Initialize state to track posts, comments, and likes
+    // Initialize the state to track posts, comments, and likes
     this.state = {
-      posts: 0,
-      comments: 0,
-      likes: 0,
+      posts: 0,    // State property to hold the number of posts
+      comments: 0, // State property to hold the number of comments
+      likes: 0     // State property to hold the number of likes
     };
-    // Bind event handler methods to the component instance
+    // Bind the event handler methods to the current instance of the component
     this.addPost = this.addPost.bind(this);
     this.addComment = this.addComment.bind(this);
     this.addLike = this.addLike.bind(this);
   }
 
-  // Lifecycle method to simulate fetching initial data
+  // Lifecycle method that is called after the component is mounted to the DOM
   componentDidMount() {
     // Simulate fetching initial data with a delay
     setTimeout(() => {
+      // Update the state with the fetched data (simulated)
       this.setState({ posts: 5, comments: 10, likes: 20 });
-    }, 1000);
+    }, 1000); // Delay of 1000 milliseconds (1 second)
   }
 
-  // Method to add a post
+  // Event handler method to add a post
   addPost() {
-    this.setState((prevState) => ({ posts: prevState.posts + 1 }));
+    // Update the state using the previous state to increment the posts count by 1
+    this.setState(prevState => ({ posts: prevState.posts + 1 }));
   }
 
-  // Method to add a comment
+  // Event handler method to add a comment
   addComment() {
-    this.setState((prevState) => ({ comments: prevState.comments + 1 }));
+    // Update the state using the previous state to increment the comments count by 1
+    this.setState(prevState => ({ comments: prevState.comments + 1 }));
   }
 
-  // Method to add a like
+  // Event handler method to add a like
   addLike() {
-    this.setState((prevState) => ({ likes: prevState.likes + 1 }));
+    // Update the state using the previous state to increment the likes count by 1
+    this.setState(prevState => ({ likes: prevState.likes + 1 }));
   }
 
+  // The render method returns the JSX that defines the component's UI
   render() {
-    const { posts, comments, likes } = this.state; // Destructuring state for easier access
-    const { titleColor, textColor } = this.props; // Destructuring props for customizing styles
+    // Destructure the state to extract posts, comments, and likes for easy use in the JSX
+    const { posts, comments, likes } = this.state;
 
+    // Return the JSX structure of the component
     return (
-      // Main container for user stats, styled with styled-components
-      <StatsContainer>
-        <h2 style={{ color: titleColor }}>User Statistics</h2>
-        <Stat style={{ color: textColor }}>Posts: {posts}</Stat>
-        <Stat style={{ color: textColor }}>Comments: {comments}</Stat>
-        <Stat style={{ color: textColor }}>Likes: {likes}</Stat>
-        {/* Buttons to interact with the component */}
-        <Button onClick={this.addPost}>Add Post</Button>
-        <Button onClick={this.addComment}>Add Comment</Button>
-        <Button onClick={this.addLike}>Add Like</Button>
-      </StatsContainer>
+      <div>
+        {/* Display the component title */}
+        <h1>User Stats</h1>
+        {/* Display the current number of posts */}
+        <p>Posts: {posts}</p>
+        {/* Display the current number of comments */}
+        <p>Comments: {comments}</p>
+        {/* Display the current number of likes */}
+        <p>Likes: {likes}</p>
+        {/* Button to add a post, calls the addPost method when clicked */}
+        <button onClick={this.addPost}>Add Post</button>
+        {/* Button to add a comment, calls the addComment method when clicked */}
+        <button onClick={this.addComment}>Add Comment</button>
+        {/* Button to add a like, calls the addLike method when clicked */}
+        <button onClick={this.addLike}>Add Like</button>
+      </div>
     );
   }
 }
 
+// Export the UserStats component so it can be used in other parts of the application
 export default UserStats;
