@@ -1,4 +1,4 @@
-# > ⚠️ **DISCLAIMER:** This project is a work in progress. The installation commands and setup process may change as development continues
+# ⚠️ **DISCLAIMER:** This project is a work in progress. The installation commands and setup process may change as development continues
 
 > 📝 **Note:**  Please use the commands provided below as a template rather than following them word for word and adjust as necessary for your specific environment and project state as well as the installation directory paths and version and branch names
 
