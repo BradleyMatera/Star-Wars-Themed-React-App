@@ -8,11 +8,14 @@ import Dashboard from './pages/Dashboard';
 import Newsfeed from './pages/Newsfeed';
 import Messages from './pages/Messages';
 import Settings from './pages/Settings';
+import ProfilePage from './pages/ProfilePage';
+import GroupsAndCommunities from './pages/GroupsAndCommunities';
+import EventsPage from './pages/EventsPage';
 import Footer from './components/Footer';
-import { fetchStarWarsCharacters, fetchStarWarsImages } from './apis';
+import { fetchStarWarsCharacters } from './apis';
 import headerImage from './img/headerImage.png';
 import './styles/tailwind.css';
-import { characterData, planetData } from './data'; // Correctly importing data
+import { characterData, planetData } from './data';
 
 const AppContainer = styled.div`
   background-color: #1c1c1c;
@@ -34,7 +37,11 @@ const HeaderImage = styled.img`
 
 const App = () => {
   const [posts, setPosts] = useState([]);
-  const [adImages, setAdImages] = useState([]);
+  const [adImages] = useState([
+    { image: 'https://via.placeholder.com/40' },
+    { image: 'https://via.placeholder.com/40' },
+    { image: 'https://via.placeholder.com/40' }
+  ]);
   const [characters, setCharacters] = useState([]);
   const [color, setColor] = useState('#1c1c1c');
   const [userStats, setUserStats] = useState({
@@ -95,6 +102,7 @@ const App = () => {
     alert("These aren't the droids you're looking for.");
   };
 
+  // Fetch Star Wars characters on component mount
   useEffect(() => {
     const fetchData = async () => {
       const charactersData = await fetchStarWarsCharacters();
@@ -102,7 +110,7 @@ const App = () => {
       setPosts([
         {
           id: 1,
-          avatar: charactersData[0]?.image || 'https://via.placeholder.com/40',
+          avatar: require('./img/LukeSkywalker.jpeg'),
           username: charactersData[0]?.name || 'Luke Skywalker',
           title: 'Jedi Training',
           description: 'Just finished training with Master Yoda!',
@@ -114,7 +122,7 @@ const App = () => {
         },
         {
           id: 2,
-          avatar: charactersData[1]?.image || 'https://via.placeholder.com/40',
+          avatar: require('./img/c3PO.jpeg'),
           username: charactersData[1]?.name || 'C-3PO',
           title: 'Protocol Droid Musings',
           description: 'The odds of successfully navigating an asteroid field are approximately 3,720 to 1.',
@@ -123,7 +131,7 @@ const App = () => {
         },
         {
           id: 3,
-          avatar: charactersData[2]?.image || 'https://via.placeholder.com/40',
+          avatar: require('./img/Vader.jpeg'),
           username: charactersData[2]?.name || 'Darth Vader',
           title: 'The Dark Side',
           description: 'I find your lack of faith disturbing.',
@@ -131,14 +139,16 @@ const App = () => {
           comments: [{ username: 'Emperor Palpatine', content: 'Good. Good.' }],
         },
       ]);
-
-      const imagesData = await fetchStarWarsImages();
-      setAdImages(imagesData);
     };
 
     fetchData();
     setTimeout(() => setColor('#ff6347'), 3000);
   }, []);
+
+  console.log('App posts:', posts);
+  console.log('App adImages:', adImages);
+  console.log('App characters:', characters);
+  console.log('App userStats:', userStats);
 
   return (
     <Router>
@@ -167,6 +177,9 @@ const App = () => {
             <Route path="/newsfeed" element={<Newsfeed />} />
             <Route path="/messages" element={<Messages />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/groups" element={<GroupsAndCommunities />} />
+            <Route path="/events" element={<EventsPage />} />
           </Routes>
         </MainContent>
         <Footer />

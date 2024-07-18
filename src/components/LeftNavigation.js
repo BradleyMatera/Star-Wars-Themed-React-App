@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { FaHome, FaNewspaper, FaEnvelope, FaChartBar, FaCog, FaBars } from 'react-icons/fa';
+import { FaHome, FaNewspaper, FaEnvelope, FaChartBar, FaCog, FaUser, FaUsers, FaCalendarAlt, FaBars } from 'react-icons/fa';
 import { Link, useLocation } from 'react-router-dom';
 
+// Styled components for navigation
 const NavWrapper = styled.nav`
   position: fixed;
   top: 60px;
@@ -97,6 +98,24 @@ const LeftNavigation = ({ backgroundColor, linkColor, hoverColor, buttonColor })
             <NavLink to="/settings" $linkColor={linkColor} $hoverColor={hoverColor} className={location.pathname === "/settings" ? "active" : ""}>
               <IconWrapper><FaCog /></IconWrapper>
               Settings
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink to="/profile" $linkColor={linkColor} $hoverColor={hoverColor} className={location.pathname === "/profile" ? "active" : ""}>
+              <IconWrapper><FaUser /></IconWrapper>
+              Profile
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink to="/groups" $linkColor={linkColor} $hoverColor={hoverColor} className={location.pathname === "/groups" ? "active" : ""}>
+              <IconWrapper><FaUsers /></IconWrapper>
+              Groups
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink to="/events" $linkColor={linkColor} $hoverColor={hoverColor} className={location.pathname === "/events" ? "active" : ""}>
+              <IconWrapper><FaCalendarAlt /></IconWrapper>
+              Events
             </NavLink>
           </NavItem>
         </NavList>

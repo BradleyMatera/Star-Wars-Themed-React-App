@@ -1,4 +1,3 @@
-// PostCard.js
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';

@@ -48,7 +48,7 @@ const Button = styled.button`
   }
 `;
 
-class GalacticFleetDashboard extends Component {
+class UserStats extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -101,4 +101,4 @@ class GalacticFleetDashboard extends Component {
   }
 }
 
-export default GalacticFleetDashboard;
+export default UserStats;

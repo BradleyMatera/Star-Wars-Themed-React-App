@@ -1,4 +1,3 @@
-// Character heights data
 export const characterData = [
   { name: 'Luke Skywalker', height: 172, role: 'Jedi Knight', species: 'Human' },
   { name: 'Leia Organa', height: 150, role: 'Princess', species: 'Human' },
@@ -14,11 +13,10 @@ export const characterData = [
   { name: 'Rey', height: 170, role: 'Jedi', species: 'Human' }
 ];
 
-// Planet populations data
 export const planetData = [
-  { x: 1, y: 200000, name: "Tatooine" },
-  { x: 2, y: 2000000000, name: "Alderaan" },
-  { x: 3, y: 0, name: "Hoth" },
-  { x: 4, y: 1000000000, name: "Naboo" },
-  { x: 5, y: 5000000000, name: "Coruscant" },
+  { name: "Tatooine", population: 200000 },
+  { name: "Alderaan", population: 2000000000 },
+  { name: "Hoth", population: 0 },
+  { name: "Naboo", population: 1000000000 },
+  { name: "Coruscant", population: 5000000000 },
 ];
