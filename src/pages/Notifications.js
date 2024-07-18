@@ -3,37 +3,55 @@ import styled from 'styled-components';
 
 // Styled component for the notifications container
 const NotificationsContainer = styled.div`
-  padding: 20px;
-  color: #ffd700;
-  background-color: #000;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 0 1rem;
+  background-color: #1c1c1c;
   border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  color: #ffd700;
 `;
 
 // Styled component for individual notification items
 const NotificationItem = styled.div`
-  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
   padding: 10px;
-  background-color: #1c1c1c;
-  border-radius: 5px;
-  border: 1px solid #ffd700;
+  background-color: #333;
+  border-bottom: 1px solid #444;
   color: #fff;
+
+  &:last-child {
+    border-bottom: none;
+  }
+`;
+
+const NotificationImage = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+`;
+
+const NotificationText = styled.div`
+  flex: 1;
 `;
 
 // Notifications component displaying a list of notifications
 const Notifications = () => {
   // Sample notifications data
   const notifications = [
-    { id: 1, message: "Your order has been shipped!" },
-    { id: 2, message: "New comment on your post." },
-    { id: 3, message: "Friend request from Luke Skywalker." },
+    { id: 1, message: "Your order has been shipped!", imageUrl: "https://via.placeholder.com/40" },
+    { id: 2, message: "New comment on your post.", imageUrl: "https://via.placeholder.com/40" },
+    { id: 3, message: "Friend request from Luke Skywalker.", imageUrl: "https://via.placeholder.com/40" },
   ];
 
   return (
     <NotificationsContainer>
-      <h1>Notifications</h1>
       {notifications.map(notification => (
         <NotificationItem key={notification.id}>
-          {notification.message}
+          <NotificationImage src={notification.imageUrl} alt="Profile" />
+          <NotificationText>{notification.message}</NotificationText>
         </NotificationItem>
       ))}
     </NotificationsContainer>

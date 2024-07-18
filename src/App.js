@@ -58,11 +58,11 @@ const App = () => {
   };
 
   const handlePrimaryButtonClick = () => {
-    alert("May the Force be with you!");
+    // Handle primary button click
   };
 
   const handleSecondaryButtonClick = () => {
-    alert("These aren't the droids you're looking for.");
+    // Handle secondary button click
   };
 
   return (

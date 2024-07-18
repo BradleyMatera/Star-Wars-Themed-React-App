@@ -1,3 +1,5 @@
+// src/data.js
+
 export const characterData = [
   { name: 'Luke Skywalker', height: 172, role: 'Jedi Knight', species: 'Human' },
   { name: 'Leia Organa', height: 150, role: 'Princess', species: 'Human' },

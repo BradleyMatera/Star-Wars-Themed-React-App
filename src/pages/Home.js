@@ -5,24 +5,22 @@ import PostCard from '../components/PostCard';
 import Form from '../components/Form';
 import AdCard from '../components/AdCard';
 import UserStats from '../components/UserStats';
+import Button from '../components/Button';
 import LukeSkywalker from '../img/LukeSkywalker.jpeg';
 import C3PO from '../img/c3PO.jpeg';
 import Vader from '../img/Vader.jpeg';
-import Button from '../components/Button';
 
 // Styled container for the Home component
 const HomeContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  max-width: 5xl;
+  max-width: 1200px;
   margin: auto;
   padding: 20px;
   gap: 20px;
-
-  @media (min-width: 768px) {
-    flex-direction: row;
-    gap: 40px;
-  }
+  background-color: #000;
+  color: #ffd700;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 `;
 
 // Styled sidebar component
@@ -31,15 +29,18 @@ const Sidebar = styled.aside`
   flex-direction: column;
   gap: 20px;
   flex: 1;
-
-  @media (min-width: 768px) {
-    max-width: 300px;
-  }
 `;
 
 // Styled main content component
 const MainContent = styled.main`
-  flex: 2;
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+// Styled component for the ads section
+const AdsSection = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -167,19 +168,26 @@ const Home = ({
   return (
     <HomeContainer>
       <Sidebar>
-        {adData.map((ad, index) => (
-          <AdCard
-            key={index}
-            title={ad.title}
-            subtitle={ad.subtitle}
-            imageUrl={ad.imageUrl}
-            $backgroundColor="#2c3e50"
-            $textColor="#ffffff"
-            $imageBackgroundColor="#f0f0f0"
-            $titleColor="#FFD700"
-            $subtitleColor="#777"
-          />
-        ))}
+        <AdsSection>
+          {adData.map((ad, index) => (
+            <AdCard
+              key={index}
+              title={ad.title}
+              subtitle={ad.subtitle}
+              imageUrl={ad.imageUrl}
+              $backgroundColor="#2c3e50"
+              $textColor="#ffffff"
+              $imageBackgroundColor="#f0f0f0"
+              $titleColor="#FFD700"
+              $subtitleColor="#777"
+            />
+          ))}
+        </AdsSection>
+        <UserStats
+          posts={userStats.posts}
+          comments={userStats.comments}
+          likes={userStats.likes}
+        />
       </Sidebar>
       <MainContent>
         <div className="flex justify-between mb-4">
@@ -212,11 +220,21 @@ const Home = ({
         )}
       </MainContent>
       <Sidebar>
-        <UserStats
-          posts={userStats.posts}
-          comments={userStats.comments}
-          likes={userStats.likes}
-        />
+        <AdsSection>
+          {adData.map((ad, index) => (
+            <AdCard
+              key={index}
+              title={ad.title}
+              subtitle={ad.subtitle}
+              imageUrl={ad.imageUrl}
+              $backgroundColor="#2c3e50"
+              $textColor="#ffffff"
+              $imageBackgroundColor="#f0f0f0"
+              $titleColor="#FFD700"
+              $subtitleColor="#777"
+            />
+          ))}
+        </AdsSection>
       </Sidebar>
     </HomeContainer>
   );
