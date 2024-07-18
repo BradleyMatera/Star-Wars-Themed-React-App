@@ -1,4 +1,4 @@
-# > ⚠️ **DISCLAIMER:** This project is a work in progress. The installation commands and setup process may change as development continues
+# > ⚠️ **DISCLAIMER:** This project is a work in progress. The installation commands and setup process may change as development continues. Please use the commands provided below as a template rather than following them word for word. Adjust as necessary for your specific environment and project state as well as the installation directory paths and version and branch names
 
 > 📝 **Note:** Make sure you have Node.js (version 14 or later) and npm installed on your machine before starting the setup process.
 
