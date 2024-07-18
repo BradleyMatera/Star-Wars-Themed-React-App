@@ -23,8 +23,7 @@ const GroupsContainer = styled.div`
   animation: ${fadeIn} 0.5s ease-out;
   max-width: 1200px;
   margin: 20px auto;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  justify-content: space-between;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 `;
 
 const Header = styled.div`
@@ -62,7 +61,6 @@ const GroupsGrid = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
   width: 100%;
-  max-width: 1200px;
 `;
 
 const GroupCard = styled.div`
@@ -78,7 +76,6 @@ const GroupCard = styled.div`
 
   &:hover {
     background-color: #333;
-    padding-left: 10px;
   }
 `;
 
@@ -161,4 +158,3 @@ const GroupsAndCommunities = () => {
 };
 
 export default GroupsAndCommunities;
-

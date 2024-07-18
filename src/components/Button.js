@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 // Creating a styled button component using styled-components
+// This component will be used across various pages for consistent styling
 const StyledButton = styled.button`
   background-color: ${props => props.$primary ? '#1E90FF' : '#FFD700'}; // Sets the background color based on the $primary prop. If true, it uses a blue color, otherwise gold.
   color: ${props => props.$primary ? '#fff' : '#000'}; // Sets the text color based on the $primary prop. If true, text is white, otherwise black.
@@ -18,6 +19,7 @@ const StyledButton = styled.button`
 `;
 
 // Functional Button component definition
+// This component is used in Home.js for primary and secondary actions
 const Button = ({ children, primary, onClick }) => {
   return (
     // Rendering the styled button with dynamic props

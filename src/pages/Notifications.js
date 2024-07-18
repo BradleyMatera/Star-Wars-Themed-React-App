@@ -1,5 +1,7 @@
+// Importing necessary libraries and components
 import React from 'react';
 import styled from 'styled-components';
+import { FaShippingFast, FaCommentDots, FaUserFriends } from 'react-icons/fa';
 
 // Styled component for the notifications container
 const NotificationsContainer = styled.div`
@@ -26,11 +28,10 @@ const NotificationItem = styled.div`
   }
 `;
 
-const NotificationImage = styled.img`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+const NotificationIcon = styled.div`
+  font-size: 24px;
   margin-right: 10px;
+  color: #ffd700;
 `;
 
 const NotificationText = styled.div`
@@ -39,18 +40,18 @@ const NotificationText = styled.div`
 
 // Notifications component displaying a list of notifications
 const Notifications = () => {
-  // Sample notifications data
+  // Sample notifications data with appropriate icons
   const notifications = [
-    { id: 1, message: "Your order has been shipped!", imageUrl: "https://via.placeholder.com/40" },
-    { id: 2, message: "New comment on your post.", imageUrl: "https://via.placeholder.com/40" },
-    { id: 3, message: "Friend request from Luke Skywalker.", imageUrl: "https://via.placeholder.com/40" },
+    { id: 1, message: "Your order has been shipped!", icon: <FaShippingFast /> },
+    { id: 2, message: "New comment on your post.", icon: <FaCommentDots /> },
+    { id: 3, message: "Friend request from Luke Skywalker.", icon: <FaUserFriends /> },
   ];
 
   return (
     <NotificationsContainer>
       {notifications.map(notification => (
         <NotificationItem key={notification.id}>
-          <NotificationImage src={notification.imageUrl} alt="Profile" />
+          <NotificationIcon>{notification.icon}</NotificationIcon>
           <NotificationText>{notification.message}</NotificationText>
         </NotificationItem>
       ))}

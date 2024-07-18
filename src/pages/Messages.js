@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
-import axios from 'axios';
 import { motion } from 'framer-motion';
-import { FaSearch } from 'react-icons/fa';
+import { FaSearch, FaUser, FaRobot } from 'react-icons/fa';
 
 // Animations
 const fadeIn = keyframes`
@@ -82,10 +81,8 @@ const MessageListItem = styled.li`
   }
 `;
 
-const MessageListItemAvatar = styled.img`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+const MessageListItemAvatar = styled.div`
+  font-size: 24px;
   margin-right: 10px;
 `;
 
@@ -109,6 +106,7 @@ const MessageCount = styled.div`
   padding: 2px 8px;
   font-size: 12px;
   margin-left: 10px;
+  display: ${props => (props.$unread ? 'block' : 'none')}; // Show only if there are unread messages
 `;
 
 const MainContent = styled.div`
@@ -156,10 +154,8 @@ const ChatMessageContent = styled.div`
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 `;
 
-const ChatMessageAvatar = styled.img`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+const ChatMessageAvatar = styled.div`
+  font-size: 24px;
   margin: 0 10px;
 `;
 
@@ -197,6 +193,9 @@ const SendButton = styled.button`
 const Messages = () => {
   const [messages, setMessages] = useState([]);
   const [activeChat, setActiveChat] = useState(null);
+  const [chatContent, setChatContent] = useState('');
+  const [chatHistory, setChatHistory] = useState({});
+  const [unreadCounts, setUnreadCounts] = useState({});
 
   useEffect(() => {
     // Fetch messages from the Star Wars API
@@ -208,63 +207,86 @@ const Messages = () => {
         // Shuffle the character data to ensure different characters each time
         const shuffledCharacters = data.results.sort(() => 0.5 - Math.random());
 
-        const characterMessages = await Promise.all(
-          shuffledCharacters.slice(0, 5).map(async (character, index) => {
-            const imageUrl = await fetchImage(character.name);
-            return {
-              id: index + 1,
-              from: character.name,
-              content: generateMessageContent(character),
-              imageUrl: imageUrl
-            };
-          })
-        );
+        const characterMessages = shuffledCharacters.slice(0, 5).map((character, index) => {
+          const icon = index % 2 === 0 ? <FaUser /> : <FaRobot />;
+          return {
+            id: index + 1,
+            from: character.name,
+            content: generateMessageContent(character),
+            icon: icon,
+          };
+        });
+
         setMessages(characterMessages);
         setActiveChat(characterMessages[0]);
+        const initialChatHistory = {};
+        characterMessages.forEach(message => {
+          initialChatHistory[message.id] = [message];
+        });
+        setChatHistory(initialChatHistory);
+        const initialUnreadCounts = {};
+        characterMessages.forEach(message => {
+          initialUnreadCounts[message.id] = 0;
+        });
+        setUnreadCounts(initialUnreadCounts);
       } catch (error) {
         console.error('Failed to fetch messages:', error);
       }
     };
 
-    // Fetch Star Wars related image from Unsplash
-    const fetchImage = async (query) => {
-      try {
-        const response = await axios.get('https://api.unsplash.com/search/photos', {
-          params: { query: `Star Wars ${query}`, per_page: 1 },
-          headers: {
-            Authorization: `Client-ID tYqbodUOR0MV7sAbu0MWu0YMDdMg8ZRay6CndTSHzKA`
-          }
-        });
-        if (response.data.results.length > 0) {
-          return response.data.results[0].urls.small;
-        } else {
-          return 'https://via.placeholder.com/50'; // Fallback image
-        }
-      } catch (error) {
-        console.error('Error fetching image from Unsplash:', error);
-        return 'https://via.placeholder.com/50'; // Fallback image
-      }
-    };
-
     // Generate realistic message content based on character data
     const generateMessageContent = (character) => {
-      return `Hello, I am ${character.name}, known for my ${getRandomTrait()}. My height is ${character.height} cm and my mass is ${character.mass} kg.`;
+      return `Hey there, it's ${character.name}. Just wanted to say that I'm ${getRandomTrait()}!`;
     };
 
     // Generate random character traits for messages
     const getRandomTrait = () => {
       const traits = [
-        'exceptional piloting skills',
-        'legendary lightsaber duels',
-        'mastery of the Force',
-        'strategic brilliance in battles',
-        'daring escapades across the galaxy'
+        'great at podracing',
+        'a master of disguise',
+        'known for my witty one-liners',
+        'the best pilot in the galaxy',
+        'undefeated in arm-wrestling'
       ];
       return traits[Math.floor(Math.random() * traits.length)];
     };
 
     fetchMessages();
   }, []);
+
+useEffect(() => {
+  if (activeChat) {
+    setUnreadCounts(prevCounts => ({
+      ...prevCounts,
+      [activeChat.id]: 0
+    }));
+  }
+}, [activeChat]);
+
+
+  // Handler for sending a new chat message
+const handleSendMessage = () => {
+  if (chatContent.trim() && activeChat) {
+    const newMessage = {
+      id: Date.now(),
+      from: 'You',
+      content: chatContent,
+      icon: <FaUser />,
+    };
+    setChatHistory(prevHistory => ({
+      ...prevHistory,
+      [activeChat.id]: [...prevHistory[activeChat.id], newMessage],
+    }));
+    setChatContent('');
+
+    // Only increment unread count for chats that are not active
+    setUnreadCounts(prevCounts => ({
+      ...prevCounts,
+      [activeChat.id]: prevCounts[activeChat.id] + 1
+    }));
+  }
+};
+
 
   return (
     <MessagesContainer>
@@ -278,40 +300,38 @@ const Messages = () => {
         </SidebarHeader>
         <MessageList>
           {messages.map((message) => (
-            <MessageListItem key={message.id} onClick={() => setActiveChat(message)}>
-              <MessageListItemAvatar src={message.imageUrl} alt={message.from} />
-              <MessageListItemContent>
-                <MessageListItemName>{message.from}</MessageListItemName>
-                <MessageListItemText>{message.content}</MessageListItemText>
-              </MessageListItemContent>
-              <MessageCount>2</MessageCount>
-            </MessageListItem>
+<MessageListItem key={message.id} onClick={() => setActiveChat(message)}>
+  <MessageListItemAvatar>{message.icon}</MessageListItemAvatar>
+  <MessageListItemContent>
+    <MessageListItemName>{message.from}</MessageListItemName>
+    <MessageListItemText>{message.content.split('\n')[0]}</MessageListItemText>
+  </MessageListItemContent>
+  <MessageCount $unread={unreadCounts[message.id] > 0}>{unreadCounts[message.id]}</MessageCount>
+</MessageListItem>
+
           ))}
         </MessageList>
       </Sidebar>
       {activeChat && (
         <MainContent>
           <ChatHeader>
-            <ChatTitle>{activeChat.from}</ChatTitle>
+          <ChatTitle>{activeChat.from}</ChatTitle>
           </ChatHeader>
           <ChatMessages>
-            {messages.map((message) => (
-              <ChatMessage
-                key={message.id}
-                initial={{ opacity: 0, x: -100 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <ChatMessageAvatar src={message.imageUrl} alt={message.from} />
-                <ChatMessageContent>
-                <strong>{message.from}:</strong> {message.content}
-                </ChatMessageContent>
+            {chatHistory[activeChat.id].map((message, index) => (
+              <ChatMessage key={index} initial={{ opacity: 0, x: -100 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
+                <ChatMessageAvatar>{message.icon}</ChatMessageAvatar>
+                <ChatMessageContent>{message.content}</ChatMessageContent>
               </ChatMessage>
             ))}
           </ChatMessages>
           <ChatInputContainer>
-            <ChatInput placeholder="Type your message..." />
-            <SendButton>Send</SendButton>
+            <ChatInput
+              placeholder="Type your message..."
+              value={chatContent}
+              onChange={(e) => setChatContent(e.target.value)}
+            />
+            <SendButton onClick={handleSendMessage}>Send</SendButton>
           </ChatInputContainer>
         </MainContent>
       )}

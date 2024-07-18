@@ -66,17 +66,9 @@ const AdContent = [
 ];
 
 // Home component definition
-const Home = ({
-  posts = [], // Array of post objects
-  adImages = [], // Array of ad image objects
-  userStats = { posts: 0, comments: 0, likes: 0 }, // User stats object
-  handleAddPost = () => {}, // Function to handle adding a post
-  handleAddComment = () => {}, // Function to handle adding a comment
-  handleDeletePost = () => {}, // Function to handle deleting a post
-  handleEditPost = () => {}, // Function to handle editing a post
-}) => {
+const Home = () => {
   const [adData, setAdData] = useState([]); // State for storing ad data
-  const [postList, setPostList] = useState(posts); // State for storing posts
+  const [postList, setPostList] = useState([]); // State for storing posts
 
   // useEffect hook to fetch ad images on component mount
   useEffect(() => {
@@ -117,6 +109,25 @@ const Home = ({
       comments: [],
     };
     setPostList([newPost, ...postList]);
+  };
+
+  // Handler to add a new comment to a specific post
+  const handleAddComment = (postId, comment) => {
+    setPostList(postList.map(post =>
+      post.id === postId ? { ...post, comments: [...post.comments, { username: 'Current User', content: comment }] } : post
+    ));
+  };
+
+  // Handler to delete a specific post
+  const handleDeletePost = (postId) => {
+    setPostList(postList.filter(post => post.id !== postId));
+  };
+
+  // Handler to edit a specific post
+  const handleEditPost = (postId, newContent) => {
+    setPostList(postList.map(post =>
+      post.id === postId ? { ...post, description: newContent } : post
+    ));
   };
 
   // Initial fake posts
@@ -184,9 +195,9 @@ const Home = ({
           ))}
         </AdsSection>
         <UserStats
-          posts={userStats.posts}
-          comments={userStats.comments}
-          likes={userStats.likes}
+          posts={postList.length}
+          comments={postList.reduce((acc, post) => acc + post.comments.length, 0)}
+          likes={0} // Assuming there is a likes count in userStats
         />
       </Sidebar>
       <MainContent>
