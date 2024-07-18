@@ -1,4 +1,4 @@
-# > ⚠️ **DISCLAIMER:** This project is a work in progress. The installation commands and setup process may change as development continues.
+# > ⚠️ **DISCLAIMER:** This project is a work in progress. The installation commands and setup process may change as development continues
 
 > 📝 **Note:** Make sure you have Node.js (version 14 or later) and npm installed on your machine before starting the setup process.
 
@@ -34,6 +34,7 @@ Successful completion of this activity will show that you can:
 ## 📝 Summary of Changes
 
 ### Detailed Implementation
+
 <details>
 <summary>Click to expand</summary>
 
@@ -240,23 +241,25 @@ This decision exemplified the importance of adaptability and finding alternative
 
 ## 🚀 Getting Started
 
-### Clone the Repository:
+### Clone the Repository
 
 ```sh
 git clone https://github.com/your-repo/imperial-network.git
 ```
-### Install Dependencies:
+
+### Install Dependencies
 
 ```sh
 npm install
 ```
-### Start the Application:
+
+### Start the Application
 
 ```sh
 npm start
 ```
 
-### Navigate Through the Application: 
+### Navigate Through the Application
 
 Use the navigation bar to switch between different views such as Home, Dashboard, Newsfeed, Messages, Settings, Profile, Groups, and Events.
 
