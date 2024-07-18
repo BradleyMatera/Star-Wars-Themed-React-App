@@ -1,6 +1,11 @@
-# 🌌 Imperial Network Application
+# > ⚠️ **DISCLAIMER:** This project is a work in progress. The installation commands and setup process may change as development continues.
+
+> 📝 **Note:** Make sure you have Node.js (version 14 or later) and npm installed on your machine before starting the setup process.
+
+## 🌌 Imperial Network Application
 
 ## 📚 Table of Contents
+
 - [Overview](#-overview)
 - [Objectives & Outcomes](#-objectives--outcomes)
 - [Summary of Changes](#-summary-of-changes)
@@ -12,9 +17,11 @@
 - [Conclusion](#-conclusion)
 
 ## 🌟 Overview
+
 This application is a mock Star Wars-themed social network platform called "Imperial Network." It allows users to interact with various features like profiles, messages, newsfeeds, groups, events, and settings. The app demonstrates the usage of React.js, React Router, Hooks, styled-components, and chart libraries.
 
 ## 🎯 Objectives & Outcomes
+
 Successful completion of this activity will show that you can:
 
 - 🎨 Style the application using CSS-in-JS
@@ -25,11 +32,13 @@ Successful completion of this activity will show that you can:
 - 🧠 Understand the concepts of `useState` and `useEffect`
 
 ## 📝 Summary of Changes
+
 ### Detailed Implementation
 <details>
 <summary>Click to expand</summary>
 
 #### 🎨 CSS-in-JS for Styling
+
 **Styled Components**: Replaced traditional CSS with styled-components across the entire application to promote a uniform and modular styling approach.
 
 ```js
@@ -43,6 +52,7 @@ const HeaderWrapper = styled.header`
 ```
 
 #### 🚀 React Router Integration
+
 **Routing**: Implemented React Router to handle navigation between different views: Home, Dashboard, Newsfeed, Messages, Settings, Profile, Groups, and Events.
 
 ```js
@@ -63,6 +73,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 ```
 
 #### 🎣 React Hooks Implementation
+
 **useState**: Used extensively to manage state in functional components.
 
 ```js
@@ -78,6 +89,7 @@ useEffect(() => {
 ```
 
 #### 📊 Data Visualization with Chart.js and react-chartjs-2
+
 **Charts**: Integrated Chart.js with react-chartjs-2 to display character heights and planet populations on the Dashboard view.
 
 ```js
@@ -113,6 +125,7 @@ const planetPopulationData = {
 </details>
 
 ### 🔄 Unified Approach
+
 The refactor focused on unifying the codebase by:
 
 - ✨ **Consistent Styling**: Using styled-components across all components ensured consistent and modular styling.
@@ -121,6 +134,7 @@ The refactor focused on unifying the codebase by:
 - 📦 **Modular Design**: Ensuring each component had a single responsibility and was easy to maintain and extend.
 
 ## 🚀 Features
+
 - 🏠 **Home**
 - 📊 **Dashboard**
 - 📰 **Newsfeed**
@@ -131,10 +145,12 @@ The refactor focused on unifying the codebase by:
 - 📅 **Events**
 
 ### 🖼️ Views/Pages
+
 **Functional Components**: Created new views for Dashboard, Newsfeed, Messages, Settings, Profile, Groups, and Events.
 **Titles**: Added titles for each view.
 
 ### 🧭 Custom Navigation
+
 **Navigation Component**: Added a custom navigation component using React Router.
 
 ```js
@@ -148,16 +164,21 @@ The refactor focused on unifying the codebase by:
 ```
 
 ### 👤 Profile Pages
+
 **Detailed Profiles**: Created profile pages with user details, stats, and recent activity.
 
 ### 👥 Groups and Communities
+
 **Groups**: Added functionality to create and join groups based on common interests like planets, starships, or factions.
 
 ### 📅 Events
+
 **Event Management**: Integrated an event management system for scheduling and joining events.
 
 ## ✅ Criteria Checklist
+
 ### React Hooks
+
 **Implemented React Hooks**: Used `useState` and `useEffect` to manage state and side effects.
 
 - **useState**
@@ -177,12 +198,15 @@ The refactor focused on unifying the codebase by:
   ```
 
 ### React Router
+
 **Routing**: Added routing to navigate between different views: Dashboard, Newsfeed, Messages, Settings, Profile, Groups, and Events.
 
 ### CSS-in-JS
+
 **Styled Components**: Styled the application using styled-components.
 
 ### Chart Libraries
+
 **Data Visualization**: Integrated Chart.js with react-chartjs-2 to display charts on the Dashboard view.
 
 ## 🧠 Challenges and Decisions
@@ -196,6 +220,7 @@ During the development of the Imperial Network application, several challenges a
 - **Compatibility with React Hooks**: Unexpected behavior and crashes when updating chart data dynamically.
 
 ### ✅ Decision to Use Chart.js with react-chartjs-2
+
 Given these persistent issues with Recharts, we switched to Chart.js with react-chartjs-2, which provided:
 
 - 🔄 **Stable Integration**: Smooth updates and dynamic data handling.
@@ -205,6 +230,7 @@ Given these persistent issues with Recharts, we switched to Chart.js with react-
 This decision exemplified the importance of adaptability and finding alternative solutions to overcome technical challenges during the development process.
 
 ## 📚 Additional Resources
+
 - 🎨 **Styled Components**: [styled-components](https://styled-components.com/)
 - 🚀 **React Router**: [react-router](https://reactrouter.com/)
 - 📊 **Chart.js**: [chart.js](https://www.chartjs.org/)
@@ -213,22 +239,29 @@ This decision exemplified the importance of adaptability and finding alternative
 - 🖼️ **Unsplash API**: [unsplash.com](https://unsplash.com/)
 
 ## 🚀 Getting Started
+
 ### Clone the Repository:
+
 ```sh
 git clone https://github.com/your-repo/imperial-network.git
 ```
 ### Install Dependencies:
+
 ```sh
 npm install
 ```
 ### Start the Application:
+
 ```sh
 npm start
 ```
+
 ### Navigate Through the Application: 
+
 Use the navigation bar to switch between different views such as Home, Dashboard, Newsfeed, Messages, Settings, Profile, Groups, and Events.
 
 ## 🎉 Conclusion
+
 The Imperial Network application is a comprehensive example of a modern web application built with React.js. It showcases the use of React Router, Hooks, styled-components, and API integrations to create a dynamic and engaging user experience.
 
 By following the checklist and criteria, this application demonstrates proficiency in using React.js to create a fully functional Star Wars-themed social network platform. The decision to switch from Recharts to Chart.js with react-chartjs-2 resolved major issues, providing a stable and flexible solution for data visualization. The consistent use of styled-components ensures cohesive design, while React Router and Hooks enable efficient navigation and state management. This project serves as a robust example of modern web development practices.
