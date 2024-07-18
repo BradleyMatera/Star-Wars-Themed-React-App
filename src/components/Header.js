@@ -15,6 +15,11 @@ const HeaderWrapper = styled.header`
   justify-content: space-between; // Space between elements
   align-items: center; // Centering items vertically
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Adding shadow for depth
+  flex-wrap: wrap; // Allow wrapping of elements on smaller screens
+
+  @media (max-width: 768px) {
+    padding: 1rem; // Reduce padding on smaller screens
+  }
 `;
 
 const Logo = styled.h1`
@@ -23,6 +28,14 @@ const Logo = styled.h1`
   font-weight: bold; // Bold font weight
   font-family: 'Star Jedi', sans-serif; // Custom font for the Star Wars theme
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); // Text shadow for a 3D effect
+  flex: 1 1 auto; // Allow the logo to grow and shrink
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem; // Reduce font size on smaller screens
+    text-align: center; // Center the logo text on smaller screens
+    flex-basis: 100%; // Make logo take full width on smaller screens
+    margin-bottom: 0.5rem; // Add margin below the logo on smaller screens
+  }
 `;
 
 const SearchContainer = styled.div`
@@ -32,6 +45,13 @@ const SearchContainer = styled.div`
   border-radius: 20px; // Rounded corners
   padding: 0.5rem 1rem; // Padding for spacing
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); // Adding shadow for depth
+  flex: 2 1 auto; // Allow the search container to grow and shrink
+  margin: 0 1rem; // Add margin for spacing
+
+  @media (max-width: 768px) {
+    flex-basis: 100%; // Make search container take full width on smaller screens
+    margin: 0.5rem 0; // Add vertical margin on smaller screens
+  }
 `;
 
 const SearchInput = styled.input`
@@ -54,6 +74,13 @@ const SearchInput = styled.input`
 const IconContainer = styled.div`
   display: flex; // Flexbox for layout
   gap: 1rem; // Gap between icons
+  flex: 1 1 auto; // Allow the icon container to grow and shrink
+
+  @media (max-width: 768px) {
+    justify-content: center; // Center the icons on smaller screens
+    flex-basis: 100%; // Make icon container take full width on smaller screens
+    margin-top: 0.5rem; // Add margin above the icons on smaller screens
+  }
 `;
 
 const IconWrapper = styled.div`

@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 // Styled component for the news feed container
 const FeedContainer = styled.div`
   display: flex;
+  flex-direction: column;
   gap: 20px;
   max-width: 1200px;
   margin: 0 auto;
@@ -14,6 +15,10 @@ const FeedContainer = styled.div`
   color: #ffd700;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
 `;
 
 // Styled component for the main content area
@@ -30,6 +35,11 @@ const SectionTitle = styled.h1`
   font-weight: 700;
   color: #ffd700;
   margin-bottom: 20px;
+  text-align: center;
+
+  @media (min-width: 768px) {
+    text-align: left;
+  }
 `;
 
 // Styled component for the news section
@@ -46,16 +56,26 @@ const NewsItem = styled(motion.div)`
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
   gap: 20px;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    align-items: flex-start;
+  }
 `;
 
 // Styled component for news images
 const NewsImage = styled.img`
-  width: 120px;
-  height: 120px;
+  width: 100%;
+  height: auto;
   border-radius: 10px;
   object-fit: cover;
+
+  @media (min-width: 768px) {
+    width: 120px;
+    height: 120px;
+  }
 `;
 
 // Styled component for news content
