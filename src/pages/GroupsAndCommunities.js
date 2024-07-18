@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
+// Styled components for the Groups and Communities page
 const GroupsContainer = styled.div`
   padding: 20px;
   color: #ffd700;
@@ -15,11 +16,13 @@ const Group = styled.div`
   margin-bottom: 10px;
 `;
 
+// Define the GroupsAndCommunities component
 const GroupsAndCommunities = () => {
+  // useState hook to manage groups data
   const [groups, setGroups] = useState([]);
 
+  // useEffect hook to fetch groups data from an API when the component mounts
   useEffect(() => {
-    // Fetch groups data from the API
     const fetchGroups = async () => {
       // Placeholder data, replace with actual API calls
       const groupsData = [
@@ -28,8 +31,9 @@ const GroupsAndCommunities = () => {
       ];
       setGroups(groupsData);
     };
+
     fetchGroups();
-  }, []);
+  }, []); // The effect runs only once when the component mounts
 
   return (
     <GroupsContainer>

@@ -1,5 +1,5 @@
-// Importing React and styled-components library
-import React, { Component } from 'react';
+// Importing necessary libraries and components
+import React from 'react';
 import styled from 'styled-components';
 
 // Creating a styled button component using styled-components
@@ -17,23 +17,17 @@ const StyledButton = styled.button`
   }
 `;
 
-// Creating a Button component as a class
-class Button extends Component {
-  // render method to return JSX
-  render() {
-    const { children, primary, onClick } = this.props; // Destructuring props for use in the component
-
-    return (
-      // Rendering the styled button with dynamic props
-      // '$primary' prop changes the button's background and text color based on its value
-      // 'onClick' prop triggers the provided function when the button is clicked
-      // 'children' prop displays the content passed as children in the button element
-      // prop is short for properties, you know what those are.
-      <StyledButton $primary={primary} onClick={onClick}>
-        {children} {/* Displaying the content passed as children */}
-      </StyledButton>
-    );
-  }
-}
+// Functional Button component definition
+const Button = ({ children, primary, onClick }) => {
+  return (
+    // Rendering the styled button with dynamic props
+    // '$primary' prop changes the button's background and text color based on its value
+    // 'onClick' prop triggers the provided function when the button is clicked
+    // 'children' prop displays the content passed as children in the button element
+    <StyledButton $primary={primary} onClick={onClick}>
+      {children} {/* Displaying the content passed as children */}
+    </StyledButton>
+  );
+};
 
 export default Button;

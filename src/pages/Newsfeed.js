@@ -111,9 +111,6 @@ const Newsfeed = () => {
     fetchNews();
   }, []);
 
-  // Debugging: log news
-  console.log("Newsfeed news:", news);
-
   return (
     <FeedContainer>
       <h1>Galactic News Network</h1>

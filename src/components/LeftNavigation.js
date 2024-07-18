@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { FaHome, FaNewspaper, FaEnvelope, FaChartBar, FaCog, FaUser, FaUsers, FaCalendarAlt, FaBars } from 'react-icons/fa';
+import { FaHome, FaNewspaper, FaEnvelope, FaChartBar, FaCog, FaUser, FaUsers, FaCalendarAlt, FaBell, FaBars } from 'react-icons/fa';
 import { Link, useLocation } from 'react-router-dom';
 
 // Styled components for navigation
@@ -77,6 +77,12 @@ const LeftNavigation = ({ backgroundColor, linkColor, hoverColor, buttonColor })
             </NavLink>
           </NavItem>
           <NavItem>
+            <NavLink to="/dashboard" $linkColor={linkColor} $hoverColor={hoverColor} className={location.pathname === "/dashboard" ? "active" : ""}>
+              <IconWrapper><FaChartBar /></IconWrapper>
+              Dashboard
+            </NavLink>
+          </NavItem>
+          <NavItem>
             <NavLink to="/newsfeed" $linkColor={linkColor} $hoverColor={hoverColor} className={location.pathname === "/newsfeed" ? "active" : ""}>
               <IconWrapper><FaNewspaper /></IconWrapper>
               Newsfeed
@@ -89,9 +95,9 @@ const LeftNavigation = ({ backgroundColor, linkColor, hoverColor, buttonColor })
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink to="/dashboard" $linkColor={linkColor} $hoverColor={hoverColor} className={location.pathname === "/dashboard" ? "active" : ""}>
-              <IconWrapper><FaChartBar /></IconWrapper>
-              Dashboard
+            <NavLink to="/notifications" $linkColor={linkColor} $hoverColor={hoverColor} className={location.pathname === "/notifications" ? "active" : ""}>
+              <IconWrapper><FaBell /></IconWrapper>
+              Notifications
             </NavLink>
           </NavItem>
           <NavItem>
@@ -107,7 +113,7 @@ const LeftNavigation = ({ backgroundColor, linkColor, hoverColor, buttonColor })
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink to="/groups" $linkColor={linkColor} $hoverColor={hoverColor} className={location.pathname === "/groups" ? "active" : ""}>
+            <NavLink to="/groupscommunities" $linkColor={linkColor} $hoverColor={hoverColor} className={location.pathname === "/groupscommunities" ? "active" : ""}>
               <IconWrapper><FaUsers /></IconWrapper>
               Groups
             </NavLink>

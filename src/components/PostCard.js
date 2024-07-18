@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+// Importing necessary libraries and components
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 
@@ -77,100 +78,109 @@ const Comment = styled.div`
   color: #333;
 `;
 
-class PostCard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      newComment: '',
-      showComments: false,
-      isEditing: false,
-      editedContent: props.description
-    };
-  }
+// Functional PostCard component definition
+const PostCard = ({
+  id, // Add the id prop here
+  avatar,
+  username,
+  title,
+  description,
+  timestamp,
+  comments,
+  onAddComment,
+  onEdit,
+  onDelete,
+  backgroundColor,
+  textColor,
+  usernameColor,
+  timestampColor,
+  buttonColor,
+  hoverColor
+}) => {
+  const [newComment, setNewComment] = useState('');
+  const [showComments, setShowComments] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedContent, setEditedContent] = useState(description);
 
-  handleAddComment = () => {
-    if (this.state.newComment.trim()) {
-      this.props.onAddComment(this.props.id, this.state.newComment);
-      this.setState({ newComment: '' });
+  // Handler for adding a new comment
+  const handleAddComment = () => {
+    if (newComment.trim()) {
+      onAddComment(id, newComment); // Use the id prop here
+      setNewComment('');
     }
   };
 
-  handleEdit = () => {
-    if (this.state.isEditing) {
-      this.props.onEdit(this.props.id, this.state.editedContent);
+  // Handler for editing the post
+  const handleEdit = () => {
+    if (isEditing) {
+      onEdit(id, editedContent); // Use the id prop here
     }
-    this.setState(prevState => ({
-      isEditing: !prevState.isEditing
-    }));
+    setIsEditing(!isEditing);
   };
 
-  toggleComments = () => {
-    this.setState(prevState => ({
-      showComments: !prevState.showComments
-    }));
+  // Handler for toggling the comments section
+  const toggleComments = () => {
+    setShowComments(!showComments);
   };
 
-  handleCommentChange = (e) => {
-    this.setState({ newComment: e.target.value });
+  // Handler for updating new comment input value
+  const handleCommentChange = (e) => {
+    setNewComment(e.target.value);
   };
 
-  handleContentChange = (e) => {
-    this.setState({ editedContent: e.target.value });
+  // Handler for updating post content while editing
+  const handleContentChange = (e) => {
+    setEditedContent(e.target.value);
   };
 
-  render() {
-    const { avatar, username, title, description, timestamp, comments, onDelete, backgroundColor, textColor, usernameColor, timestampColor, buttonColor, hoverColor } = this.props;
-    const { newComment, showComments, isEditing, editedContent } = this.state;
-
-    return (
-      <Card backgroundColor={backgroundColor} textColor={textColor}>
-        <PostHeader>
-          <Avatar src={avatar} alt={username} />
-          <UserInfo>
-            <UserName usernameColor={usernameColor}>{username}</UserName>
-            <Timestamp timestampColor={timestampColor}>{timestamp}</Timestamp>
-          </UserInfo>
-        </PostHeader>
-        <h3>{title}</h3>
-        {isEditing ? (
-          <textarea
-            value={editedContent}
-            onChange={this.handleContentChange}
-            style={{ width: '100%', padding: '0.5rem', borderRadius: '4px' }}
-          />
-        ) : (
-          <Content>{description}</Content>
-        )}
-        <div>
-          <ActionButton buttonColor={buttonColor} hoverColor={hoverColor} onClick={this.handleEdit}>
-            <FaEdit />
-          </ActionButton>
-          <ActionButton buttonColor={buttonColor} hoverColor={hoverColor} onClick={() => onDelete(this.props.id)}>
-            <FaTrashAlt />
-          </ActionButton>
-        </div>
-        <ActionButton buttonColor={buttonColor} hoverColor={hoverColor} onClick={this.toggleComments}>
-          {showComments ? 'Hide Comments' : 'Show Comments'}
+  return (
+    <Card backgroundColor={backgroundColor} textColor={textColor}>
+      <PostHeader>
+        <Avatar src={avatar} alt={username} />
+        <UserInfo>
+          <UserName usernameColor={usernameColor}>{username}</UserName>
+          <Timestamp timestampColor={timestampColor}>{timestamp}</Timestamp>
+        </UserInfo>
+      </PostHeader>
+      <h3>{title}</h3>
+      {isEditing ? (
+        <textarea
+          value={editedContent}
+          onChange={handleContentChange}
+          style={{ width: '100%', padding: '0.5rem', borderRadius: '4px' }}
+        />
+      ) : (
+        <Content>{description}</Content>
+      )}
+      <div>
+        <ActionButton buttonColor={buttonColor} hoverColor={hoverColor} onClick={handleEdit}>
+          <FaEdit />
         </ActionButton>
-        {showComments && (
-          <CommentSection>
-            {comments.map((comment, index) => (
-              <Comment key={index}>
-                <UserName usernameColor={usernameColor}>{comment.username}</UserName>: {comment.content}
-              </Comment>
-            ))}
-            <CommentInput
-              type="text"
-              placeholder="Add a comment..."
-              value={newComment}
-              onChange={this.handleCommentChange}
-            />
-            <ActionButton buttonColor={buttonColor} hoverColor={hoverColor} onClick={this.handleAddComment}>Post Comment</ActionButton>
-          </CommentSection>
-        )}
-      </Card>
-    );
-  }
-}
+        <ActionButton buttonColor={buttonColor} hoverColor={hoverColor} onClick={() => onDelete(id)}>
+          <FaTrashAlt />
+        </ActionButton>
+      </div>
+      <ActionButton buttonColor={buttonColor} hoverColor={hoverColor} onClick={toggleComments}>
+        {showComments ? 'Hide Comments' : 'Show Comments'}
+      </ActionButton>
+      {showComments && (
+        <CommentSection>
+          {comments.map((comment, index) => (
+            <Comment key={index}>
+              <UserName usernameColor={usernameColor}>{comment.username}</UserName>: {comment.content}
+            </Comment>
+          ))}
+          <CommentInput
+            type="text"
+            placeholder="Add a comment..."
+            value={newComment}
+            onChange={handleCommentChange}
+          />
+          <ActionButton buttonColor={buttonColor} hoverColor={hoverColor} onClick={handleAddComment}>Post Comment</ActionButton>
+        </CommentSection>
+      )}
+    </Card>
+  );
+};
 
 export default PostCard;

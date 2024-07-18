@@ -15,26 +15,122 @@ Successful completion of this activity will show that you can:
 - Use React Hooks
 - Understand the concepts of useState and useEffect
 
+## Summary of Changes
 
-### Hooks - Implementing React Hooks
+### Detailed Implementation
 
+#### CSS-in-JS for Styling
+- **Styled Components**: Replaced traditional CSS with styled-components across the entire application to promote a uniform and modular styling approach.
+
+  ```javascript
+  const HeaderWrapper = styled.header`
+    background: linear-gradient(to right, #FF0000, #0000FF);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  `;
+  ```
+
+#### React Router Integration
+- **Routing**: Implemented React Router to handle navigation between different views: Home, Dashboard, Newsfeed, Messages, Settings, Profile, Groups, and Events.
+
+  ```javascript
+  import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+  <Router>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/newsfeed" element={<Newsfeed />} />
+      <Route path="/messages" element={<Messages />} />
+      <Route path="/settings" element={<Settings />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/groups" element={<Groups />} />
+      <Route path="/events" element={<Events />} />
+    </Routes>
+  </Router>
+  ```
+
+#### React Hooks Implementation
 - **useState**: Used extensively to manage state in functional components.
+
+  ```javascript
+  const [posts, setPosts] = useState([]);
+  ```
+
 - **useEffect**: Used for fetching data from APIs and handling side effects.
 
-### Navigation - React Router
+  ```javascript
+  useEffect(() => {
+    fetchData();
+  }, []);
+  ```
 
-- **Custom Navigation**: Created a custom navigation bar using React Router.
-- **Routing**: Implemented routes for Dashboard, Newsfeed, Messages, Settings, Profile, Groups, and Events pages.
+#### Data Visualization with Recharts
+- **Charts**: Integrated Recharts to display character heights and planet populations on the Dashboard view.
 
-### Chart Libraries - Add Recharts to your application
+  ```javascript
+  import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+  <ResponsiveContainer width="100%" height={300}>
+    <BarChart data={characterChartData}>
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="name" />
+      <YAxis />
+      <Tooltip />
+      <Legend />
+      <Bar dataKey="height" fill="#8884d8" />
+    </BarChart>
+  </ResponsiveContainer>
+  ```
 
-- **Recharts**: Used to display data visualizations on the Dashboard view.
+#### Unified Approach
+The refactor focused on unifying the codebase by:
+- **Consistent Styling**: Using styled-components across all components ensured consistent and modular styling.
+- **Functional Components and Hooks**: Adopting functional components and React Hooks (`useState`, `useEffect`) provided a modern approach to state management and side effects.
+- **Reusable Components**: Creating reusable components (like `AdCard`, `PostCard`, `Button`) helped maintain a clean and DRY (Don't Repeat Yourself) codebase.
+- **Modular Design**: Ensuring each component had a single responsibility and was easy to maintain and extend.
 
-### Styling your application
+## Features
 
-- **Styled Components**: Used styled-components to style each component professionally.
+1. **Home**
+2. **Dashboard**
+3. **Newsfeed**
+4. **Messages**
+5. **Settings**
+6. **Profile Pages**
+7. **Groups and Communities**
+8. **Events**
 
-## Detailed Implementation
+### Views/Pages
+
+- **Functional Components**: Created new views for Dashboard, Newsfeed, Messages, Settings, Profile, Groups, and Events.
+- **Titles**: Added titles for each view.
+
+### Custom Navigation
+
+- **Navigation Component**: Added a custom navigation component using React Router.
+
+  ```javascript
+  <NavLink to="/dashboard">Dashboard</NavLink>
+  <NavLink to="/newsfeed">Newsfeed</NavLink>
+  <NavLink to="/messages">Messages</NavLink>
+  <NavLink to="/settings">Settings</NavLink>
+  <NavLink to="/profile">Profile</NavLink>
+  <NavLink to="/groups">Groups</NavLink>
+  <NavLink to="/events">Events</NavLink>
+  ```
+
+### Profile Pages
+
+- **Detailed Profiles**: Created profile pages with user details, stats, and recent activity.
+
+### Groups and Communities
+
+- **Groups**: Added functionality to create and join groups based on common interests like planets, starships, or factions.
+
+### Events
+
+- **Event Management**: Integrated an event management system for scheduling and joining events.
 
 ## Criteria Checklist
 
@@ -112,48 +208,6 @@ Successful completion of this activity will show that you can:
   </ResponsiveContainer>
   ```
 
-## Features
-
-1. **Home**
-2. **Dashboard**
-3. **Newsfeed**
-4. **Messages**
-5. **Settings**
-6. **Profile Pages**
-7. **Groups and Communities**
-8. **Events**
-
-### Views/Pages
-
-- **Functional Components**: Created new views for Dashboard, Newsfeed, Messages, Settings, Profile, Groups, and Events.
-- **Titles**: Added titles for each view.
-
-### Custom Navigation
-
-- **Navigation Component**: Added a custom navigation component using React Router.
-
-  ```javascript
-  <NavLink to="/dashboard">Dashboard</NavLink>
-  <NavLink to="/newsfeed">Newsfeed</NavLink>
-  <NavLink to="/messages">Messages</NavLink>
-  <NavLink to="/settings">Settings</NavLink>
-  <NavLink to="/profile">Profile</NavLink>
-  <NavLink to="/groups">Groups</NavLink>
-  <NavLink to="/events">Events</NavLink>
-  ```
-
-### Profile Pages
-
-- **Detailed Profiles**: Created profile pages with user details, stats, and recent activity.
-
-### Groups and Communities
-
-- **Groups**: Added functionality to create and join groups based on common interests like planets, starships, or factions.
-
-### Events
-
-- **Event Management**: Integrated an event management system for scheduling and joining events.
-
 ## Additional Resources
 
 - **Styled Components**: [styled-components](https://styled-components.com/)
@@ -161,58 +215,6 @@ Successful completion of this activity will show that you can:
 - **Recharts**: [recharts](https://recharts.org/en-US/)
 - **Star Wars API**: [swapi.dev](https://swapi.dev/)
 - **Unsplash API**: [unsplash.com](https://unsplash.com/developers)
-
-## Implementation Details
-
-### Home
-
-- Managed posts, ad images, and user stats.
-- Used styled-components for layout and styling.
-- Implemented functions to handle adding, editing, and deleting posts.
-
-### Dashboard
-
-- Displayed character and planet data using Recharts.
-- Styled the dashboard using styled-components.
-
-### Newsfeed
-
-- Fetched and displayed Star Wars-themed news articles.
-- Styled the newsfeed using styled-components.
-
-### Messages
-
-- Fetched and displayed messages from Star Wars characters.
-- Used Unsplash API to fetch related images.
-- Styled the messages using styled-components.
-
-### Settings
-
-- Added settings options for hologram quality, droid maintenance reminders, and profile picture.
-- Integrated Unsplash API for profile picture.
-- Styled the settings page using styled-components.
-
-### Navigation
-
-- Created a responsive navigation component using styled-components.
-- Added links to all views: Home, Dashboard, Newsfeed, Messages, Settings, Profile, Groups, and Events.
-
-### Header
-
-- Added a search bar, notifications, user profile dropdown, and settings.
-- Styled the header using styled-components.
-
-### Footer
-
-- Added sections for About Us, Quick Links, Contact Us, and Follow Us.
-- Styled the footer using styled-components.
-
-## APIs Used
-
-- **Star Wars API**: Provides data for Star Wars characters, planets, and other entities.
-  - [SWAPI](https://swapi.dev/)
-- **Unsplash API**: Provides images related to Star Wars.
-  - [Unsplash API](https://unsplash.com/developers)
 
 ## Getting Started
 

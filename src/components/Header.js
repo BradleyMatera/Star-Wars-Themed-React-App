@@ -1,7 +1,7 @@
 // Importing necessary libraries and components
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { FaSearch, FaUser, FaCog, FaBell, FaSignOutAlt } from 'react-icons/fa';
+import { FaSearch, FaUser, FaCog, FaBell } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 // Styled components for various parts of the header
@@ -72,57 +72,41 @@ const DropdownItem = styled(Link)`
   }
 `;
 
-// Creating a Header component as a class
-class Header extends Component {
-  state = {
-    showUserDropdown: false
+// Header functional component definition
+const Header = ({ background, color, inputColor, iconColor }) => {
+  const [showUserDropdown, setShowUserDropdown] = useState(false); // State for managing dropdown visibility
+
+  // Function to toggle dropdown visibility
+  const toggleUserDropdown = () => {
+    setShowUserDropdown(prevState => !prevState);
   };
 
-  toggleUserDropdown = () => {
-    this.setState(prevState => ({
-      showUserDropdown: !prevState.showUserDropdown
-    }));
-  };
+  return (
+    <HeaderWrapper background={background}>
+      <Logo color={color}>Imperial Network</Logo>
 
-  render() {
-    const { background, color, inputColor, iconColor } = this.props; // Destructuring props for use within the component
-    const { showUserDropdown } = this.state;
+      <SearchContainer>
+        <FaSearch color={inputColor || 'white'} />
+        <SearchInput placeholder="Search the galaxy..." inputColor={inputColor} />
+      </SearchContainer>
 
-    return (
-      // The main wrapper for the header, using styled-components for styling
-      <HeaderWrapper background={background}>
-        {/* Logo section */}
-        <Logo color={color}>Imperial Network</Logo>
-
-        {/* Search bar section */}
-        <SearchContainer>
-          <FaSearch color={inputColor || 'white'} />
-          <SearchInput placeholder="Search the galaxy..." inputColor={inputColor} />
-        </SearchContainer>
-
-        {/* Icons section */}
-        <IconContainer>
-          <Link to="/notifications">
-            <IconWrapper iconColor={iconColor}><FaBell /></IconWrapper>
-          </Link>
-          <IconWrapper iconColor={iconColor} onClick={this.toggleUserDropdown}>
-            <FaUser />
-            <UserProfileDropdown $show={showUserDropdown}>
-              <DropdownItem to="/profile">Profile</DropdownItem>
-              <DropdownItem to="/settings">Settings</DropdownItem>
-              <DropdownItem to="/logout">Logout</DropdownItem>
-            </UserProfileDropdown>
-          </IconWrapper>
-          <Link to="/settings">
-            <IconWrapper iconColor={iconColor}><FaCog /></IconWrapper>
-          </Link>
-          <Link to="/logout">
-            <IconWrapper iconColor={iconColor}><FaSignOutAlt /></IconWrapper>
-          </Link>
-        </IconContainer>
-      </HeaderWrapper>
-    );
-  }
-}
+      <IconContainer>
+        <Link to="/notifications">
+          <IconWrapper iconColor={iconColor}><FaBell /></IconWrapper>
+        </Link>
+        <IconWrapper iconColor={iconColor} onClick={toggleUserDropdown}>
+          <FaUser />
+          <UserProfileDropdown $show={showUserDropdown}>
+            <DropdownItem to="/profile">Profile</DropdownItem>
+            <DropdownItem to="/settings">Settings</DropdownItem>
+          </UserProfileDropdown>
+        </IconWrapper>
+        <Link to="/settings">
+          <IconWrapper iconColor={iconColor}><FaCog /></IconWrapper>
+        </Link>
+      </IconContainer>
+    </HeaderWrapper>
+  );
+};
 
 export default Header;

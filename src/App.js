@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import styled from 'styled-components';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import LeftNavigation from './components/LeftNavigation';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
@@ -11,87 +12,49 @@ import Settings from './pages/Settings';
 import ProfilePage from './pages/ProfilePage';
 import GroupsAndCommunities from './pages/GroupsAndCommunities';
 import EventsPage from './pages/EventsPage';
-import Footer from './components/Footer';
-import { fetchStarWarsCharacters } from './apis';
-import headerImage from './img/headerImage.png';
+import Notifications from './pages/Notifications';
 import './styles/tailwind.css';
-import { characterData, planetData } from './data';
 
 const AppContainer = styled.div`
-  background-color: #1c1c1c;
-  color: #ffffff;
+  background: linear-gradient(to right, #FF0000, #0000FF);
   min-height: 100vh;
-  font-family: Arial, sans-serif;
-`;
-
-const MainContent = styled.main`
-  padding-top: 60px;
-`;
-
-const HeaderImage = styled.img`
-  width: 100%;
-  height: auto;
-  max-height: 300px;
-  object-fit: cover;
+  display: flex;
+  flex-direction: column;
 `;
 
 const App = () => {
   const [posts, setPosts] = useState([]);
-  const [adImages] = useState([
-    { image: 'https://via.placeholder.com/40' },
-    { image: 'https://via.placeholder.com/40' },
-    { image: 'https://via.placeholder.com/40' }
-  ]);
-  const [characters, setCharacters] = useState([]);
-  const [color, setColor] = useState('#1c1c1c');
-  const [userStats, setUserStats] = useState({
-    posts: 0,
-    comments: 0,
-    likes: 0,
-  });
 
-  const updateUserStats = useCallback(() => {
-    const totalPosts = posts.length;
-    const totalComments = posts.reduce((sum, post) => sum + post.comments.length, 0);
-    const totalLikes = posts.reduce((sum, post) => sum + (post.likes || 0), 0);
+  useEffect(() => {
+    // Fetch initial data here (posts, adImages)
+    // Example:
+    // fetchPosts();
+  }, []);
 
-    setUserStats({
-      posts: totalPosts,
-      comments: totalComments,
-      likes: totalLikes,
-    });
-  }, [posts]);
-
-  const handleAddPost = ({ avatar, title, description }) => {
-    const newPost = {
-      id: posts.length + 1,
-      avatar: avatar || characters[2]?.image || 'https://via.placeholder.com/40',
-      username: characters[2]?.name || 'Current User',
-      title,
-      description,
-      timestamp: 'Just now',
-      comments: [],
-    };
-    setPosts([newPost, ...posts]);
-    updateUserStats();
+  const handleAddPost = (newPost) => {
+    setPosts([...posts, newPost]);
   };
 
-  const handleAddComment = (postId, comment) => {
-    setPosts(posts.map(post =>
-      post.id === postId ? { ...post, comments: [...post.comments, { username: 'Current User', content: comment }] } : post
-    ));
-    updateUserStats();
+  const handleAddComment = (postId, newComment) => {
+    setPosts(
+      posts.map((post) =>
+        post.id === postId
+          ? { ...post, comments: [...post.comments, newComment] }
+          : post
+      )
+    );
   };
 
-  const handleDeletePost = postId => {
-    setPosts(posts.filter(post => post.id !== postId));
-    updateUserStats();
+  const handleDeletePost = (postId) => {
+    setPosts(posts.filter((post) => post.id !== postId));
   };
 
-  const handleEditPost = (postId, newTitle, newDescription) => {
-    setPosts(posts.map(post =>
-      post.id === postId ? { ...post, title: newTitle, description: newDescription } : post
-    ));
+  const handleEditPost = (postId, updatedPost) => {
+    setPosts(
+      posts.map((post) =>
+        post.id === postId ? { ...post, ...updatedPost } : post
+      )
+    );
   };
 
   const handlePrimaryButtonClick = () => {
@@ -102,67 +65,17 @@ const App = () => {
     alert("These aren't the droids you're looking for.");
   };
 
-  // Fetch Star Wars characters on component mount
-  useEffect(() => {
-    const fetchData = async () => {
-      const charactersData = await fetchStarWarsCharacters();
-      setCharacters(charactersData);
-      setPosts([
-        {
-          id: 1,
-          avatar: require('./img/LukeSkywalker.jpeg'),
-          username: charactersData[0]?.name || 'Luke Skywalker',
-          title: 'Jedi Training',
-          description: 'Just finished training with Master Yoda!',
-          timestamp: '2 hours ago',
-          comments: [
-            { username: 'Leia Organa', content: 'Great job!' },
-            { username: 'Han Solo', content: 'May the Force be with you!' },
-          ],
-        },
-        {
-          id: 2,
-          avatar: require('./img/c3PO.jpeg'),
-          username: charactersData[1]?.name || 'C-3PO',
-          title: 'Protocol Droid Musings',
-          description: 'The odds of successfully navigating an asteroid field are approximately 3,720 to 1.',
-          timestamp: '5 hours ago',
-          comments: [{ username: 'R2-D2', content: 'Beep boop!' }],
-        },
-        {
-          id: 3,
-          avatar: require('./img/Vader.jpeg'),
-          username: charactersData[2]?.name || 'Darth Vader',
-          title: 'The Dark Side',
-          description: 'I find your lack of faith disturbing.',
-          timestamp: '1 day ago',
-          comments: [{ username: 'Emperor Palpatine', content: 'Good. Good.' }],
-        },
-      ]);
-    };
-
-    fetchData();
-    setTimeout(() => setColor('#ff6347'), 3000);
-  }, []);
-
-  console.log('App posts:', posts);
-  console.log('App adImages:', adImages);
-  console.log('App characters:', characters);
-  console.log('App userStats:', userStats);
-
   return (
     <Router>
-      <AppContainer style={{ backgroundColor: color }}>
+      <AppContainer>
         <Header />
-        <HeaderImage src={headerImage} alt="Imperial Network Header" />
         <LeftNavigation />
-        <MainContent>
-          <Routes>
-            <Route path="/" element={
-              <Home 
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home
                 posts={posts}
-                adImages={adImages}
-                userStats={userStats}
                 handleAddPost={handleAddPost}
                 handleAddComment={handleAddComment}
                 handleDeletePost={handleDeletePost}
@@ -170,18 +83,17 @@ const App = () => {
                 handlePrimaryButtonClick={handlePrimaryButtonClick}
                 handleSecondaryButtonClick={handleSecondaryButtonClick}
               />
-            } />
-            <Route path="/dashboard" element={
-              <Dashboard characterData={characterData} planetData={planetData} />
-            } />
-            <Route path="/newsfeed" element={<Newsfeed />} />
-            <Route path="/messages" element={<Messages />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/groups" element={<GroupsAndCommunities />} />
-            <Route path="/events" element={<EventsPage />} />
-          </Routes>
-        </MainContent>
+            }
+          />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/newsfeed" element={<Newsfeed />} />
+          <Route path="/messages" element={<Messages />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/groupscommunities" element={<GroupsAndCommunities />} />
+          <Route path="/events" element={<EventsPage />} />
+          <Route path="/notifications" element={<Notifications />} />
+        </Routes>
         <Footer />
       </AppContainer>
     </Router>

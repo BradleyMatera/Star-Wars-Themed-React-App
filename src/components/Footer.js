@@ -1,5 +1,5 @@
 // Importing necessary libraries and components
-import React, { Component } from 'react';
+import React from 'react';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
 import styled from 'styled-components';
 
@@ -75,52 +75,47 @@ const Copyright = styled.p`
   font-size: 14px;
 `;
 
-// Defining the Footer class component
-class Footer extends Component {
-  // render method to return the JSX
-  render() {
-    const { background, color, linkColor } = this.props; // Destructuring props for use within the component
-
-    return (
-      // The main container for the footer, using styled-components for styling
-      <FooterContainer background={background} color={color}>
-        <Content>
-          {/* Each Section represents a part of the footer */}
-          <Section>
-            <SectionTitle>About Us</SectionTitle>
-            <SectionText>We are dedicated to providing galactic domination solutions for your empire's needs.</SectionText>
-          </Section>
-          <Section>
-            <SectionTitle>Quick Links</SectionTitle>
-            <LinkList>
-              <LinkItem><Link href="/terms" linkColor={linkColor}>Terms of the Dark Side</Link></LinkItem>
-              <LinkItem><Link href="/privacy" linkColor={linkColor}>Privacy Policy (We See Everything)</Link></LinkItem>
-              <LinkItem><Link href="/faq" linkColor={linkColor}>Imperial FAQ</Link></LinkItem>
-            </LinkList>
-          </Section>
-          <Section>
-            <SectionTitle>Contact Us</SectionTitle>
-            <SectionText>Email: emperor@darkside.com</SectionText>
-            <SectionText>Phone: (666) 666-6666</SectionText>
-          </Section>
-          <Section>
-            <SectionTitle>Follow Us</SectionTitle>
-            <SocialIcons>
-              {/* Wrapping each icon with IconWrapper styled-component for styling and spacing */}
-              <IconWrapper><FaFacebookF /></IconWrapper>
-              <IconWrapper><FaTwitter /></IconWrapper>
-              <IconWrapper><FaLinkedinIn /></IconWrapper>
-              <IconWrapper><FaInstagram /></IconWrapper>
-            </SocialIcons>
-          </Section>
-        </Content>
-        <BottomBar>
-          <Copyright>&copy; 2024 Sith Enterprises. All rights reserved.</Copyright>
-        </BottomBar>
-      </FooterContainer>
-    );
-  }
-}
+// Defining the Footer functional component
+const Footer = ({ background, color, linkColor }) => {
+  return (
+    // The main container for the footer, using styled-components for styling
+    <FooterContainer background={background} color={color}>
+      <Content>
+        {/* Each Section represents a part of the footer */}
+        <Section>
+          <SectionTitle>About Us</SectionTitle>
+          <SectionText>We are dedicated to providing galactic domination solutions for your empire's needs.</SectionText>
+        </Section>
+        <Section>
+          <SectionTitle>Quick Links</SectionTitle>
+          <LinkList>
+            <LinkItem><Link href="/terms" linkColor={linkColor}>Terms of the Dark Side</Link></LinkItem>
+            <LinkItem><Link href="/privacy" linkColor={linkColor}>Privacy Policy (We See Everything)</Link></LinkItem>
+            <LinkItem><Link href="/faq" linkColor={linkColor}>Imperial FAQ</Link></LinkItem>
+          </LinkList>
+        </Section>
+        <Section>
+          <SectionTitle>Contact Us</SectionTitle>
+          <SectionText>Email: emperor@darkside.com</SectionText>
+          <SectionText>Phone: (666) 666-6666</SectionText>
+        </Section>
+        <Section>
+          <SectionTitle>Follow Us</SectionTitle>
+          <SocialIcons>
+            {/* Wrapping each icon with IconWrapper styled-component for styling and spacing */}
+            <IconWrapper><FaFacebookF /></IconWrapper>
+            <IconWrapper><FaTwitter /></IconWrapper>
+            <IconWrapper><FaLinkedinIn /></IconWrapper>
+            <IconWrapper><FaInstagram /></IconWrapper>
+          </SocialIcons>
+        </Section>
+      </Content>
+      <BottomBar>
+        <Copyright>&copy; 2024 Sith Enterprises. All rights reserved.</Copyright>
+      </BottomBar>
+    </FooterContainer>
+  );
+};
 
 // Exporting the Footer component for use in other parts of the application
 export default Footer;

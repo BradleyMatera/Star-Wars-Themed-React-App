@@ -48,7 +48,7 @@ const Messages = () => {
       try {
         const response = await fetch('https://swapi.dev/api/people/');
         const data = await response.json();
-        
+
         // Shuffle the character data to ensure different characters each time
         const shuffledCharacters = data.results.sort(() => 0.5 - Math.random());
 
@@ -108,9 +108,6 @@ const Messages = () => {
 
     fetchMessages();
   }, []);
-
-  // Debugging: log messages
-  console.log("Messages component messages:", messages);
 
   return (
     <MessagesContainer>

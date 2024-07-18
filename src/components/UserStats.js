@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+// Importing necessary libraries and components
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
+// Defining styled components for the layout and styling
 const DashboardContainer = styled.div`
   background-color: #2d2d2d;
   color: #ffd700;
@@ -48,57 +50,53 @@ const Button = styled.button`
   }
 `;
 
-class UserStats extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      fleetSize: 5,
-      missionsCompleted: 3,
-      resources: 1000
-    };
-  }
+// Defining the functional UserStats component
+const UserStats = () => {
+  // useState hooks for managing state
+  const [fleetSize, setFleetSize] = useState(5);
+  const [missionsCompleted, setMissionsCompleted] = useState(3);
+  const [resources, setResources] = useState(1000);
 
-  componentDidMount() {
-    // Simulate fetching initial data
+  // useEffect hook to simulate fetching initial data
+  useEffect(() => {
+    // Simulate an API call
     setTimeout(() => {
-      this.setState({ fleetSize: 10, missionsCompleted: 5, resources: 5000 });
+      setFleetSize(10);
+      setMissionsCompleted(5);
+      setResources(5000);
     }, 1000);
-  }
+  }, []);
 
-  addShipToFleet = () => {
-    this.setState(prevState => ({
-      fleetSize: prevState.fleetSize + 1,
-      resources: prevState.resources - 100
-    }));
-  }
+  // Handler to add a ship to the fleet
+  const addShipToFleet = () => {
+    setFleetSize(prevFleetSize => prevFleetSize + 1);
+    setResources(prevResources => prevResources - 100);
+  };
 
-  completeMission = () => {
-    this.setState(prevState => ({
-      missionsCompleted: prevState.missionsCompleted + 1,
-      resources: prevState.resources + 200
-    }));
-  }
+  // Handler to complete a mission
+  const completeMission = () => {
+    setMissionsCompleted(prevMissionsCompleted => prevMissionsCompleted + 1);
+    setResources(prevResources => prevResources + 200);
+  };
 
-  earnResources = () => {
-    this.setState(prevState => ({ resources: prevState.resources + 500 }));
-  }
+  // Handler to earn resources
+  const earnResources = () => {
+    setResources(prevResources => prevResources + 500);
+  };
 
-  render() {
-    const { fleetSize, missionsCompleted, resources } = this.state;
-    return (
-      <DashboardContainer>
-        <Title>Galactic Fleet Management</Title>
-        <StatItem>Fleet Size: {fleetSize}</StatItem>
-        <StatItem>Missions Completed: {missionsCompleted}</StatItem>
-        <StatItem>Resources: {resources}</StatItem>
-        <ButtonContainer>
-          <Button onClick={this.addShipToFleet}>Add Ship to Fleet</Button>
-          <Button onClick={this.completeMission}>Complete Mission</Button>
-          <Button onClick={this.earnResources}>Earn Resources</Button>
-        </ButtonContainer>
-      </DashboardContainer>
-    );
-  }
-}
+  return (
+    <DashboardContainer>
+      <Title>Galactic Fleet Management</Title>
+      <StatItem>Fleet Size: {fleetSize}</StatItem>
+      <StatItem>Missions Completed: {missionsCompleted}</StatItem>
+      <StatItem>Resources: {resources}</StatItem>
+      <ButtonContainer>
+        <Button onClick={addShipToFleet}>Add Ship to Fleet</Button>
+        <Button onClick={completeMission}>Complete Mission</Button>
+        <Button onClick={earnResources}>Earn Resources</Button>
+      </ButtonContainer>
+    </DashboardContainer>
+  );
+};
 
 export default UserStats;
