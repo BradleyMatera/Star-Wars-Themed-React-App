@@ -1,5 +1,3 @@
-Here's the updated README to reflect the current status of the Imperial Network application:
-
 # Imperial Network Application
 
 ## Overview
