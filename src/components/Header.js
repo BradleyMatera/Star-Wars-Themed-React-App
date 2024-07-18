@@ -20,6 +20,11 @@ const HeaderWrapper = styled.header`
   @media (max-width: 768px) {
     padding: 1rem; // Reduce padding on smaller screens
   }
+
+  @media (max-width: 480px) {
+    flex-direction: column; // Stack elements vertically on very small screens
+    padding: 0.5rem; // Reduce padding further on very small screens
+  }
 `;
 
 const Logo = styled.h1`
@@ -36,6 +41,11 @@ const Logo = styled.h1`
     flex-basis: 100%; // Make logo take full width on smaller screens
     margin-bottom: 0.5rem; // Add margin below the logo on smaller screens
   }
+
+  @media (max-width: 480px) {
+    font-size: 1.2rem; // Further reduce font size on very small screens
+    margin-bottom: 0.25rem; // Reduce margin below the logo on very small screens
+  }
 `;
 
 const SearchContainer = styled.div`
@@ -51,6 +61,11 @@ const SearchContainer = styled.div`
   @media (max-width: 768px) {
     flex-basis: 100%; // Make search container take full width on smaller screens
     margin: 0.5rem 0; // Add vertical margin on smaller screens
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.25rem 0.5rem; // Reduce padding on very small screens
+    margin: 0.25rem 0; // Further reduce vertical margin on very small screens
   }
 `;
 
@@ -69,6 +84,10 @@ const SearchInput = styled.input`
   &:focus {
     outline: none; // Removing the default focus outline
   }
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem; // Reduce font size on very small screens
+  }
 `;
 
 const IconContainer = styled.div`
@@ -81,6 +100,10 @@ const IconContainer = styled.div`
     flex-basis: 100%; // Make icon container take full width on smaller screens
     margin-top: 0.5rem; // Add margin above the icons on smaller screens
   }
+
+  @media (max-width: 480px) {
+    margin-top: 0.25rem; // Reduce margin above the icons on very small screens
+  }
 `;
 
 const IconWrapper = styled.div`
@@ -92,6 +115,10 @@ const IconWrapper = styled.div`
 
   &:hover {
     color: ${props => props.hoverColor || '#FFA500'}; // Hover color for the icons
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.2rem; // Reduce font size on very small screens
   }
 `;
 
@@ -183,3 +210,4 @@ const Header = ({ background, color, inputColor, iconColor, hoverColor, placehol
 };
 
 export default Header;
+

@@ -13,6 +13,7 @@ import Vader from '../img/Vader.jpeg';
 // Styled container for the Home component
 const HomeContainer = styled.div`
   display: flex;
+  flex-direction: column;
   max-width: 1200px;
   margin: auto;
   padding: 20px;
@@ -21,6 +22,10 @@ const HomeContainer = styled.div`
   color: #ffd700;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
 `;
 
 // Styled sidebar component
@@ -29,6 +34,10 @@ const Sidebar = styled.aside`
   flex-direction: column;
   gap: 20px;
   flex: 1;
+
+  @media (max-width: 767px) {
+    order: 2;
+  }
 `;
 
 // Styled main content component
@@ -37,6 +46,10 @@ const MainContent = styled.main`
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  @media (max-width: 767px) {
+    order: 1;
+  }
 `;
 
 // Styled component for the ads section
@@ -230,23 +243,6 @@ const Home = () => {
           <p>No posts available</p>
         )}
       </MainContent>
-      <Sidebar>
-        <AdsSection>
-          {adData.map((ad, index) => (
-            <AdCard
-              key={index}
-              title={ad.title}
-              subtitle={ad.subtitle}
-              imageUrl={ad.imageUrl}
-              $backgroundColor="#2c3e50"
-              $textColor="#ffffff"
-              $imageBackgroundColor="#f0f0f0"
-              $titleColor="#FFD700"
-              $subtitleColor="#777"
-            />
-          ))}
-        </AdsSection>
-      </Sidebar>
     </HomeContainer>
   );
 };
