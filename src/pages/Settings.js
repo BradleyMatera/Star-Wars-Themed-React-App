@@ -19,7 +19,7 @@ import {
   AdImage,
   AdTitle,
   AdSubtitle
-} from '../components/SettingsStyledComponents'; // Importing all styled components
+} from '../styles/SettingsStyledComponents'; // Importing all styled components
 
 const Settings = () => {
   const navigate = useNavigate();

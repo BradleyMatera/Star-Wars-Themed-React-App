@@ -15,7 +15,7 @@ import {
   AdImage,
   AdTitle,
   AdText,
-} from '../components/NewsfeedStyledComponents'; // Importing all styled components
+} from '../styles/NewsfeedStyledComponents'; // Importing all styled components
 
 const Newsfeed = () => {
   const [news, setNews] = useState([]);

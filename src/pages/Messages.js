@@ -24,7 +24,7 @@ import {
   ChatInputContainer,
   ChatInput,
   SendButton,
-} from '../components/MessageStyledComponents'; // Importing all styled components
+} from '../styles/MessageStyledComponents'; // Importing all styled components
 
 const Messages = () => {
   const [messages, setMessages] = useState([]);

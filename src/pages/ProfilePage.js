@@ -13,7 +13,7 @@ import {
   Input,
   Select,
   Button
-} from '../components/ProfileStyledComponents'; // Importing all styled components
+} from '../styles/ProfileStyledComponents'; // Importing all styled components
 
 const ProfilePage = () => {
   const [profile, setProfile] = useState(null);
