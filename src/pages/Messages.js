@@ -1,194 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import styled, { keyframes } from 'styled-components';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { useAnimate, useAnimationFrame } from 'framer-motion';
 import { FaSearch, FaUser, FaRobot } from 'react-icons/fa';
-
-// Animations
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
-
-// Styled component for the messages container
-const MessagesContainer = styled.div`
-  display: flex;
-  height: 100vh;
-  background-color: #000;
-  color: #ffd700;
-  border-radius: 10px;
-  animation: ${fadeIn} 0.5s ease-out;
-  max-width: 1200px;
-  margin: 20px auto;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-`;
-
-const Sidebar = styled.div`
-  width: 300px;
-  background-color: #1c1c1c;
-  padding: 20px;
-  border-right: 1px solid #333;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-`;
-
-const SidebarHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-`;
-
-const SidebarTitle = styled.h2`
-  font-size: 20px;
-  font-weight: bold;
-  margin: 0;
-`;
-
-const SearchContainer = styled.div`
-  display: flex;
-  align-items: center;
-  background-color: #333;
-  padding: 5px 10px;
-  border-radius: 20px;
-`;
-
-const SearchInput = styled.input`
-  border: none;
-  background: none;
-  outline: none;
-  margin-left: 5px;
-  flex-grow: 1;
-  color: #ffd700;
-`;
-
-const MessageList = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-`;
-
-const MessageListItem = styled.li`
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #333;
-  cursor: pointer;
-  &:hover {
-    background-color: #333;
-  }
-`;
-
-const MessageListItemAvatar = styled.div`
-  font-size: 24px;
-  margin-right: 10px;
-`;
-
-const MessageListItemContent = styled.div`
-  flex-grow: 1;
-`;
-
-const MessageListItemName = styled.div`
-  font-weight: bold;
-  color: #ffd700;
-`;
-
-const MessageListItemText = styled.div`
-  color: #aaa;
-`;
-
-const MessageCount = styled.div`
-  background-color: #e0245e;
-  color: #fff;
-  border-radius: 50%;
-  padding: 2px 8px;
-  font-size: 12px;
-  margin-left: 10px;
-  display: ${props => (props.$unread ? 'block' : 'none')}; // Show only if there are unread messages
-`;
-
-const MainContent = styled.div`
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  background-color: #000;
-`;
-
-const ChatHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid #333;
-`;
-
-const ChatTitle = styled.h2`
-  font-size: 20px;
-  margin: 0;
-  color: #ffd700;
-`;
-
-const ChatMessages = styled.div`
-  flex-grow: 1;
-  overflow-y: auto;
-  padding: 20px 0;
-  color: #ffd700;
-`;
-
-const ChatMessage = styled(motion.div)`
-  display: flex;
-  margin-bottom: 10px;
-  &:nth-child(odd) {
-    flex-direction: row-reverse;
-  }
-`;
-
-const ChatMessageContent = styled.div`
-  background-color: #1c1c1c;
-  padding: 10px;
-  border-radius: 10px;
-  max-width: 70%;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-`;
-
-const ChatMessageAvatar = styled.div`
-  font-size: 24px;
-  margin: 0 10px;
-`;
-
-const ChatInputContainer = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  border-top: 1px solid #333;
-  background-color: #1c1c1c;
-`;
-
-const ChatInput = styled.input`
-  flex-grow: 1;
-  border: none;
-  padding: 10px;
-  border-radius: 20px;
-  background-color: #333;
-  color: #ffd700;
-  margin-right: 10px;
-  outline: none;
-`;
-
-const SendButton = styled.button`
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 20px;
-  cursor: pointer;
-  &:hover {
-    background-color: #0056b3;
-  }
-`;
+import {
+  MessagesContainer,
+  Sidebar,
+  SidebarHeader,
+  SidebarTitle,
+  SearchContainer,
+  SearchInput,
+  MessageList,
+  MessageListItem,
+  MessageListItemAvatar,
+  MessageListItemContent,
+  MessageListItemName,
+  MessageListItemText,
+  MessageCount,
+  MainContent,
+  ChatHeader,
+  ChatTitle,
+  ChatMessage,
+  ChatMessageContent,
+  ChatMessageAvatar,
+  ChatInputContainer,
+  ChatInput,
+  SendButton,
+} from '../components/MessageStyledComponents'; // Importing all styled components
 
 const Messages = () => {
   const [messages, setMessages] = useState([]);
@@ -196,15 +32,21 @@ const Messages = () => {
   const [chatContent, setChatContent] = useState('');
   const [chatHistory, setChatHistory] = useState({});
   const [unreadCounts, setUnreadCounts] = useState({});
+  const [scope] = useAnimate();
+
+  const ref = useRef(null);
+
+  useAnimationFrame((time) => {
+    if (ref.current) {
+      ref.current.style.backgroundColor = `hsl(${time % 360}, 100%, 75%)`;
+    }
+  });
 
   useEffect(() => {
-    // Fetch messages from the Star Wars API
     const fetchMessages = async () => {
       try {
         const response = await fetch('https://swapi.dev/api/people/');
         const data = await response.json();
-
-        // Shuffle the character data to ensure different characters each time
         const shuffledCharacters = data.results.sort(() => 0.5 - Math.random());
 
         const characterMessages = shuffledCharacters.slice(0, 5).map((character, index) => {
@@ -234,12 +76,10 @@ const Messages = () => {
       }
     };
 
-    // Generate realistic message content based on character data
     const generateMessageContent = (character) => {
       return `Hey there, it's ${character.name}. Just wanted to say that I'm ${getRandomTrait()}!`;
     };
 
-    // Generate random character traits for messages
     const getRandomTrait = () => {
       const traits = [
         'great at podracing',
@@ -254,39 +94,35 @@ const Messages = () => {
     fetchMessages();
   }, []);
 
-useEffect(() => {
-  if (activeChat) {
-    setUnreadCounts(prevCounts => ({
-      ...prevCounts,
-      [activeChat.id]: 0
-    }));
-  }
-}, [activeChat]);
+  useEffect(() => {
+    if (activeChat) {
+      setUnreadCounts(prevCounts => ({
+        ...prevCounts,
+        [activeChat.id]: 0
+      }));
+    }
+  }, [activeChat]);
 
+  const handleSendMessage = () => {
+    if (chatContent.trim() && activeChat) {
+      const newMessage = {
+        id: Date.now(),
+        from: 'You',
+        content: chatContent,
+        icon: <FaUser />,
+      };
+      setChatHistory(prevHistory => ({
+        ...prevHistory,
+        [activeChat.id]: [...prevHistory[activeChat.id], newMessage],
+      }));
+      setChatContent('');
 
-  // Handler for sending a new chat message
-const handleSendMessage = () => {
-  if (chatContent.trim() && activeChat) {
-    const newMessage = {
-      id: Date.now(),
-      from: 'You',
-      content: chatContent,
-      icon: <FaUser />,
-    };
-    setChatHistory(prevHistory => ({
-      ...prevHistory,
-      [activeChat.id]: [...prevHistory[activeChat.id], newMessage],
-    }));
-    setChatContent('');
-
-    // Only increment unread count for chats that are not active
-    setUnreadCounts(prevCounts => ({
-      ...prevCounts,
-      [activeChat.id]: prevCounts[activeChat.id] + 1
-    }));
-  }
-};
-
+      setUnreadCounts(prevCounts => ({
+        ...prevCounts,
+        [activeChat.id]: prevCounts[activeChat.id] + 1
+      }));
+    }
+  };
 
   return (
     <MessagesContainer>
@@ -300,32 +136,29 @@ const handleSendMessage = () => {
         </SidebarHeader>
         <MessageList>
           {messages.map((message) => (
-<MessageListItem key={message.id} onClick={() => setActiveChat(message)}>
-  <MessageListItemAvatar>{message.icon}</MessageListItemAvatar>
-  <MessageListItemContent>
-    <MessageListItemName>{message.from}</MessageListItemName>
-    <MessageListItemText>{message.content.split('\n')[0]}</MessageListItemText>
-  </MessageListItemContent>
-  <MessageCount $unread={unreadCounts[message.id] > 0}>{unreadCounts[message.id]}</MessageCount>
-</MessageListItem>
-
+            <MessageListItem key={message.id} onClick={() => setActiveChat(message)}>
+              <MessageListItemAvatar>{message.icon}</MessageListItemAvatar>
+              <MessageListItemContent>
+                <MessageListItemName>{message.from}</MessageListItemName>
+                <MessageListItemText>{message.content.split('\n')[0]}</MessageListItemText>
+              </MessageListItemContent>
+              <MessageCount $unread={unreadCounts[message.id] > 0}>{unreadCounts[message.id]}</MessageCount>
+            </MessageListItem>
           ))}
         </MessageList>
       </Sidebar>
       {activeChat && (
-        <MainContent>
+        <MainContent ref={scope}>
           <ChatHeader>
-          <ChatTitle>{activeChat.from}</ChatTitle>
+            <ChatTitle>{activeChat.from}</ChatTitle>
           </ChatHeader>
-          <ChatMessages>
-            {chatHistory[activeChat.id].map((message, index) => (
-              <ChatMessage key={index} initial={{ opacity: 0, x: -100 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
-                <ChatMessageAvatar>{message.icon}</ChatMessageAvatar>
-                <ChatMessageContent>{message.content}</ChatMessageContent>
-              </ChatMessage>
-            ))}
-          </ChatMessages>
-          <ChatInputContainer>
+          {chatHistory[activeChat.id].map((message, index) => (
+            <ChatMessage key={index} initial={{ opacity: 0, x: -100 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
+              <ChatMessageAvatar>{message.icon}</ChatMessageAvatar>
+              <ChatMessageContent>{message.content}</ChatMessageContent>
+            </ChatMessage>
+          ))}
+          <ChatInputContainer ref={ref}>
             <ChatInput
               placeholder="Type your message..."
               value={chatContent}

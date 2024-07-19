@@ -1,145 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import styled, { keyframes } from 'styled-components';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { FaPowerOff, FaRegBell, FaUserCircle, FaPalette, FaShieldAlt } from 'react-icons/fa';
-
-// Animations
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
-
-// Styled components
-const SettingsContainer = styled.div`
-  padding: 20px;
-  color: #ffd700;
-  background-color: #000;
-  border-radius: 10px;
-  animation: ${fadeIn} 0.5s ease-out;
-  max-width: 1200px;
-  margin: 20px auto;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: space-between;
-`;
-
-const ContentSection = styled.div`
-  flex: 2;
-  padding: 20px;
-`;
-
-const AdSection = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const Header = styled.h1`
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 2.5rem;
-  font-family: 'Star Jedi', sans-serif;
-`;
-
-const Section = styled.div`
-  margin-bottom: 40px;
-`;
-
-const SectionTitle = styled.h2`
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-`;
-
-const SettingItem = styled.div`
-  margin-bottom: 20px;
-  transition: all 0.3s ease-out;
-  &:hover {
-    background-color: #333;
-    padding-left: 10px;
-  }
-`;
-
-const Select = styled.select`
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
-  font-size: 1rem;
-`;
-
-const Checkbox = styled.input`
-  margin-right: 10px;
-`;
-
-const Button = styled.button`
-  background-color: #ffd700;
-  color: #000;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s;
-  &:hover {
-    background-color: #ffc700;
-  }
-`;
-
-const Icon = styled(FaPowerOff)`
-  margin-right: 10px;
-`;
-
-const ImagePlaceholder = styled.img`
-  width: 200px;
-  height: 200px;
-  margin-top: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-`;
-
-const AdCard = styled.div`
-  background-color: #2c3e50;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 1rem;
-  color: #ffffff;
-  text-align: center;
-  padding: 10px;
-  width: 90%;
-  max-width: 400px;
-`;
-
-const AdImage = styled.img`
-  width: 100%;
-  height: auto;
-  max-height: 200px;
-  object-fit: cover;
-`;
-
-const AdTitle = styled.h3`
-  color: #FFD700;
-  margin: 10px 0;
-`;
-
-const AdSubtitle = styled.p`
-  color: #aaaaaa;
-`;
+import { FaRegBell, FaUserCircle, FaPalette, FaShieldAlt } from 'react-icons/fa';
+import {
+  SettingsContainer,
+  ContentSection,
+  AdSection,
+  Header,
+  Section,
+  SectionTitle,
+  SettingItem,
+  Select,
+  Checkbox,
+  Button,
+  Icon,
+  ImagePlaceholder,
+  AdCard,
+  AdImage,
+  AdTitle,
+  AdSubtitle
+} from '../components/SettingsStyledComponents'; // Importing all styled components
 
 const Settings = () => {
   const navigate = useNavigate();
