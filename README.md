@@ -31,7 +31,7 @@ Successful completion of this activity will show that you can:
 - 🎣 Use React Hooks
 - 🧠 Understand the concepts of `useState` and `useEffect`
 
-## 📝 Summary of Changes
+## 📝 Summary of Changes Julyh 14th 2024
 
 ### Detailed Implementation
 
@@ -124,6 +124,30 @@ const planetPopulationData = {
 ```
 
 </details>
+
+
+## 📋 Summary of Additions 7/19/2024
+
+### Added:
+1. **Styled Components**:
+   - Migrated styles from traditional CSS to styled-components for a consistent and modular approach.
+   - Created a new file `MessageStyledComponents.js` for organizing message-related styled components.
+
+2. **Anime.js**:
+   - Integrated anime.js to enhance UI with smooth animations.
+   - Applied animations to specific elements to improve visual feedback and interactivity.
+
+3. **useAnimationFrame Hook**:
+   - Utilized the `useAnimationFrame` hook from framer-motion to create a smooth background color transition in the `Messages` component.
+
+4. **New Components**:
+   - Refactored existing components to use styled-components.
+   - Ensured that all message-related styled-components were imported from `MessageStyledComponents.js`.
+
+5. **Error Fixes and Enhancements**:
+   - Resolved ESLint warnings related to unused variables and other common issues.
+   - Improved the usability of the `Messages` component by modifying the `useAnimationFrame` implementation.
+   - Ensured proper integration and usage of hooks and animations within components.
 
 ### 🔄 Unified Approach
 
