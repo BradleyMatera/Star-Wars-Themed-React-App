@@ -31,7 +31,7 @@ Successful completion of this activity will show that you can:
 - 🎣 Use React Hooks
 - 🧠 Understand the concepts of `useState` and `useEffect`
 
-## 📝 Summary of Changes Julyh 14th 2024
+## 📝 Summary of Changes 7/14/2024
 
 ### Detailed Implementation
 
@@ -129,6 +129,7 @@ const planetPopulationData = {
 ## 📋 Summary of Additions 7/19/2024
 
 ### Added:
+
 1. **Styled Components**:
    - Migrated styles from traditional CSS to styled-components for a consistent and modular approach.
    - Created a new file `MessageStyledComponents.js` for organizing message-related styled components.
