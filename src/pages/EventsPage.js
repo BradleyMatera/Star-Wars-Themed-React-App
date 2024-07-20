@@ -1,119 +1,31 @@
+// Importing necessary libraries and components
+// React is a JavaScript library for building user interfaces
+// useState and useEffect are hooks provided by React for state management and side effects
 import React, { useState, useEffect } from 'react';
-import styled, { keyframes } from 'styled-components';
+// Importing mapbox-gl to render interactive maps
 import mapboxgl from 'mapbox-gl';
-import 'mapbox-gl/dist/mapbox-gl.css'; // Import Mapbox CSS
+// Importing Mapbox CSS for proper map styling
+import 'mapbox-gl/dist/mapbox-gl.css'; 
 
-// Mapbox access token
+// Importing styled components for the EventsPage layout and styling
+import {
+  EventsContainer,
+  Sidebar,
+  MainContent,
+  EventCard,
+  EventDetails,
+  EventImage,
+  MapContainer,
+  FilterContainer,
+  FilterLabel,
+  DateInput,
+} from '../styles/EventsPageStyledComponent';
+
+// Mapbox access token for API authentication
 mapboxgl.accessToken = 'pk.eyJ1IjoiZnNicmFuZG9uYnJvd24iLCJhIjoiY2t1Z2I5a3I4MDA2ODJucXQ0bGw2a2FtYSJ9.9a7D_ZISjezOIdhySMDzfA';
 
-// Animations
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
-
-// Define styled components for the EventsPage layout
-const EventsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: #000;
-  color: #ffd700;
-  min-height: 100vh;
-  padding: 20px;
-  animation: ${fadeIn} 0.5s ease-out;
-
-  @media (min-width: 768px) {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-`;
-
-const Sidebar = styled.div`
-  width: 100%;
-  background-color: #1c1c1c;
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-
-  @media (min-width: 768px) {
-    width: 250px;
-    margin-bottom: 0;
-  }
-`;
-
-const MainContent = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-
-const EventCard = styled.div`
-  background-color: #1c1c1c;
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  @media (min-width: 768px) {
-    flex-direction: row;
-  }
-`;
-
-const EventDetails = styled.div`
-  flex: 1;
-`;
-
-const EventImage = styled.img`
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-  margin-top: 20px;
-
-  @media (min-width: 768px) {
-    width: 150px;
-    height: 100px;
-    margin-left: 20px;
-    margin-top: 0;
-  }
-`;
-
-const MapContainer = styled.div`
-  width: 100%;
-  height: 400px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-`;
-
-const FilterContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`;
-
-const FilterLabel = styled.label`
-  font-weight: bold;
-  color: #ffd700;
-`;
-
-const DateInput = styled.input`
-  padding: 5px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  background-color: #333;
-  color: #ffd700;
-`;
-
 // Placeholder events data
+// This is static data for demonstration purposes
 const eventsData = [
   {
     id: 1,
@@ -136,14 +48,16 @@ const eventsData = [
 
 // EventsPage component
 const EventsPage = () => {
+  // Using useState to manage events data and filter date
   const [events] = useState(eventsData); // Use static data directly
   const [filterDate, setFilterDate] = useState('');
 
+  // Using useEffect to initialize the map when the component mounts
   useEffect(() => {
     // Initialize the map
     const map = new mapboxgl.Map({
-      container: 'mapContainer',
-      style: 'mapbox://styles/mapbox/streets-v11', // Use a Mapbox style
+      container: 'mapContainer', // HTML container ID
+      style: 'mapbox://styles/mapbox/streets-v11', // Mapbox style
       center: [-74.5, 40], // Initial map center [lng, lat]
       zoom: 2, // Initial map zoom level
     });
@@ -151,19 +65,21 @@ const EventsPage = () => {
     // Add markers for each event
     events.forEach(event => {
       new mapboxgl.Marker()
-        .setLngLat(event.location)
-        .setPopup(new mapboxgl.Popup({ offset: 25 }).setText(event.name))
-        .addTo(map);
+        .setLngLat(event.location) // Set marker at event location
+        .setPopup(new mapboxgl.Popup({ offset: 25 }).setText(event.name)) // Add a popup with event name
+        .addTo(map); // Add marker to map
     });
 
     // Clean up on component unmount
     return () => map.remove();
   }, [events]);
 
+  // Handler for filter date change
   const handleFilterChange = (e) => {
     setFilterDate(e.target.value);
   };
 
+  // Filter events based on selected date
   const filteredEvents = filterDate
     ? events.filter(event => event.date === filterDate)
     : events;

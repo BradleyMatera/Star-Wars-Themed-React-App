@@ -1,6 +1,6 @@
-# ⚠️ **DISCLAIMER:** This project is a work in progress. The installation commands and setup process may change as development continues
+### ⚠️ **DISCLAIMER:** This project is a work in progress. The installation commands and setup process may change as development continues.
 
-> 📝 **Note:**  Please use the commands provided below as a template rather than following them word for word and adjust as necessary for your specific environment and project state as well as the installation directory paths and version and branch names
+> 📝 **Note:** Please use the commands provided below as a template rather than following them word for word. Adjust as necessary for your specific environment, project state, installation directory paths, and version and branch names.
 
 ## 🌌 Imperial Network Application
 
@@ -18,16 +18,16 @@
 
 ## 🌟 Overview
 
-This application is a mock Star Wars-themed social network platform called "Imperial Network." It allows users to interact with various features like profiles, messages, newsfeeds, groups, events, and settings. The app demonstrates the usage of React.js, React Router, Hooks, styled-components, and chart libraries.
+The Imperial Network application is a mock Star Wars-themed social network platform. It allows users to interact with various features like profiles, messages, newsfeeds, groups, events, and settings. The app demonstrates the usage of React.js, React Router, Hooks, styled-components, and chart libraries.
 
 ## 🎯 Objectives & Outcomes
 
 Successful completion of this activity will show that you can:
 
 - 🎨 Style the application using CSS-in-JS
-- 🚀 Add React Router library
+- 🚀 Add the React Router library
 - 🔀 Allow users to change views
-- 🧭 Create a custom navigation
+- 🧭 Create custom navigation
 - 🎣 Use React Hooks
 - 🧠 Understand the concepts of `useState` and `useEffect`
 
@@ -124,7 +124,6 @@ const planetPopulationData = {
 ```
 
 </details>
-
 
 ## 📋 Summary of Additions 7/19/2024
 

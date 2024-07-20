@@ -1,115 +1,23 @@
+// Importing necessary libraries and components
+// React is a JavaScript library for building user interfaces
+// useState and useEffect are hooks provided by React for state management and side effects
 import React, { useState, useEffect } from 'react';
-import styled, { keyframes } from 'styled-components';
 
-// Animations
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
+// Importing styled components for the Groups and Communities page layout and styling
+import {
+  GroupsContainer,
+  Header,
+  Title,
+  FilterButton,
+  GroupsGrid,
+  GroupCard,
+  GroupImage,
+  GroupName,
+  GroupDescription,
+  JoinButton
+} from '../styles/GroupsPageStyledComponent';
 
-// Styled components for the Groups and Communities page
-const GroupsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  background-color: #000;
-  color: #ffd700;
-  border-radius: 10px;
-  animation: ${fadeIn} 0.5s ease-out;
-  max-width: 1200px;
-  margin: 20px auto;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-`;
-
-const Header = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-`;
-
-const Title = styled.h1`
-  color: #ffd700;
-  font-size: 2.5rem;
-  font-family: 'Star Jedi', sans-serif;
-`;
-
-const FilterButton = styled.button`
-  padding: 10px 20px;
-  background-color: #ffd700;
-  color: #000;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: bold;
-  transition: background-color 0.2s;
-
-  &:hover {
-    background-color: #ffc700;
-  }
-`;
-
-const GroupsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  width: 100%;
-`;
-
-const GroupCard = styled.div`
-  background-color: #1c1c1c;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  transition: all 0.3s ease-out;
-
-  &:hover {
-    background-color: #333;
-  }
-`;
-
-const GroupImage = styled.img`
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  margin-bottom: 20px;
-`;
-
-const GroupName = styled.h2`
-  color: #ffd700;
-  margin-bottom: 10px;
-`;
-
-const GroupDescription = styled.p`
-  color: #ffd700;
-`;
-
-const JoinButton = styled.button`
-  margin-top: 10px;
-  padding: 10px 15px;
-  background-color: #28a745;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.9rem;
-
-  &:hover {
-    background-color: #218838;
-  }
-`;
-
+// Sample groups data for demonstration purposes
 const sampleGroupsData = [
   { id: 1, name: "Rebel Pilots", description: "Group for Rebel Pilots to share strategies.", imageUrl: 'https://via.placeholder.com/100' },
   { id: 2, name: "Sith Lords", description: "Discussion forum for Sith Lords.", imageUrl: 'https://via.placeholder.com/100' },
@@ -121,18 +29,23 @@ const sampleGroupsData = [
   { id: 8, name: "Droid Engineers", description: "Community for droid engineers and enthusiasts.", imageUrl: 'https://via.placeholder.com/100' },
 ];
 
+// GroupsAndCommunities component
 const GroupsAndCommunities = () => {
+  // Using useState to manage groups data and filter state
   const [groups, setGroups] = useState([]);
   const [filter, setFilter] = useState('all');
 
+  // Using useEffect to set the initial groups data when the component mounts
   useEffect(() => {
     setGroups(sampleGroupsData);
   }, []);
 
+  // Handler for filter button click
   const handleFilterChange = (newFilter) => {
     setFilter(newFilter);
   };
 
+  // Filtering groups based on the selected filter
   const filteredGroups = groups.filter(group => filter === 'all' || group.category === filter);
 
   return (

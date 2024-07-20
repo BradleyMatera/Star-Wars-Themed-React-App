@@ -1,63 +1,27 @@
+// Importing necessary libraries and components
+// React is a JavaScript library for building user interfaces
+// useState and useEffect are hooks provided by React for state management and side effects
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+// Importing styled-components to handle component-level styling in JavaScript
 import axios from 'axios';
+// Importing custom components
 import PostCard from '../components/PostCard';
 import Form from '../components/Form';
 import AdCard from '../components/AdCard';
 import UserStats from '../components/UserStats';
 import Button from '../components/Button';
+// Importing images
 import LukeSkywalker from '../img/LukeSkywalker.jpeg';
 import C3PO from '../img/c3PO.jpeg';
 import Vader from '../img/Vader.jpeg';
 
-// Styled container for the Home component
-const HomeContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  max-width: 1200px;
-  margin: auto;
-  padding: 20px;
-  gap: 20px;
-  background-color: #000;
-  color: #ffd700;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-
-  @media (min-width: 768px) {
-    flex-direction: row;
-  }
-`;
-
-// Styled sidebar component
-const Sidebar = styled.aside`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  flex: 1;
-
-  @media (max-width: 767px) {
-    order: 2;
-  }
-`;
-
-// Styled main content component
-const MainContent = styled.main`
-  flex: 3;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-
-  @media (max-width: 767px) {
-    order: 1;
-  }
-`;
-
-// Styled component for the ads section
-const AdsSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
+// Importing styled components for the Home layout and styling
+import {
+  HomeContainer,
+  Sidebar,
+  MainContent,
+  AdsSection
+} from '../styles/HomeStyledComponents';
 
 // Static content for ad cards
 const AdContent = [
@@ -80,8 +44,10 @@ const AdContent = [
 
 // Home component definition
 const Home = () => {
-  const [adData, setAdData] = useState([]); // State for storing ad data
-  const [postList, setPostList] = useState([]); // State for storing posts
+  // State for storing ad data
+  const [adData, setAdData] = useState([]);
+  // State for storing posts
+  const [postList, setPostList] = useState([]);
 
   // useEffect hook to fetch ad images on component mount
   useEffect(() => {

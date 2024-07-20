@@ -1,8 +1,14 @@
 // Importing necessary libraries and components
+// React is a JavaScript library for building user interfaces
+// useState and useEffect are hooks provided by React for state management and side effects
 import React, { useState, useEffect } from 'react';
+// Importing Bar and Line components from react-chartjs-2 to render charts
 import { Bar, Line } from 'react-chartjs-2';
+// Importing Chart.js components to configure the charts
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
+// Importing data for the charts from a local data file
 import { characterData, planetData } from '../data';
+// Importing styled components for the dashboard layout and styling
 import {
   DashboardContainer,
   HeaderSection,
@@ -13,32 +19,37 @@ import {
   StatCard,
   StatValue,
   StatLabel
-} from '../styles/DashboardStyledComponents'; // Importing styled components
+} from '../styles/DashboardStyledComponents';
 
 // Register necessary Chart.js components
+// This allows Chart.js to understand and render the specific chart types being used
 ChartJS.register(CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend);
 
 const Dashboard = () => {
   // Using useState to manage character and planet data for charts
+  // useState hook initializes state variables and provides a way to update them
   const [characterChartData, setCharacterChartData] = useState([]);
   const [planetChartData, setPlanetChartData] = useState([]);
 
   // Using useEffect to fetch character and planet data when the component mounts
+  // useEffect hook performs side effects like data fetching
   useEffect(() => {
-    // Transforming character data for chart
+    // Transforming character data for the chart
+    // Mapping through characterData to extract necessary information
     const charData = characterData.map(char => ({
       name: char.name,
       height: char.height,
     }));
     setCharacterChartData(charData);
 
-    // Transforming planet data for chart
+    // Transforming planet data for the chart
+    // Mapping through planetData to extract necessary information
     const planetsData = planetData.map(planet => ({
       name: planet.name,
       population: planet.population,
     }));
     setPlanetChartData(planetsData);
-  }, []);
+  }, []); // Empty dependency array means this effect runs once after initial render
 
   // Data for the character height bar chart
   const characterHeightData = {
@@ -93,11 +104,13 @@ const Dashboard = () => {
       <ChartSection>
         <ChartCard>
           <SubTitle>Character Heights</SubTitle>
-          {characterChartData.length > 0 ? <Bar data={characterHeightData} /> : <p>Loading character data...</p>} {/* Bar chart for character heights */}
+          {/* Render the bar chart if character data is available, otherwise show a loading message */}
+          {characterChartData.length > 0 ? <Bar data={characterHeightData} /> : <p>Loading character data...</p>}
         </ChartCard>
         <ChartCard>
           <SubTitle>Planet Populations</SubTitle>
-          {planetChartData.length > 0 ? <Line data={planetPopulationData} /> : <p>Loading planet data...</p>} {/* Line chart for planet populations */}
+          {/* Render the line chart if planet data is available, otherwise show a loading message */}
+          {planetChartData.length > 0 ? <Line data={planetPopulationData} /> : <p>Loading planet data...</p>}
         </ChartCard>
       </ChartSection>
     </DashboardContainer>

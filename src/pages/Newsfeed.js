@@ -47,25 +47,46 @@ const Newsfeed = () => {
       }
     };
 
-    // Fetch image from Unsplash API based on query
-    const fetchImage = async (query) => {
-      try {
-        const response = await axios.get('https://api.unsplash.com/search/photos', {
-          params: { query: `Star Wars ${query}`, per_page: 1 },
-          headers: {
-            Authorization: `Client-ID tYqbodUOR0MV7sAbu0MWu0YMDdMg8ZRay6CndTSHzKA`
-          }
-        });
-        if (response.data.results.length > 0) {
-          return response.data.results[0].urls.small;
-        } else {
-          return 'https://via.placeholder.com/150'; // Fallback image
-        }
-      } catch (error) {
-        console.error('Error fetching image from Unsplash:', error);
-        return 'https://via.placeholder.com/150'; // Fallback image
+// Function to fetch an image from the Unsplash API based on a search query
+// This function is async because it performs an asynchronous operation (fetching data from an API)
+const fetchImage = async (query) => {
+  try {
+    // Make a GET request to the Unsplash API using axios
+    // The URL endpoint for the Unsplash API is provided
+    // Axios allows you to easily include parameters and headers in the request
+    const response = await axios.get('https://api.unsplash.com/search/photos', {
+      // Parameters for the API request
+      // 'query' is the search term, and 'per_page' limits the number of results to 1
+      params: { query: `Star Wars ${query}`, per_page: 1 },
+      // Headers for the API request
+      // Authorization header includes the API key (Client-ID) for authentication
+      headers: {
+        Authorization: `Client-ID tYqbodUOR0MV7sAbu0MWu0YMDdMg8ZRay6CndTSHzKA`
       }
-    };
+    });
+
+    // Extracting the first image from the response data
+    const imageUrl = response.data.results[0]?.urls?.regular;
+
+    // Handling the extracted image URL (e.g., setting state or returning the URL)
+    return imageUrl;
+
+  } catch (error) {
+    // Handle any errors that occur during the request
+    console.error('Error fetching image:', error);
+    throw error;
+  }
+};
+
+// Example usage of fetchImage function
+fetchImage('Yoda').then((url) => {
+  console.log('Fetched image URL:', url);
+});
+
+// Explanation:
+// - Axios is used to simplify making HTTP requests and handling responses.
+// - The 'fetchImage' function is designed to retrieve images from the Unsplash API based on a search query.
+// - The API key (Client-ID) is required for authentication when making requests to the Unsplash API.
 
     // Generate realistic news content based on character data
     const generateNewsContent = (character) => {
