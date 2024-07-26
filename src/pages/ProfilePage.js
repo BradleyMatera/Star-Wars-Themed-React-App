@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// Importing styled components for consistent styling
 import {
   ProfileContainer,
   ProfileHeader,
@@ -11,73 +11,106 @@ import {
   FormControl,
   Label,
   Input,
-  Select,
   Button
-} from '../styles/ProfileStyledComponents'; // Importing all styled components
+} from '../styles/ProfileStyledComponents';
 
 const ProfilePage = () => {
+  // useState Hook to manage the user's profile data and form data
+  // Initially, profile data is set to null to indicate that data fetching is in progress
   const [profile, setProfile] = useState(null);
+  // Form data is initialized with empty strings
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
+    street: '',
+    city: '',
+    state: '',
+    postcode: '',
+    username: '',
     password: '',
-    email: '',
     phone: '',
-    address: '',
-    nation: '',
-    gender: '',
-    language: '',
-    dob: '',
-    twitter: '',
-    facebook: '',
-    linkedin: '',
-    google: '',
+    picture: ''
   });
 
+  // useEffect Hook to fetch data from the Random User Generator API when the component mounts
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const profileResponse = await axios.get('https://swapi.dev/api/people/1/');
+        // Fetch API is used here to make an HTTP request to the API
+        const response = await fetch('https://randomuser.me/api/');
+        // Parsing the JSON response
+        const data = await response.json();
+        // Extracting necessary fields from the fetched data
+        const userData = data.results[0];
         const profileData = {
-          name: profileResponse.data.name,
-          avatar: 'https://via.placeholder.com/100', // Replace with actual avatar if available
-          height: `${profileResponse.data.height} cm`,
-          mass: `${profileResponse.data.mass} kg`,
+          name: `${userData.name.first} ${userData.name.last}`,
+          avatar: userData.picture.large,
+          street: userData.location.street.name,
+          city: userData.location.city,
+          state: userData.location.state,
+          postcode: userData.location.postcode,
+          username: userData.login.username,
+          phone: userData.phone,
+          password: userData.login.password
         };
-
+        // Setting the fetched data to the profile state
         setProfile(profileData);
+        // Populating form data state for user profile editing
+        setFormData({
+          firstName: userData.name.first,
+          lastName: userData.name.last,
+          street: userData.location.street.name,
+          city: userData.location.city,
+          state: userData.location.state,
+          postcode: userData.location.postcode,
+          username: userData.login.username,
+          password: userData.login.password,
+          phone: userData.phone,
+          picture: userData.picture.large
+        });
       } catch (error) {
+        // Error handling if the fetch request fails
         console.error('Failed to fetch profile data:', error);
       }
     };
 
+    // Calling fetchProfile to initiate data fetching
     fetchProfile();
-  }, []);
+  }, []); // Empty dependency array ensures this effect runs only once on component mount
 
+  // Function to handle changes in form inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
+    // Updating the formData state with the new input values
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission
-    console.log(formData);
+    // For now, simply logging the form data to the console
+    // This is where form submission logic would go, such as API calls to update user data
+    console.log('Form submitted:', formData);
   };
 
   return (
     <ProfileContainer>
       {profile ? (
         <>
+          {/* ProfileHeader displays the user's avatar and basic information */}
           <ProfileHeader>
             <Avatar src={profile.avatar} alt={profile.name} />
             <ProfileInfo>
               <Name>{profile.name}</Name>
-              <Stats>Height: {profile.height}</Stats>
-              <Stats>Mass: {profile.mass}</Stats>
+              <Stats>Username: {profile.username}</Stats>
+              <Stats>Phone: {profile.phone}</Stats>
+              <Stats>Address: {profile.street}, {profile.city}, {profile.state} {profile.postcode}</Stats>
             </ProfileInfo>
           </ProfileHeader>
+
+          {/* ProfileForm allows users to update their profile details */}
           <ProfileForm onSubmit={handleSubmit}>
+            {/* FormControl is a reusable component for consistent form styling */}
             <FormControl>
               <Label htmlFor="firstName">First Name</Label>
               <Input id="firstName" name="firstName" value={formData.firstName} onChange={handleChange} />
@@ -87,65 +120,39 @@ const ProfilePage = () => {
               <Input id="lastName" name="lastName" value={formData.lastName} onChange={handleChange} />
             </FormControl>
             <FormControl>
-              <Label htmlFor="password">Password</Label>
-              <Input id="password" name="password" type="password" value={formData.password} onChange={handleChange} />
+              <Label htmlFor="street">Street</Label>
+              <Input id="street" name="street" value={formData.street} onChange={handleChange} />
             </FormControl>
             <FormControl>
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} />
+              <Label htmlFor="city">City</Label>
+              <Input id="city" name="city" value={formData.city} onChange={handleChange} />
+            </FormControl>
+            <FormControl>
+              <Label htmlFor="state">State</Label>
+              <Input id="state" name="state" value={formData.state} onChange={handleChange} />
+            </FormControl>
+            <FormControl>
+              <Label htmlFor="postcode">Postcode</Label>
+              <Input id="postcode" name="postcode" value={formData.postcode} onChange={handleChange} />
+            </FormControl>
+            <FormControl>
+              <Label htmlFor="username">Username</Label>
+              <Input id="username" name="username" value={formData.username} onChange={handleChange} />
+            </FormControl>
+            <FormControl>
+              <Label htmlFor="password">Password</Label>
+              <Input id="password" name="password" type="password" value={formData.password} onChange={handleChange} />
             </FormControl>
             <FormControl>
               <Label htmlFor="phone">Phone</Label>
               <Input id="phone" name="phone" value={formData.phone} onChange={handleChange} />
             </FormControl>
-            <FormControl>
-              <Label htmlFor="address">Address</Label>
-              <Input id="address" name="address" value={formData.address} onChange={handleChange} />
-            </FormControl>
-            <FormControl>
-              <Label htmlFor="nation">Nation</Label>
-              <Input id="nation" name="nation" value={formData.nation} onChange={handleChange} />
-            </FormControl>
-            <FormControl>
-              <Label htmlFor="gender">Gender</Label>
-              <Select id="gender" name="gender" value={formData.gender} onChange={handleChange}>
-                <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </Select>
-            </FormControl>
-            <FormControl>
-              <Label htmlFor="language">Language</Label>
-              <Select id="language" name="language" value={formData.language} onChange={handleChange}>
-                <option value="">Select Language</option>
-                <option value="english">English</option>
-                <option value="spanish">Spanish</option>
-              </Select>
-            </FormControl>
-            <FormControl>
-              <Label htmlFor="dob">Date of Birth</Label>
-              <Input id="dob" name="dob" type="date" value={formData.dob} onChange={handleChange} />
-            </FormControl>
-            <FormControl>
-              <Label htmlFor="twitter">Twitter</Label>
-              <Input id="twitter" name="twitter" value={formData.twitter} onChange={handleChange} />
-            </FormControl>
-            <FormControl>
-              <Label htmlFor="facebook">Facebook</Label>
-              <Input id="facebook" name="facebook" value={formData.facebook} onChange={handleChange} />
-            </FormControl>
-            <FormControl>
-              <Label htmlFor="linkedin">LinkedIn</Label>
-              <Input id="linkedin" name="linkedin" value={formData.linkedin} onChange={handleChange} />
-            </FormControl>
-            <FormControl>
-              <Label htmlFor="google">Google</Label>
-              <Input id="google" name="google" value={formData.google} onChange={handleChange} />
-            </FormControl>
+            {/* Button to submit the form data */}
             <Button type="submit">Save</Button>
           </ProfileForm>
         </>
       ) : (
+        // Loading message displayed while profile data is being fetched
         <p>Loading profile...</p>
       )}
     </ProfileContainer>
