@@ -31,132 +31,44 @@ Successful completion of this activity will show that you can:
 - 🎣 Use React Hooks
 - 🧠 Understand the concepts of `useState` and `useEffect`
 
-## 📝 Summary of Changes 7/14/2024
-
-### Detailed Implementation
+## 📝 Updates
 
 <details>
-<summary>Click to expand</summary>
+<summary>7/27/24 - Week 4.3: User Profile</summary>
+<p>
+  This week, we focused on implementing a user profile view using React Hooks and the Random User Generator API. Key updates include:
 
-#### 🎨 CSS-in-JS for Styling
-
-**Styled Components**: Replaced traditional CSS with styled-components across the entire application to promote a uniform and modular styling approach.
-
-```js
-const HeaderWrapper = styled.header`
-  background: linear-gradient(to right, #FF0000, #0000FF);
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-```
-
-#### 🚀 React Router Integration
-
-**Routing**: Implemented React Router to handle navigation between different views: Home, Dashboard, Newsfeed, Messages, Settings, Profile, Groups, and Events.
-
-```js
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
-<Router>
-  <Routes>
-    <Route path="/" element={<Home />} />
-    <Route path="/dashboard" element={<Dashboard />} />
-    <Route path="/newsfeed" element={<Newsfeed />} />
-    <Route path="/messages" element={<Messages />} />
-    <Route path="/settings" element={<Settings />} />
-    <Route path="/profile" element={<Profile />} />
-    <Route path="/groupscommunities" element={<Groups />} />
-    <Route path="/events" element={<Events />} />
-  </Routes>
-</Router>
-```
-
-#### 🎣 React Hooks Implementation
-
-**useState**: Used extensively to manage state in functional components.
-
-```js
-const [posts, setPosts] = useState([]);
-```
-
-**useEffect**: Used for fetching data from APIs and handling side effects.
-
-```js
-useEffect(() => {
-  fetchData();
-}, []);
-```
-
-#### 📊 Data Visualization with Chart.js and react-chartjs-2
-
-**Charts**: Integrated Chart.js with react-chartjs-2 to display character heights and planet populations on the Dashboard view.
-
-```js
-import { Bar, Line } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
-
-ChartJS.register(CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend);
-
-const characterHeightData = {
-  labels: characterChartData.map(char => char.name),
-  datasets: [
-    {
-      label: 'Character Heights',
-      data: characterChartData.map(char => char.height),
-      backgroundColor: '#8884d8',
-    },
-  ],
-};
-
-const planetPopulationData = {
-  labels: planetChartData.map(planet => planet.name),
-  datasets: [
-    {
-      label: 'Planet Populations',
-      data: planetChartData.map(planet => planet.population),
-      borderColor: '#82ca9d',
-      fill: false,
-    },
-  ],
-};
-```
-
+  - **User Profile Component**: Created a new user profile component with fields for first name, last name, street, city, state, postcode, username, password, phone, and picture.
+  - **API Integration**: Utilized `useEffect` and `fetch` with `async/await` to retrieve data from the Random User Generator API.
+  - **New Feature**: Added a notification feature to enhance user experience.
+  - **Styling**: All components styled using CSS-in-JS for a cohesive look.
+  - **Comments**: Detailed comments added throughout the code to explain React Hooks, fetch methods, and other functionalities.
+</p>
 </details>
 
-## 📋 Summary of Additions 7/19/2024
+<details>
+<summary>7/19/24 - Unified Approach</summary>
+<p>
+  This update includes significant refactoring to unify the codebase:
 
-### Added:
+  - **Styled Components**: Migrated to styled-components for consistent styling across the app.
+  - **Anime.js**: Added for enhanced UI animations.
+  - **useAnimationFrame Hook**: Used for background color transitions.
+  - **Error Fixes**: Resolved ESLint warnings and improved component usability.
+</p>
+</details>
 
-1. **Styled Components**:
-   - Migrated styles from traditional CSS to styled-components for a consistent and modular approach.
-   - Created a new file `MessageStyledComponents.js` for organizing message-related styled components.
+<details>
+<summary>7/14/24 - Initial Implementation</summary>
+<p>
+  Initial setup and implementation of the Imperial Network application, focusing on:
 
-2. **Anime.js**:
-   - Integrated anime.js to enhance UI with smooth animations.
-   - Applied animations to specific elements to improve visual feedback and interactivity.
-
-3. **useAnimationFrame Hook**:
-   - Utilized the `useAnimationFrame` hook from framer-motion to create a smooth background color transition in the `Messages` component.
-
-4. **New Components**:
-   - Refactored existing components to use styled-components.
-   - Ensured that all message-related styled-components were imported from `MessageStyledComponents.js`.
-
-5. **Error Fixes and Enhancements**:
-   - Resolved ESLint warnings related to unused variables and other common issues.
-   - Improved the usability of the `Messages` component by modifying the `useAnimationFrame` implementation.
-   - Ensured proper integration and usage of hooks and animations within components.
-
-### 🔄 Unified Approach
-
-The refactor focused on unifying the codebase by:
-
-- ✨ **Consistent Styling**: Using styled-components across all components ensured consistent and modular styling.
-- 🧩 **Functional Components and Hooks**: Adopting functional components and React Hooks (`useState`, `useEffect`) provided a modern approach to state management and side effects.
-- 🔁 **Reusable Components**: Creating reusable components (like AdCard, PostCard, Button) helped maintain a clean and DRY (Don't Repeat Yourself) codebase.
-- 📦 **Modular Design**: Ensuring each component had a single responsibility and was easy to maintain and extend.
+  - **React Router**: Implemented for navigation between views.
+  - **React Hooks**: Extensive use of `useState` and `useEffect`.
+  - **Chart.js and react-chartjs-2**: Integrated for data visualization.
+  - **CSS-in-JS**: Adopted for styling.
+</p>
+</details>
 
 ## 🚀 Features
 
