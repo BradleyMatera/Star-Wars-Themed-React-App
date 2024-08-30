@@ -1,0 +1,21 @@
+@import "tailwind.css";
+
+.App {
+    text-align: center;
+    background-color: rgb(121, 41, 41);
+}
+
+.Header {
+    background-color: #282c34;
+    padding: 20px;
+    color: rgb(211, 13, 13);
+}
+
+.Footer {
+    background-color: #282c34;
+    padding: 10px;
+    color: white;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}

@@ -1,10 +1,20 @@
+/* global process */
+
+// Ensure process.env is defined
+const apiUrl = process.env.REACT_APP_API_URL;
+const apiKey = process.env.REACT_APP_API_KEY;
+const apiSecret = process.env.REACT_APP_API_SECRET;
+const apiToken = process.env.REACT_APP_API_TOKEN;
+
+export { apiUrl, apiKey, apiSecret, apiToken };
+
 // Object to store API keys for different services
 export const API_KEYS = {
-    GIPHY_API_KEY: 'nUd1WbL9rt49X5KOHyt04T78vkgcgRhc', // Giphy API key for fetching GIFs
-    GOOGLE_CLOUD_API_KEY: 'AIzaSyAPo20Rijvv5kgT-edUrYcoz3PWHLKPfxA', // Google Cloud API key for translation services
-    UNSPLASH_ACCESS_KEY: 'BZ5mhRDKBrlWaG25mxdGH160W57wJAfgEcDAm1LF7z8', // Unsplash API key for fetching random images
-    UNSPLASH_SECRET_KEY: 'M1YMY3QqTTmlfgLHd15oXiQRlf4yKPsDG4YW8HmHqvw', // Unsplash secret key
-    OPENAI_API_KEY: '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', // OpenAI API key for generating content
+    GIPHY_API_KEY: process.env.REACT_APP_GIPHY_API_KEY,
+    GOOGLE_CLOUD_API_KEY: process.env.REACT_APP_GOOGLE_CLOUD_API_KEY,
+    UNSPLASH_ACCESS_KEY: process.env.REACT_APP_UNSPLASH_ACCESS_KEY,
+    UNSPLASH_SECRET_KEY: process.env.REACT_APP_UNSPLASH_SECRET_KEY,
+    OPENAI_API_KEY: process.env.REACT_APP_OPENAI_API_KEY,
 };
 
 // Function to fetch a GIF from Giphy based on a search term
@@ -132,3 +142,4 @@ export const fetchOpenAIContent = (prompt) => {
         return 'Failed to fetch content from OpenAI'; // Return an error message in case of an error
     });
 };
+
