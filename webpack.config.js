@@ -6,7 +6,7 @@ module.exports = ({ mode } = { mode: "production" }) => {
     console.log(`mode is: ${mode}`);
 
     return {
-        mode,
+        mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
         entry: "./src/index.js",
         output: {
             publicPath: "/",
