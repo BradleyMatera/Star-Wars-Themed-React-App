@@ -10,8 +10,6 @@ import './App.css';
 import { fetchCharacterData, fetchPlanetData } from './db'; // Import fetch functions from db.js
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-
-
 function App() {
   const [characterData, setCharacterData] = useState(null);
   const [planetData, setPlanetData] = useState(null);
