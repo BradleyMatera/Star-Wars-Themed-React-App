@@ -50,6 +50,7 @@
   "author": "Your Name",
   "license": "MIT",
   "devDependencies": {
+    "@babel/preset-env": "^7.26.0",
     "@typescript-eslint/eslint-plugin": "^8.3.0",
     "@typescript-eslint/parser": "^8.3.0",
     "babel-loader": "^9.1.3",
