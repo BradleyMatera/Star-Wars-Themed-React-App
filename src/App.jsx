@@ -11,7 +11,6 @@ import GroupsAndCommunities from './pages/GroupsAndCommunities';
 import Settings from './pages/Settings';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import LeftNavigation from './components/LeftNavigation';
 import './styles/tailwind.css';
 import styled from 'styled-components';
 import './styles/DashboardStyledComponents';
@@ -28,7 +27,6 @@ const App = () => (
   <AppContainer>
     <Router>
       <Header />
-      <LeftNavigation />
       <MainContent>
         <Switch>
           <Route exact path="/" component={HomePage} />
