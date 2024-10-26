@@ -9,7 +9,7 @@ module.exports = ({ mode } = { mode: "production" }) => {
         mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
         entry: "./src/index.js",
         output: {
-            publicPath: "/",
+            publicPath: "/Star-Wars-Themed-React-App/",
             path: path.resolve(__dirname, "dist"),
             filename: "bundle.js",
         },

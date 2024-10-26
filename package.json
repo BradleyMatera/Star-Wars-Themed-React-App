@@ -10,8 +10,11 @@
     "lint": "eslint src/**/*.{js,jsx}",
     "lint:fix": "eslint --fix src/**/*.{js,jsx}",
     "format": "prettier --write src/**/*.{js,jsx,css,md}",
-    "dev": "webpack serve --mode development"
+    "dev": "webpack serve --mode development",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
+  "homepage": "https://BradleyMatera.github.io/Star-Wars-Themed-React-App",
   "dependencies": {
     "axios": "^1.7.2",
     "chart.js": "^4.4.4",
@@ -63,6 +66,7 @@
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "file-loader": "^6.2.0",
+    "gh-pages": "^4.0.0",
     "html-webpack-plugin": "^5.6.0",
     "style-loader": "^3.3.4",
     "url-loader": "^4.1.1",
